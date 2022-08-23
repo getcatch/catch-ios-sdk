@@ -1,0 +1,16 @@
+PODS:
+  - Catch (0.1.0)
+
+DEPENDENCIES:
+  - Catch (from `../`)
+
+EXTERNAL SOURCES:
+  Catch:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Catch: b7a23e91947f78e28c5656451cb3b1fab890be68
+
+PODFILE CHECKSUM: 93ab573674c2c177940d8e31a7c56de3ff67d02d
+
+COCOAPODS: 1.11.3

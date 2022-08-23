@@ -1,0 +1,22 @@
+{
+  "name": "Catch",
+  "version": "0.1.0",
+  "summary": "Integrate Catch into your iOS app",
+  "homepage": "https://github.com/getcatch/catch-ios-sdk",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": "Catch",
+  "source": {
+    "git": "https://github.com/getcatch/catch-ios-sdk.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "swift_versions": "5.0.23",
+  "source_files": "Sources/Catch/**/*",
+  "frameworks": "UIKit",
+  "swift_version": "5.0.23"
+}
