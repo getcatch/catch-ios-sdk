@@ -1,0 +1,6 @@
+framework module Catch {
+  umbrella header "Catch-umbrella.h"
+
+  export *
+  module * { export * }
+}
