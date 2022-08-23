@@ -5,8 +5,8 @@
 //  Created by Lucille Benoit on 8/22/22.
 //
 
-import XCTest
 @testable import Example
+import XCTest
 
 class ExampleTests: XCTestCase {
 

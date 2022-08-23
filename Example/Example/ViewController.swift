@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
         let size = CGSize(width: 100, height: 60)
         logoView.frame = CGRect(origin: .zero, size: size)
