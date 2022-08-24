@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         logoView.frame = CGRect(origin: .zero, size: size)
         logoView.center = view.center
         view.addSubview(logoView)
+        view.backgroundColor = .white
     }
 
 }
