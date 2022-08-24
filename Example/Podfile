@@ -7,11 +7,6 @@ target 'Example' do
   # Pods for Example
   pod 'Catch', :path => '../'
 
-  target 'ExampleTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
   target 'ExampleUITests' do
     # Pods for testing
   end
