@@ -9,21 +9,21 @@ import UIKit
 
 public class CatchLogo: UIView {
     private var label = UILabel(frame: .zero)
-    
+
     public init() {
         super.init(frame: .zero)
         initialize()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         initialize()
     }
-    
+
     internal func initialize() {
         configureLabel()
     }
-    
+
     internal func configureLabel() {
         label.text = "Catch"
         label.textAlignment = .center
@@ -31,11 +31,11 @@ public class CatchLogo: UIView {
         addSubview(label)
         setLabelConstraints()
     }
-    
+
     internal func setLabelConstraints() {
         NSLayoutConstraint.activate([
             label.widthAnchor.constraint(equalTo: widthAnchor),
-            label.heightAnchor.constraint(equalTo: heightAnchor),
+            label.heightAnchor.constraint(equalTo: heightAnchor)
         ])
     }
 }
