@@ -1,0 +1,18 @@
+name: Run SwiftLint
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    types: [opened, edited, synchronize, ready_for_review, reopened]
+
+jobs:
+  run:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Lint
+      run: |
+        set -o pipefail
+        swiftlint lint --strict --quiet | sed -E 's/^(.*):([0-9]+):([0-9]+): (warning|error|[^:]+): (.*)/::\4 title=Lint error,file=\1,line=\2,col=\3::\5\n\1:\2:\3/'

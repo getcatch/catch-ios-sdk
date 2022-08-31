@@ -1,0 +1,19 @@
+name: Run Unit Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    types: [opened, edited, synchronize, ready_for_review, reopened]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build SDK
+      run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild build-for-testing -scheme Catch -destination "platform=iOS Simulator,OS=latest,name=iPhone 12" | xcpretty
+    - name: Run Unit Tests
+      run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -scheme Catch -destination "platform=iOS Simulator,OS=latest,name=iPhone 12" | xcpretty
