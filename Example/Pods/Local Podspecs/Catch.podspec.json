@@ -13,10 +13,16 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "9.0"
+    "ios": "12.0"
   },
   "swift_versions": "5.0.23",
-  "source_files": "Sources/Catch/**/*",
+  "resource_bundles": {
+    "Catch_Catch": [
+      "Sources/Catch/Resources/Assets.xcassets"
+    ]
+  },
+  "source_files": "Sources/Catch/**/*.{plist,swift}",
+  "exclude_files": "Example/*",
   "frameworks": "UIKit",
   "swift_version": "5.0.23"
 }
