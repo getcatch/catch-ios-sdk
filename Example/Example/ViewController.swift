@@ -9,7 +9,7 @@ import Catch
 import UIKit
 
 class ViewController: UIViewController {
-    let logoView = CatchLogo()
+    let logoView = CatchLogo(theme: .lightColor)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,15 @@ class ViewController: UIViewController {
         logoView.frame = CGRect(origin: .zero, size: size)
         logoView.center = view.center
         view.addSubview(logoView)
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+            logoView.theme = self.traitCollection.userInterfaceStyle == .dark ? .darkColor : .lightColor
+        }
     }
 
 }
