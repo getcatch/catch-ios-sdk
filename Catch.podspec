@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.swift_version           = '5.0.23'
   s.resource_bundles        = {
                                 'Catch_Catch' => [ # Match the name SPM Generates
-                                  'Sources/Catch/Resources/Assets.xcassets'
+                                  'Sources/Catch/Resources/*'
                                  ]
                                }
   s.source_files            = 'Sources/Catch/**/*.{plist,swift}'
