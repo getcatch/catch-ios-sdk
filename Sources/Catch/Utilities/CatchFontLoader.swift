@@ -11,13 +11,13 @@ import CoreText
 public struct CatchFontLoader {
     static let fontPath = "Fonts/"
     static let fontExtension = "ttf"
-    
+
     public static func registerFonts() {
         CatchFont.allCases.forEach {
             registerFont(fontName: $0.rawValue)
         }
     }
-    
+
     private static func registerFont(fontName: String) {
         guard let fontURL = CatchResources.resourceBundle.url(
             forResource: fontPath+fontName,
@@ -26,9 +26,9 @@ public struct CatchFontLoader {
               let font = CGFont(fontDataProvider) else {
             fatalError("Couldn't create font from filename: \(fontName) with extension \(fontExtension)")
         }
-        
+
         var error: Unmanaged<CFError>?
-        
+
         CTFontManagerRegisterGraphicsFont(font, &error)
     }
 }
