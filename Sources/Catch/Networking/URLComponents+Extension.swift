@@ -14,7 +14,8 @@ extension URLComponents {
      - Parameter scheme: The scheme subcomponent of the URL. `https` by default.
      - Parameter host: The host subcomponent.
      - Parameter path: The path subcomponent.
-     - Parameter queryItems: An array of query parameters for the URL in the order in which they appear. `nil` by default.
+     - Parameter queryItems: An array of query parameters for the URL in the order in which they appear.
+     `nil` by default.
      */
     init(scheme: String = "https",
          host: String,
