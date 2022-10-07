@@ -13,8 +13,8 @@ public struct CatchFontLoader {
     static let fontExtension = "ttf"
 
     public static func registerFonts() {
-        CatchFont.allCases.forEach {
-            registerFont(fontName: $0.rawValue)
+        CatchFont.allFontNames.forEach {
+            registerFont(fontName: $0)
         }
     }
 
