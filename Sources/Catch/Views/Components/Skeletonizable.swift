@@ -26,8 +26,8 @@ extension Skeletonizable where Self: UIView {
     }
 
     func showSkeleton() {
-        let backgroundColor = (CatchAssetProvider.color(.catchGray3) ?? .gray).cgColor
-        let highlightColor = (CatchAssetProvider.color(.catchGray2) ?? .lightGray).cgColor
+        let backgroundColor = CatchColor.gray3.cgColor
+        let highlightColor = CatchColor.gray2.cgColor
 
         // Create solid skeleton layer to cover loading view
         let skeletonLayer = CALayer()
