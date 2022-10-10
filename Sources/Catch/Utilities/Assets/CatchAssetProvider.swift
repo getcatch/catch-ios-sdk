@@ -19,14 +19,6 @@ internal class CatchAssetProvider {
 
 }
 
-internal enum CatchColor: String {
-    case catchPink = "catch-pink"
-    case catchBlack = "catch-black"
-    case catchGray1 = "catch-gray-1"
-    case catchGray2 = "catch-gray-2"
-    case catchGray3 = "catch-gray-3"
-}
-
 internal enum CatchImage: String {
     case logoDark = "logo-dark"
     case logoMonoDark = "logo-mono-dark"

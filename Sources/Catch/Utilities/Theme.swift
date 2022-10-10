@@ -8,41 +8,56 @@
 import UIKit
 
 public enum Theme {
+    /// Intended for widgets which are displayed over a light background, and features Catch's branding color scheme.
     case lightColor
+    /// Intended for widgets which are displayed over a light background and features a monochromatic scheme.
     case lightMono
+    /// Intended for widgets which are displayed over a dark background, and features Catch's branding color scheme.
     case darkColor
+    /// Intended for widgets which are displayed over a dark background and features a monochromatic scheme.
     case darkMono
 
-    var foregroundColor: UIColor? {
+    internal var foregroundColor: UIColor {
         switch self {
         case .lightColor, .lightMono:
-            return CatchAssetProvider.color(.catchBlack)
+            return CatchColor.black
         case .darkColor, .darkMono:
             return .white
         }
     }
 
-    var accentColor: UIColor? {
+    internal var accentColor: UIColor {
         switch self {
-        case .lightColor, .darkColor:
-            return CatchAssetProvider.color(.catchPink)
-        case .lightMono:
-            return CatchAssetProvider.color(.catchBlack)
-        case .darkMono:
-            return .white
+        case .lightColor:
+            return CatchColor.pink2
+        case .darkColor:
+            return CatchColor.pink
+        case .lightMono, .darkMono:
+            return foregroundColor
         }
     }
 
-    var backgroundColor: UIColor? {
+    internal var secondaryAccentColor: UIColor {
+        switch self {
+        case .lightColor:
+            return CatchColor.green2
+        case .darkColor:
+            return CatchColor.green
+        case .lightMono, .darkMono:
+            return accentColor
+        }
+    }
+
+    internal var backgroundColor: UIColor {
         switch self {
         case .lightColor, .lightMono, .darkColor:
             return .white
         case .darkMono:
-            return CatchAssetProvider.color(.catchBlack)
+            return CatchColor.black
         }
     }
 
-    var logoImage: UIImage? {
+    internal var logoImage: UIImage? {
         switch self {
         case .lightColor:
             return CatchAssetProvider.image(.logoDark)
