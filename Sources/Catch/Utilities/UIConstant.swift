@@ -40,4 +40,16 @@ enum UIConstant {
 
     /// 1 point default width for borders
     static let defaultBorderWidth: CGFloat = 1
+
+    /// Merchant Card width multiplier
+    static let merchantCardWidthMultiplier: CGFloat = 14
+
+    // Merchant Card aspect ratio
+    static let merchantCardAspectRatio: CGFloat = 0.62
+
+    /// Merchant Logo width multiplier
+    static let merchantLogoWidthMultiplier: CGFloat = 10
+
+    // Merchant Logo aspect ratio
+    static let merchantLogoAspectRatio: CGFloat = 0.25
 }
