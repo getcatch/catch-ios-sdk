@@ -1,0 +1,26 @@
+/* Tooltip strings */
+"sorry_catch_cant_be_used" = "Sorry, Catch can’t be used to pay for one of more item (like a gift card or subscription) currently in your cart.";
+"learn_more_about_catch" = "Learn more about Catch";
+
+/* Earn Redeem message strings */
+"pay_by_bank" = "Pay by bank.";
+"or" = "or";
+"redeem" = "Redeem %@";
+"earn_credit" = "Earn %@ credit";
+"by_paying_with" = "by paying with";
+"with" = "with";
+
+/* Express Checkout Callout strings */
+"find_us_at" = "Find us at the";
+"payment_step" = "Payment step";
+
+/* Purchase Confirmation Strings */
+"you_earned_credit" = "You earned %@ credit";
+"to_spend_at" = "to spend at %@ 🎉";
+"view_your_credit" = "View your credit";
+
+/* Campaign Link Strings */
+"you_earned" = "You earned";
+"credit" = "%@ credit";
+"to_spend_at_next_time_you_pay_with_catch" = "to spend at %@ the next time you pay with Catch 💸";
+"claim_store_credit" = "Claim %@ store credit";
