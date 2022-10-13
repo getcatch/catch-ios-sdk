@@ -5,7 +5,7 @@
 //  Created by Lucille Benoit on 10/10/22.
 //
 
-import Foundation
+import UIKit
 
 extension NSAttributedString {
     convenience init(string: String, style: NSAttributedStringStyle = .default) {
