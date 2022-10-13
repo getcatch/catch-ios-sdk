@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Catch",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v12)
     ],
