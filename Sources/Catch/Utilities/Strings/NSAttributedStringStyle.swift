@@ -11,7 +11,7 @@ struct NSAttributedStringStyle {
     var font: UIFont = CatchFont.bodySmall
     var textColor: UIColor = Theme.lightColor.foregroundColor
     var textTransform: TextTransform = .none
-    var lineSpacing: CGFloat? = nil
+    var lineSpacing: CGFloat?
     var isTappable: Bool = false
 
     static var `default`: NSAttributedStringStyle {

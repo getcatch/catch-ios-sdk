@@ -9,7 +9,7 @@ import UIKit
 
 extension NSAttributedString {
     convenience init(string: String, style: NSAttributedStringStyle = .default) {
-        var attributes: [NSAttributedString.Key : Any] = [:]
+        var attributes: [NSAttributedString.Key: Any] = [:]
 
         attributes[.font] = style.font
         attributes[.foregroundColor] = style.textColor
