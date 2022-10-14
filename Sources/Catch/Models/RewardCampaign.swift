@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  RewardCampaign.swift
 //  
 //
 //  Created by Lucille Benoit on 9/15/22.
