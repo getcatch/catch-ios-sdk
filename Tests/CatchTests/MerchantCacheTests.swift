@@ -46,7 +46,7 @@ final class MerchantCacheTests: XCTestCase {
             case .success(let merchant):
                 XCTAssertNil(merchant, "Merchant should be nil since the cache is expired")
             case .failure:
-                XCTFail()
+                XCTFail("Get expired merchant from cache should not fail")
             }
         }
     }
@@ -60,7 +60,7 @@ final class MerchantCacheTests: XCTestCase {
             case .success(let cachedMerchant):
                 XCTAssertEqual(cachedMerchant, merchant, "Merchant returned should match mock merchant")
             case .failure:
-                XCTFail()
+                XCTFail("Get merchant from cache should not fail")
             }
         }
     }
@@ -68,7 +68,8 @@ final class MerchantCacheTests: XCTestCase {
     private func createMerchantCache(merchantToBeCached: Merchant, shouldBeExpired: Bool) -> MerchantCache {
         let mockUserDefaults = MockMerchantCacheUserDefault()
         mockUserDefaults.shouldExpire = shouldBeExpired
-        mockUserDefaults.merchantData = try! merchantToBeCached.encoded()
+        mockUserDefaults.merchantData = try? merchantToBeCached.encoded()
+
         return MerchantCache(cache: mockUserDefaults)
     }
 }

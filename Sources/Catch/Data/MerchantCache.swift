@@ -31,7 +31,7 @@ struct MerchantCache: MerchantCacheInterface {
             return
         }
 
-        if let data = UserDefaults.standard.data(forKey: publicKey) {
+        if let data = cache.data(forKey: publicKey) {
             do {
                 let merchant: Merchant = try data.decoded()
                 completion(.success(merchant))

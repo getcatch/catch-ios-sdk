@@ -10,12 +10,17 @@ import XCTest
 
 class MockDataProvider {
     var merchant: Merchant {
+        let imageURL = """
+                        https://dev.assets.getcatch.com/\
+                        merchant-assets/humans-s768ng/card_background.png
+                        """
+
         return Merchant(merchantId: "testId",
                         name: "Test Merchant",
-                        url: "www.",
+                        url: "www.google.com",
                         rewardsRate: 0.1,
                         rewardsLifetimeInDays: 180,
-                        cardBackgroundImageUrl: "https://dev.assets.getcatch.com/merchant-assets/humans-s768ng/card_background.png",
+                        cardBackgroundImageUrl: imageURL,
                         cardBackgroundColor: "#C779D0",
                         cardFontColor: "#FFFFFF",
                         donationRecipient: nil)
