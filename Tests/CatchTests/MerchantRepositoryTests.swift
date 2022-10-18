@@ -27,7 +27,7 @@ final class MerchantRepositoryTests: XCTestCase {
                 let currentMerchant = repository.getCurrentMerchant()
                 XCTAssertNotNil(currentMerchant, "Current merchant should be returned after merchant is fetched")
                 XCTAssertTrue(notificationCenter.didPostNotifcation(with: NotificationName.merchantUpdate))
-            }  else {
+            } else {
                 XCTFail("Merchant should be returned since merchant exists in cache")
             }
         }
