@@ -18,17 +18,21 @@ class MerchantRepository: MerchantRepositoryInterface {
     private var merchant: Merchant? {
         didSet {
             if oldValue != merchant {
-                NotificationCenter.default.post(name: Notification.Name(NotificationName.merchantUpdate), object: nil)
+                notificationCenter.post(name: Notification.Name(NotificationName.merchantUpdate), object: nil)
             }
         }
     }
 
     private let networkService: MerchantNetworkServiceInterface
     private let cache: MerchantCacheInterface
+    private let notificationCenter: NotificationCenter
 
-    init(networkService: MerchantNetworkServiceInterface, cache: MerchantCacheInterface) {
+    init(networkService: MerchantNetworkServiceInterface,
+         cache: MerchantCacheInterface,
+         notificationCenter: NotificationCenter = NotificationCenter.default) {
         self.networkService = networkService
         self.cache = cache
+        self.notificationCenter = notificationCenter
     }
 
     func getCurrentMerchant() -> Merchant? {
