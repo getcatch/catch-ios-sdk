@@ -16,7 +16,7 @@ struct MerchantNetworkService: MerchantNetworkServiceInterface {
 
     func get(from publicKey: String, completion: @escaping (Result<Merchant, Error>) -> Void) {
         let path = String(format: CatchURL.getPublicMerchantData, publicKey)
-        let components = URLComponents(host: Environment.sandbox.host, path: path)
+        let components = URLComponents(path: path)
         if let request = try? URLRequest(components: components) {
             session.perform(request) { result in
                 switch result {
