@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Merchant: Codable {
+struct Merchant: Codable, Equatable {
 
     /// The merchant's unique identifier
     let merchantId: String
@@ -25,15 +25,23 @@ struct Merchant: Codable {
     let rewardsLifetimeInDays: Int
 
     /// Full URL for the merchant card background image
-    let cardBackgroundImageUrl: String
+    let cardBackgroundImageUrl: String?
 
     /// Hexadecimal string representing the background color for the merchant card. ex. #FFFFFF
-    let cardBackgroundColor: String
+    let cardBackgroundColor: String?
 
     /// Hexadecimal string representing the font color for the merchant card. ex. #000000
     let cardFontColor: String
 
     /// The recipient of donation campaigns.
     let donationRecipient: DonationRecipient?
+
+    static func == (lhs: Merchant, rhs: Merchant) -> Bool {
+        return lhs.merchantId == rhs.merchantId
+        && lhs.name == rhs.name
+        && lhs.url == rhs.url
+        && lhs.rewardsRate == rhs.rewardsRate
+        && lhs.rewardsLifetimeInDays == rhs.rewardsLifetimeInDays
+    }
 
 }
