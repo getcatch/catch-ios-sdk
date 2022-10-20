@@ -9,4 +9,7 @@ import Foundation
 
 enum Constant {
     static let defaultRewardsRate: Double = 0.1
+
+    // MARK: - Query Item Keys
+    static let merchantIdKey = "merchant_id"
 }

@@ -48,7 +48,7 @@ class MerchantRepository: MerchantRepositoryInterface {
                 return
             }
 
-            self?.networkService.get(from: merchantPublicKey) { [weak self] result in
+            self?.networkService.fetchMerchant(withKey: merchantPublicKey) { [weak self] result in
 
                 switch result {
                 case .success(let merchant):
