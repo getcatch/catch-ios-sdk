@@ -15,11 +15,11 @@ class MockAPIClient: APIClientInterface {
 
     func fetchObject<T>(path: String,
                         queryItems: [URLQueryItem]?,
-                        completion: @escaping (Result<T, Error>) -> Void) where T : Decodable {
-        if triggerFailure {
-            completion(.failure(NetworkError.serverError(.invalidResponse(nil))))
+                        completion: @escaping (Result<T, Error>) -> Void) where T: Decodable {
+        if !triggerFailure, let result = returnObject as? T {
+            completion(.success(result))
         } else {
-            completion(.success(returnObject as! T))
+            completion(.failure(NetworkError.serverError(.invalidResponse(nil))))
         }
     }
 
