@@ -46,13 +46,18 @@ class UserRepository {
         _ = keyChain.saveString(token, forKey: Constant.deviceTokenKeyChainService)
     }
 
-    func fetchUserData(merchantId: String) {
+    func fetchUserData(merchantId: String, completion: @escaping (Result<PublicUserData, Error>) -> Void = {_ in }) {
         if let token = getDeviceToken() {
             userNetworkService.fetchUserData(deviceToken: token, merchantId: merchantId) { [weak self] result in
                 if case let .success(publicUserData) = result {
                     self?.user = publicUserData
+                    completion(.success(publicUserData))
+                } else {
+                    completion(.failure(NetworkError.requestError(.invalidDeviceToken(token))))
                 }
             }
+        } else {
+            completion(.failure(NetworkError.requestError(.invalidDeviceToken(nil))))
         }
     }
 }
