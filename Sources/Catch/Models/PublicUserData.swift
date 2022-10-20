@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PublicUserData: Codable {
+struct PublicUserData: Codable, Equatable {
 
     /// The user's public first name
     let userFirstName: String
@@ -20,4 +20,9 @@ struct PublicUserData: Codable {
     /// Whether or not the current user is eligible for a first-time purchase bonus.
     let firstPurchaseBonusEligibility: Bool
 
+    static func == (lhs: PublicUserData, rhs: PublicUserData) -> Bool {
+        return lhs.userFirstName == rhs.userFirstName
+        && lhs.rewardAmount == rhs.rewardAmount
+        && lhs.firstPurchaseBonusEligibility == rhs.firstPurchaseBonusEligibility
+    }
 }
