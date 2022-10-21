@@ -7,7 +7,14 @@
 
 import Foundation
 
-class UserRepository {
+protocol UserRepositoryInterface {
+    func getCurrentUser() -> PublicUserData?
+    func getDeviceToken() -> String?
+    func saveDeviceToken(_ token: String)
+    func fetchUserData(merchantId: String, completion: @escaping (Result<PublicUserData, Error>) -> Void)
+}
+
+class UserRepository: UserRepositoryInterface {
 
     private let userNetworkService: UserNetworkServiceInterface
     private let keyChain: KeyChainInterface
@@ -42,7 +49,11 @@ class UserRepository {
     }
 
     func saveDeviceToken(_ token: String) {
-        guard getDeviceToken() == nil else { return } // do not overwrite existing device token
+        /*
+         Once a device token has already been generated and saved don't overwrite it
+         since it acts as the unique identifier used to access the user's public data.
+         */
+        guard getDeviceToken() == nil else { return }
         _ = keyChain.saveString(token, forKey: Constant.deviceTokenKeyChainService)
     }
 
