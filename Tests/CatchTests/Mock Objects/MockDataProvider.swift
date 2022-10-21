@@ -25,4 +25,10 @@ class MockDataProvider {
                         cardFontColor: "#FFFFFF",
                         donationRecipient: nil)
     }
+
+    var publicUserData: PublicUserData {
+        return PublicUserData(userFirstName: "FirstName",
+                              rewardAmount: 1000,
+                              firstPurchaseBonusEligibility: false)
+    }
 }

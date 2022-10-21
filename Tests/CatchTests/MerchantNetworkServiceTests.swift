@@ -12,9 +12,9 @@ final class MerchantNetworkServiceTests: XCTestCase {
 
     func testValidPublicKey() {
         let validKey = "TEST_KEY"
-        let urlSession = MockMerchantURLSession()
-        let merchantNetworkService = MerchantNetworkService(session: urlSession)
-        merchantNetworkService.get(from: validKey) { result in
+        let mockAPIClient = MockAPIClient()
+        let merchantNetworkService = MerchantNetworkService(apiClient: mockAPIClient)
+        merchantNetworkService.fetchMerchant(withKey: validKey) { result in
             switch result {
             case .success(let merchant):
                 XCTAssertEqual(merchant, MockDataProvider().merchant)
@@ -26,12 +26,12 @@ final class MerchantNetworkServiceTests: XCTestCase {
 
     func testInvalidPublicKey() {
         let invalidKey = "INVALID_PUBLIC_KEY"
-        let urlSession = MockMerchantURLSession()
-        urlSession.setInvalidPublicKey(key: invalidKey)
+        let mockAPIClient = MockAPIClient()
+        mockAPIClient.triggerFailure = true
 
-        let merchantNetworkService = MerchantNetworkService(session: urlSession)
+        let merchantNetworkService = MerchantNetworkService(apiClient: mockAPIClient)
 
-        merchantNetworkService.get(from: invalidKey) { result in
+        merchantNetworkService.fetchMerchant(withKey: invalidKey) { result in
             switch result {
             case .success:
                 XCTFail("Request with invalid public key should fail and return non-nil error")
