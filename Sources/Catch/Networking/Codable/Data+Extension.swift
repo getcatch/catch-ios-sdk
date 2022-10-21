@@ -13,8 +13,13 @@ extension Data {
      */
     func decoded<T: Decodable>() throws -> T {
         let decoder = APIDecoder()
-        let result = try decoder.decode(T.self, from: self)
-        return result
+        do {
+            let result = try decoder.decode(T.self, from: self)
+            return result
+        } catch {
+            throw NetworkError.serverError(.decodingError(error as? DecodingError))
+        }
+
     }
 
 }

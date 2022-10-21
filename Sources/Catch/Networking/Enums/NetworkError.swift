@@ -17,7 +17,7 @@ enum NetworkError: Swift.Error {
     }
 
     enum ServerError {
-        case decodingError(Swift.DecodingError)
+        case decodingError(Swift.DecodingError?)
         case invalidResponse(URLResponse?)
         case noInternetConnection
         case timeout
