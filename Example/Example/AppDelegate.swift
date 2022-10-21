@@ -6,6 +6,7 @@
 //  Created by Lucille Benoit on 8/22/22.
 //
 
+import Catch
 import UIKit
 
 @main
@@ -24,6 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             self.window?.makeKeyAndVisible()
 
+        }
+
+        let options = CatchOptions(theme: .lightColor, environment: .sandbox, useCatchFonts: true)
+
+        // The Catch SDK should be initialized only once on application launch.
+
+        Catch.initialize(publicKey: Constant.publicKey, options: options) { result in
+            if case let .failure(error) = result {
+                print("Initialization failed with \(error)")
+            }
         }
 
         return true

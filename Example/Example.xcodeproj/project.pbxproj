@@ -13,6 +13,7 @@
 		827F78CC28B43DCE00EA3B3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 827F78CA28B43DCE00EA3B3C /* LaunchScreen.storyboard */; };
 		827F78E128B43DCE00EA3B3C /* ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78E028B43DCE00EA3B3C /* ExampleUITests.swift */; };
 		827F78E328B43DCE00EA3B3C /* ExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78E228B43DCE00EA3B3C /* ExampleUITestsLaunchTests.swift */; };
+		828AE6D22900B5B7008CA36E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828AE6D12900B5B7008CA36E /* Constant.swift */; };
 		82F96DB828B6EA45003AEF38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F96DB728B6EA45003AEF38 /* SceneDelegate.swift */; };
 		CEF42F68F4803E6091AC6973 /* Pods_Example_ExampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1005ADA22315CC1790C16F36 /* Pods_Example_ExampleUITests.framework */; };
 		DC9C80EACE5195A53AC54E8F /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5AD1B66C69FDC05A7A3182 /* Pods_Example.framework */; };
@@ -42,6 +43,7 @@
 		827F78DC28B43DCE00EA3B3C /* ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		827F78E028B43DCE00EA3B3C /* ExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleUITests.swift; sourceTree = "<group>"; };
 		827F78E228B43DCE00EA3B3C /* ExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		828AE6D12900B5B7008CA36E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		82EF2819B6E93B767217E79B /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		82F96DB728B6EA45003AEF38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		97BD26E9AAC76C6C4EA0F61E /* Pods-Example-ExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-ExampleUITests.debug.xcconfig"; path = "Target Support Files/Pods-Example-ExampleUITests/Pods-Example-ExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */,
+				828AE6D12900B5B7008CA36E /* Constant.swift */,
 				82F96DB728B6EA45003AEF38 /* SceneDelegate.swift */,
 				827F78C328B43DCE00EA3B3C /* ViewController.swift */,
 				827F78C828B43DCE00EA3B3C /* Assets.xcassets */,
@@ -342,6 +345,7 @@
 				827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */,
 				827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */,
 				82F96DB828B6EA45003AEF38 /* SceneDelegate.swift in Sources */,
+				828AE6D22900B5B7008CA36E /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
