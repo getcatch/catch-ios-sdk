@@ -12,4 +12,7 @@ enum Constant {
 
     // MARK: - Query Item Keys
     static let merchantIdKey = "merchant_id"
+
+    // MARK: - KeyChain Keys
+    static let deviceTokenKeyChainService = "com.getcatch.sdk.device_token"
 }

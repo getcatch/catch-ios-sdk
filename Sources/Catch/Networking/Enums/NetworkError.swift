@@ -10,6 +10,7 @@ import UIKit
 enum NetworkError: Swift.Error {
     enum RequestError {
         case invalidPublicKey(String)
+        case invalidDeviceToken(String?)
         case invalidURL(URLComponents)
         case invalidRequest(URLRequest)
         case encodingError(Swift.EncodingError)
