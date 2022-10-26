@@ -25,7 +25,7 @@ class RewardsCalculator: RewardsCalculatorInterface {
 
     init(userRepository: UserRepositoryInterface,
          merchantRepository: MerchantRepositoryInterface,
-         rewardsNetworkService: RewardsCalculatorNetworkServiceInterface = RewardsCalculatorNetworkService()){
+         rewardsNetworkService: RewardsCalculatorNetworkServiceInterface = RewardsCalculatorNetworkService()) {
         self.userRepository = userRepository
         self.merchantRepository = merchantRepository
         self.rewardsNetworkService = rewardsNetworkService
@@ -55,10 +55,12 @@ class RewardsCalculator: RewardsCalculatorInterface {
             switch result {
             case .success(let rewardSummary):
                 self?.earnedRewardsSummary = rewardSummary
-                if let rewardToDisplay = self?.getPrioritizedReward(rewardSummary: rewardSummary,
-                                                                    purchasePrice: price,
-                                                                    existingUserRewardAmount: publicUserData.rewardAmount,
-                                                                    defaultMerchantRewardRate: merchant.rewardsRate) {
+                if let rewardToDisplay = self?.getPrioritizedReward(
+                    rewardSummary: rewardSummary,
+                    purchasePrice: price,
+                    existingUserRewardAmount: publicUserData.rewardAmount,
+                    defaultMerchantRewardRate: merchant.rewardsRate
+                ) {
                     completion(.success(rewardToDisplay))
                 }
             case .failure(let error):
