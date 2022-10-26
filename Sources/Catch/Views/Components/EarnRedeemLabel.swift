@@ -19,28 +19,32 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
 
     // MARK: - Properties
     private var type: EarnRedeemLabelType
-    private var style: Style
+    internal var style: Style {
+        didSet {
+            updateAttributedString()
+        }
+    }
     private var didTapLink: () -> Void
     private var linkRange = NSRange(location: 0, length: 0)
-    private var hasRedeemableCredits = false
-    private var amount: String = StringFormat.percentString(from: Constant.defaultRewardsRate) {
+
+    private var reward: Reward = .percentRate(Constant.defaultRewardsRate) {
         didSet {
             hideSkeleton()
             updateAttributedString()
         }
     }
 
-    private lazy var prefixString: NSAttributedString = {
+    private var prefixString: NSAttributedString {
         let prefixString = type == .callout(hasOrPrefix: true)
         ? LocalizedString.or.localized + " "
         : ""
         return NSAttributedString(string: prefixString, style: style.filler)
-    }()
+    }
 
-    private lazy var fillerString: NSAttributedString = {
+    private var fillerString: NSAttributedString {
         let text = StringFormat.getEarnRedeemFillerText(type: type)
         return NSAttributedString(string: text, style: style.filler)
-    }()
+    }
 
     // MARK: - Initializers
 
@@ -75,14 +79,8 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
 
     // MARK: - Public Functions
 
-    /**
-    Updates the amount to earn or redeem once data has loaded. Also hides the skeleton loading view.
-     - Parameter amount: Formatted string signifying the amount to be earned or redeemed ex. "10%" or "$20"
-     - Parameter hasRedeemableCredits: Whether or not the user has redeemable credits to use.
-     */
-    func updateAmountRedeemable(amount: String, hasRedeemableCredits: Bool) {
-        self.hasRedeemableCredits = hasRedeemableCredits
-        self.amount = amount
+    func updateReward(reward: Reward) {
+        self.reward = reward
     }
 
     // MARK: - Private Helpers
@@ -102,11 +100,10 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
 
     private func updateAttributedString() {
         let mutableString = NSMutableAttributedString()
-        let highlightStyle = hasRedeemableCredits ? style.redeem : style.earn
+        let highlightStyle = reward.hasRedeemableCredits ? style.redeem : style.earn
         let earnRedeemText = StringFormat.getEarnRedeemText(
             type: type,
-            amountString: amount,
-            hasRedeemableCredits: hasRedeemableCredits
+            reward: reward
         )
 
         let highlightString = NSAttributedString(string: earnRedeemText, style: highlightStyle)
