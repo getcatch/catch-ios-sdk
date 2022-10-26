@@ -12,17 +12,15 @@ enum StringFormat {
      ex. "Earn $20 credit", "Redeem $20" or "or earn 10% credit"
      based on widget type, amount and whether user has redeemable credits */
     static func getEarnRedeemText(type: EarnRedeemLabelType,
-                                  amountString: String,
-                                  hasRedeemableCredits: Bool = false) -> String {
+                                  reward: Reward) -> String {
         var string: String = ""
 
         if case .campaignLink = type {
-            string = LocalizedString.credit.localized(amountString)
+            string = LocalizedString.credit.localized(reward.toString())
         } else {
             let hasOrPrefix = type == .callout(hasOrPrefix: true)
             string = StringFormat.getEarnRedeemString(
-                amount: amountString,
-                hasCredits: hasRedeemableCredits,
+                reward: reward,
                 hasOrPrefix: hasOrPrefix)
         }
 
@@ -47,7 +45,8 @@ enum StringFormat {
      Creates a localized price string given the integer number of cents.
      */
     static func priceString(from cents: Int) -> String {
-        NumberFormatter.currencyFormatter.string(from: NSNumber(value: cents / 100)) ?? String()
+        let priceInDollars = Double(cents) / 100
+        return NumberFormatter.currencyFormatter.string(from: NSNumber(value: priceInDollars)) ?? String()
     }
 
     /**
@@ -61,11 +60,10 @@ enum StringFormat {
 
 private extension StringFormat {
 
-    static func getEarnRedeemString(amount: String,
-                                    hasCredits: Bool = false,
+    static func getEarnRedeemString(reward: Reward,
                                     hasOrPrefix: Bool = false) -> String {
 
-        var stringFormat = hasCredits
+        var stringFormat = reward.hasRedeemableCredits
         ? LocalizedString.redeem.localized
         : LocalizedString.earnCredit.localized
 
@@ -73,7 +71,7 @@ private extension StringFormat {
             stringFormat = stringFormat.lowercased()
         }
 
-        return String(format: stringFormat, amount)
+        return String(format: stringFormat, reward.toString())
     }
 }
 
