@@ -61,13 +61,15 @@ class UserRepository: UserRepositoryInterface {
         if let token = getDeviceToken() {
             userNetworkService.fetchUserData(deviceToken: token, merchantId: merchantId) { [weak self] result in
                 if case let .success(publicUserData) = result {
-                    self?.user = publicUserData
                     completion(.success(publicUserData))
+                    self?.user = publicUserData
                 } else {
                     completion(.failure(NetworkError.requestError(.invalidDeviceToken(token))))
                 }
             }
         } else {
+            // Default back to a new user with no credits if no device token is found
+            user = PublicUserData.noData
             completion(.failure(NetworkError.requestError(.invalidDeviceToken(nil))))
         }
     }
