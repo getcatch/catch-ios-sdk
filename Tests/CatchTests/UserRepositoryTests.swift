@@ -22,7 +22,7 @@ final class UserRepositoryTests: XCTestCase {
         repository.saveDeviceToken(testDeviceToken)
         repository.fetchUserData(merchantId: testMerchantId)
 
-        let testCurrentUserData = MockDataProvider().publicUserData
+        let testCurrentUserData = MockDataProvider.publicUserDataReturning
 
         currentUser = repository.getCurrentUser()
         XCTAssertEqual(currentUser, testCurrentUserData, "Current user should match the test user data")

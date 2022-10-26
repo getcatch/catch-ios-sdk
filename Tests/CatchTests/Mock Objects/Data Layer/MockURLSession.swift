@@ -11,7 +11,7 @@ import XCTest
 class MockURLSession: URLSession {
 
     var triggerError: Bool = false
-    var returnData = try? MockDataProvider().merchant.encoded()
+    var returnData = try? MockDataProvider.defaultMerchant.encoded()
 
     override func dataTask(with request: URLRequest,
                            completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {

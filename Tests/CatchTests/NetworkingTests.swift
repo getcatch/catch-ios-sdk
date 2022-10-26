@@ -54,7 +54,7 @@ class NetworkingTests: XCTestCase {
     }
 
     func testAPIClientSuccess() {
-        let testMerchant = MockDataProvider().merchant
+        let testMerchant = MockDataProvider.defaultMerchant
         let urlSession = MockURLSession()
         urlSession.triggerError = false
         urlSession.returnData = try? testMerchant.encoded()

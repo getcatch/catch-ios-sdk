@@ -17,7 +17,7 @@ final class MerchantNetworkServiceTests: XCTestCase {
         merchantNetworkService.fetchMerchant(withKey: validKey) { result in
             switch result {
             case .success(let merchant):
-                XCTAssertEqual(merchant, MockDataProvider().merchant)
+                XCTAssertEqual(merchant, MockDataProvider.defaultMerchant)
             case .failure:
                 XCTFail("Request with valid public key should succeed and return merchant")
             }

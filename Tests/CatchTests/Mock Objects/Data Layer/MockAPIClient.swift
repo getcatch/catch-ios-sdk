@@ -11,7 +11,7 @@ import XCTest
 class MockAPIClient: APIClientInterface {
 
     var triggerFailure: Bool = false
-    var returnObject: Any = MockDataProvider().merchant
+    var returnObject: Any = MockDataProvider.defaultMerchant
 
     func fetchObject<T>(path: String,
                         queryItems: [URLQueryItem]?,

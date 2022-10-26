@@ -17,7 +17,7 @@ class MockMerchantNetworkService: MerchantNetworkServiceInterface {
 
     func fetchMerchant(withKey publicKey: String, completion: @escaping (Result<Merchant, Error>) -> Void) {
         if containsMerchant {
-            let merchant = MockDataProvider().merchant
+            let merchant = MockDataProvider.defaultMerchant
             completion(.success(merchant))
         } else {
             completion(.failure(NetworkError.serverError(.invalidResponse(nil))))

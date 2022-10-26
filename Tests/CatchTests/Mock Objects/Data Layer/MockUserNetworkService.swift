@@ -10,7 +10,6 @@ import XCTest
 
 class MockUserNetworkService: UserNetworkServiceInterface {
     private let shouldFindUser: Bool
-    private let dataProvider = MockDataProvider()
 
     init(shouldFindUser: Bool) {
         self.shouldFindUser = shouldFindUser
@@ -20,7 +19,7 @@ class MockUserNetworkService: UserNetworkServiceInterface {
                        merchantId: String,
                        completion: @escaping (Result<PublicUserData, Error>) -> Void) {
         if shouldFindUser {
-            completion(.success(dataProvider.publicUserData))
+            completion(.success(MockDataProvider.publicUserDataReturning))
         } else {
             completion(.failure(NetworkError.serverError(.invalidResponse(nil))))
         }
