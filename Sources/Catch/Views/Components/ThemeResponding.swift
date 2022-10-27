@@ -7,7 +7,7 @@
 
 import UIKit
 
-var ThemeNotificationTokenKey = "themeNotificationToken"
+var themeNotificationTokenKey = "themeNotificationToken"
 
 protocol ThemeResponding: UIView {
     var theme: Theme { get set }
@@ -25,10 +25,10 @@ extension ThemeResponding {
 
     var notificationToken: NSObjectProtocol? {
         get {
-            return objc_getAssociatedObject(self, &ThemeNotificationTokenKey) as? NSObjectProtocol
+            return objc_getAssociatedObject(self, &themeNotificationTokenKey) as? NSObjectProtocol
         }
         set {
-            objc_setAssociatedObject(self, &ThemeNotificationTokenKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &themeNotificationTokenKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
