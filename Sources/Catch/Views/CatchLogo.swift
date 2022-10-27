@@ -10,8 +10,6 @@ import UIKit
 /// The CatchLogo view displays Catch's logo.
 public class CatchLogo: UIView, ThemeResponding {
 
-    internal var themeManager: ThemeManager
-
     internal var theme: Theme {
         didSet {
             configureImageView()
@@ -29,11 +27,13 @@ public class CatchLogo: UIView, ThemeResponding {
      - Parameter theme: The Catch color theme.
      */
     public init(theme: Theme? = nil) {
-        self.themeManager = ThemeManager(theme)
         self.theme = theme ?? .lightColor
         super.init(frame: .zero)
         configureImageView()
-        themeManager.delegate = self
+        // Only subscribe to global theme updates if no local theme has been set
+        if theme == nil {
+            subscribeToGlobalThemeUpdates()
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -42,8 +42,12 @@ public class CatchLogo: UIView, ThemeResponding {
 
     // MARK: - Public Functions
 
+    /**
+     Sets the local theme for the widget.
+     - Parameter theme: The Catch color theme.
+     */
     public func setTheme(_ theme: Theme) {
-        themeManager.updateTheme(theme)
+        updateLocalTheme(theme)
     }
 
     // MARK: - Private Helpers
