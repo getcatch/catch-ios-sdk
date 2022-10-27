@@ -26,6 +26,10 @@ public enum Theme {
         }
     }
 
+    internal var borderColor: CGColor {
+        return foregroundColor.withAlphaComponent(UIConstant.borderColorAlpha).cgColor
+    }
+
     internal var accentColor: UIColor {
         switch self {
         case .lightColor:

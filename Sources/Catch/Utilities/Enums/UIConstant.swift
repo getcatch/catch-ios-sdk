@@ -52,4 +52,7 @@ enum UIConstant {
 
     // Merchant Logo aspect ratio
     static let merchantLogoAspectRatio: CGFloat = 0.25
+
+    // Border color alpha
+    static let borderColorAlpha: CGFloat = 0.16
 }
