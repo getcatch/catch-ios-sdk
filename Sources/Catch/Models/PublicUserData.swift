@@ -26,7 +26,7 @@ struct PublicUserData: Codable, Equatable {
         && lhs.firstPurchaseBonusEligibility == rhs.firstPurchaseBonusEligibility
     }
 
-    static var `noData`: PublicUserData {
+    static var noData: PublicUserData {
         return PublicUserData(userFirstName: String(), rewardAmount: 0, firstPurchaseBonusEligibility: true)
     }
 }
