@@ -24,4 +24,5 @@ internal enum CatchImage: String {
     case logoMonoDark = "logo-mono-dark"
     case logoMonoWhite = "logo-mono-white"
     case logoWhite = "logo-white"
+    case linkIcon = "link-icon"
 }

@@ -14,11 +14,9 @@ extension NSAttributedString {
         attributes[.font] = style.font
         attributes[.foregroundColor] = style.textColor
 
-        if let lineSpacing = style.lineSpacing {
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = lineSpacing
-            attributes[.paragraphStyle] = paragraphStyle
-        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = style.lineSpacing
+        attributes[.paragraphStyle] = paragraphStyle
 
         if style.isTappable {
             attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
