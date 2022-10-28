@@ -5,7 +5,7 @@
 //  Created by Lucille Benoit on 10/28/22.
 //
 
-import Foundation
+import UIKit
 
 extension UIEdgeInsets {
     init(inset: CGFloat) {
