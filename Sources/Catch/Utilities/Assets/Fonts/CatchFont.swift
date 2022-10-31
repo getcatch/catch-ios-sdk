@@ -54,20 +54,20 @@ extension CatchFont {
     /// Circular Regular 14 point font
     static let bodySmall = getCatchFont(name: FontName.regular, size: 14)
 
-    /// Circular Medium 18 point font
-    static let linkLarge = getCatchFont(name: FontName.medium, size: 18)
+    /// Circular Bold 18 point font
+    static let linkLarge = getCatchFont(name: FontName.bold, size: 18)
 
     /// Circular Medium 16 point font
     static let linkRegular = getCatchFont(name: FontName.medium, size: 16)
 
-    /// Circular Medium 14 point font
-    static let linkSmall = getCatchFont(name: FontName.medium, size: 14)
+    /// Circular Bold 14 point font
+    static let linkSmall = getCatchFont(name: FontName.bold, size: 14)
 
-    /// Circular Medium 18 point font
-    static let buttonLabel = getCatchFont(name: FontName.medium, size: 18)
+    /// Circular Bold 18 point font
+    static let buttonLabel = getCatchFont(name: FontName.bold, size: 18)
 
-    /// Circular Medium 16 point font
-    static let buttonLabelCompact = getCatchFont(name: FontName.medium, size: 16)
+    /// Circular Bold 16 point font
+    static let buttonLabelCompact = getCatchFont(name: FontName.bold, size: 16)
 
     private static func getCatchFont(name: FontName, size: CGFloat) -> UIFont {
         return UIFont(name: name.rawValue, size: size) ?? UIFont.systemFont(ofSize: size)
