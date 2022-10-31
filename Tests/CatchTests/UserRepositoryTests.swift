@@ -61,7 +61,9 @@ final class UserRepositoryTests: XCTestCase {
             }
         }
 
-        XCTAssertFalse(notificationCenter.didPostNotifcation(with: NotificationName.publicUserDataUpdate))
+        // In the case of no device token,
+        // we should still post a notification signalling that user data fetch has completed.
+        XCTAssertTrue(notificationCenter.didPostNotifcation(with: NotificationName.publicUserDataUpdate))
     }
 
     func testGetUserDeviceToken() {
