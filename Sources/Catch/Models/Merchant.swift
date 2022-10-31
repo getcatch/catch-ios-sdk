@@ -28,7 +28,7 @@ struct Merchant: Codable, Equatable {
     let cardBackgroundImageUrl: String?
 
     /// Hexadecimal string representing the background color for the merchant card. ex. #FFFFFF
-    let cardBackgroundColor: String?
+    let cardBackgroundColor: String
 
     /// Hexadecimal string representing the font color for the merchant card. ex. #000000
     let cardFontColor: String

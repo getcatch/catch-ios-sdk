@@ -21,28 +21,28 @@ final class CatchTests: XCTestCase {
     }
 
     func testEarnRedeemStringGeneration() throws {
-        let amount = StringFormat.priceString(from: 1000)
-        let rewardsRate = StringFormat.percentString(from: 0.1)
+        let amount = 1000
+        let rewardsRate: Double =  0.1
+
+        let redeemableReward = Reward.redeemableCredits(amount)
 
         let redeemText = StringFormat.getEarnRedeemText(type: .callout(hasOrPrefix: false),
-                                                        amountString: amount,
-                                                        hasRedeemableCredits: true)
+                                                        reward: redeemableReward)
         XCTAssertEqual(redeemText, "Redeem $10.00")
 
+        let earnedReward = Reward.earnedCredits(amount)
         let earnText = StringFormat.getEarnRedeemText(type: .paymentMethod(isCompact: true),
-                                                      amountString: amount,
-                                                      hasRedeemableCredits: false)
+                                                      reward: earnedReward)
         XCTAssertEqual(earnText, "Earn $10.00 credit")
 
+        let percentReward = Reward.percentRate(rewardsRate)
         let orEarnText = StringFormat.getEarnRedeemText(type: .callout(hasOrPrefix: true),
-                                                      amountString: rewardsRate,
-                                                      hasRedeemableCredits: false)
+                                                        reward: percentReward)
         XCTAssertEqual(orEarnText, "earn 10% credit")
 
         let merchantName = "Merch by Catch"
         let campaignEarnText = StringFormat.getEarnRedeemText(type: .campaignLink(merchantName: merchantName),
-                                                              amountString: amount,
-                                                              hasRedeemableCredits: false)
+                                                              reward: earnedReward)
         XCTAssertEqual(campaignEarnText, "$10.00 credit")
     }
 
