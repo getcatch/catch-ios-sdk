@@ -16,7 +16,7 @@ class MockMerchantCache: MerchantCacheInterface {
     }
 
     func get(from publicKey: String, completion: @escaping (Result<Merchant?, Error>) -> Void) {
-        let merchant = containsMerchant ? MockDataProvider().merchant : nil
+        let merchant = containsMerchant ? MockDataProvider.defaultMerchant : nil
         completion(.success(merchant))
     }
 

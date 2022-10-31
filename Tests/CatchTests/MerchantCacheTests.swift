@@ -9,7 +9,6 @@ import XCTest
 @testable import Catch
 
 final class MerchantCacheTests: XCTestCase {
-    let dataProvider = MockDataProvider()
     let publicKey = "TEST_PUBLIC_KEY"
 
     func testSavingMerchantData() {
@@ -17,7 +16,7 @@ final class MerchantCacheTests: XCTestCase {
         let mockUserDefaults = MockMerchantCacheUserDefault()
         let merchantCache = MerchantCache(cache: mockUserDefaults)
 
-        let merchant = dataProvider.merchant
+        let merchant = MockDataProvider.defaultMerchant
 
         merchantCache.save(merchant: merchant, for: publicKey)
 
@@ -38,7 +37,7 @@ final class MerchantCacheTests: XCTestCase {
     }
 
     func testGetExpiredMerchant() {
-        let merchant = dataProvider.merchant
+        let merchant = MockDataProvider.defaultMerchant
         let merchantCache = createMerchantCache(merchantToBeCached: merchant, shouldBeExpired: true)
 
         merchantCache.get(from: publicKey) { result in
@@ -52,7 +51,7 @@ final class MerchantCacheTests: XCTestCase {
     }
 
     func testGetValidMerchant() {
-        let merchant = dataProvider.merchant
+        let merchant = MockDataProvider.defaultMerchant
         let merchantCache = createMerchantCache(merchantToBeCached: merchant, shouldBeExpired: false)
 
         merchantCache.get(from: publicKey) { result in
