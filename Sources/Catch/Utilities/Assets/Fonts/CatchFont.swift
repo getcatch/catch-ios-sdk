@@ -69,6 +69,9 @@ extension CatchFont {
     /// Circular Bold 16 point font
     static let buttonLabelCompact = getCatchFont(name: FontName.bold, size: 16)
 
+    /// Circular Regular 12 point font
+    static let infoButton = getCatchFont(name: FontName.regular, size: 10)
+
     private static func getCatchFont(name: FontName, size: CGFloat) -> UIFont {
         return UIFont(name: name.rawValue, size: size) ?? UIFont.systemFont(ofSize: size)
     }

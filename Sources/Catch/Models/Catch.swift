@@ -17,7 +17,10 @@ public class _Catch {
     private var options: CatchOptions = CatchOptions(theme: .lightColor,
                                                      environment: .sandbox,
                                                      useCatchFonts: true)
-    private var merchantRepository: MerchantRepositoryInterface
+
+    internal var merchantRepository: MerchantRepositoryInterface
+    internal var userRepository: UserRepositoryInterface
+    private let notificationCenter: NotificationCenter = NotificationCenter.default
 
     // This prevents others from using the default '()' initializer for this class.
     private init() {
@@ -25,6 +28,7 @@ public class _Catch {
         let merchantLocalStorage = MerchantCache()
         merchantRepository = MerchantRepository(networkService: merchantNetworkService,
                                                 cache: merchantLocalStorage)
+        userRepository = UserRepository()
     }
 
     /**
@@ -46,9 +50,18 @@ public class _Catch {
             CatchFontLoader.registerFonts()
         }
 
-        merchantRepository.fetchMerchant(from: publicKey) { result in
+        merchantRepository.fetchMerchant(from: publicKey) { [weak self] result in
             completion(result)
+            guard let self = self else { return }
+            if let merchantID = self.merchantRepository.getCurrentMerchant()?.merchantId {
+                self.userRepository.fetchUserData(merchantId: merchantID, completion: {_ in })
+            }
         }
+    }
+
+    public func setTheme(_ theme: Theme) {
+        options.theme = theme
+        notificationCenter.post(name: NotificationName.globalThemeUpdate, object: theme)
     }
 
     internal var environmentHost: String {

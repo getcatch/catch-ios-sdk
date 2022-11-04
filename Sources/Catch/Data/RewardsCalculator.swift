@@ -21,6 +21,10 @@ class RewardsCalculator: RewardsCalculatorInterface {
     private let merchantRepository: MerchantRepositoryInterface
     private let rewardsNetworkService: RewardsCalculatorNetworkServiceInterface
 
+    var readyToFetch: Bool {
+        return userRepository.didFetchUserData
+    }
+
     // MARK: - Initializer
 
     init(userRepository: UserRepositoryInterface,
@@ -84,10 +88,10 @@ class RewardsCalculator: RewardsCalculatorInterface {
             return .percentRate(effectiveRewardRate)
         }
 
-        let signUpBonusAmount = rewardSummary.signUpBonusAmount
-        if signUpBonusAmount > 0 {
-            // If the user is earning a sign up bonus, use that and append any other existing rewards
-            let savedAmount = signUpBonusAmount + existingUserRewardAmount
+        let signUpDiscountAmount = rewardSummary.signUpDiscountAmount
+        if signUpDiscountAmount > 0 {
+            // If the user is earning a sign up discount, use that and append any other existing rewards
+            let savedAmount = signUpDiscountAmount + existingUserRewardAmount
             return .earnedCredits(min(savedAmount, purchasePrice))
         } else if existingUserRewardAmount > 0 {
             // If the user has rewards to redeem, use that instead of the earned amount
