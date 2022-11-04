@@ -24,7 +24,8 @@ public enum BorderStyle {
      - Parameter isLargeElement: Should be true for PurchaseConfirmation
      and CampaignLink widgets. Defaults to false.
      */
-    internal func cornerRadius(for viewHeight: CGFloat, isLargeElement: Bool = false) -> CGFloat? {
+    internal func cornerRadius(for viewHeight: CGFloat) -> CGFloat? {
+        let isLargeElement = viewHeight > UIConstant.minViewHeightForLargeElement
         switch self {
         case .roundedRect:
             return isLargeElement
