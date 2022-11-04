@@ -8,6 +8,7 @@
 import Foundation
 
 protocol RewardsCalculatorInterface {
+    var readyToFetch: Bool { get }
     func getEarnedRewardsSummary() -> EarnedRewardsSummary?
     func fetchCalculatedEarnedReward(price: Int, items: [Item]?, userCohorts: [String]?,
                                      completion: @escaping (Result<Reward, Error>) -> Void)

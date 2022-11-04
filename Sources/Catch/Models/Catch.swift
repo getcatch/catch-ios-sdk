@@ -20,6 +20,10 @@ public class _Catch {
 
     internal var merchantRepository: MerchantRepositoryInterface
     internal var userRepository: UserRepositoryInterface
+    internal var rewardsCalculator: RewardsCalculatorInterface {
+        return RewardsCalculator(userRepository: userRepository, merchantRepository: merchantRepository)
+    }
+
     private let notificationCenter: NotificationCenter = NotificationCenter.default
 
     // This prevents others from using the default '()' initializer for this class.

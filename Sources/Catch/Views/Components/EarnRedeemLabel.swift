@@ -18,7 +18,17 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
     }
 
     // MARK: - Properties
+    internal var isLoading: Bool = false {
+        didSet {
+            if isLoading {
+                showSkeleton()
+            } else {
+                hideSkeleton()
+            }
+        }
+    }
     private var type: EarnRedeemLabelType
+
     internal var style: Style {
         didSet {
             updateAttributedString()
@@ -27,10 +37,9 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
     private var didTapLink: () -> Void
     private var linkRange = NSRange(location: 0, length: 0)
 
-    private var reward: Reward = .percentRate(Constant.defaultRewardsRate) {
+    private var reward: Reward {
         didSet {
             hideSkeleton()
-            updateAttributedString()
         }
     }
 
@@ -61,14 +70,15 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
         self.type = type
         self.style = style
         self.didTapLink = tapHandler
+        self.reward = .percentRate(Constant.defaultRewardsRate)
         super.init(frame: .zero)
 
-        textAlignment = .center
+        textAlignment = .left
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
         sizeToFit()
+        isLoading = true
 
-        showSkeleton()
         updateAttributedString()
         addTapGesture()
     }
@@ -79,8 +89,10 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
 
     // MARK: - Public Functions
 
-    func updateReward(reward: Reward) {
+    func updateData(reward: Reward, type: EarnRedeemLabelType) {
         self.reward = reward
+        self.type = type
+        updateAttributedString()
     }
 
     // MARK: - Private Helpers
@@ -104,7 +116,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
         let earnRedeemText = StringFormat.getEarnRedeemText(
             type: type,
             reward: reward
-        )
+        ).nonBreaking
 
         let highlightString = NSAttributedString(string: earnRedeemText, style: highlightStyle)
 
