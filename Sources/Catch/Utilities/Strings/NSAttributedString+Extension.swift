@@ -27,3 +27,9 @@ extension NSAttributedString {
         self.init(string: transformedString, attributes: attributes)
     }
 }
+
+extension String {
+    var nonBreaking: String {
+        return replacingOccurrences(of: " ", with: "\u{00a0}")
+    }
+}
