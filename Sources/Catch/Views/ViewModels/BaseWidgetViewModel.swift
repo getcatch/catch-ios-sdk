@@ -9,14 +9,12 @@ import Foundation
 
 // MARK: - BaseWidgetDelegate
 protocol BaseWidgetDelegate: AnyObject {
-    func didUpdateEarnRedeemMessageData()
+    func updateEarnRedeemMessage(reward: Reward, type: EarnRedeemLabelType)
 }
 
 // MARK: - BaseWidgetViewModelInterface
 protocol BaseWidgetViewModelInterface {
-    var merchant: Merchant? { get }
-    var reward: Reward? { get }
-    var earnRedeemLabelType: EarnRedeemLabelType? { get }
+    var earnRedeemLabelType: EarnRedeemLabelType { get }
     func updatePrice(_ price: Int)
 }
 
@@ -24,10 +22,10 @@ protocol BaseWidgetViewModelInterface {
 class BaseWidgetViewModel: BaseWidgetViewModelInterface {
     weak var delegate: BaseWidgetDelegate?
     internal var merchant: Merchant?
-    internal var reward: Reward?
-    internal var earnRedeemLabelType: EarnRedeemLabelType?
+    internal var reward: Reward = .percentRate(Constant.defaultRewardsRate)
+    internal var earnRedeemLabelType: EarnRedeemLabelType
+    internal var amount: Int
 
-    private let price: Int
     private let items: [Item]?
     private let userCohorts: [String]?
     private let notificationName: Notification.Name = NotificationName.publicUserDataUpdate
@@ -40,18 +38,19 @@ class BaseWidgetViewModel: BaseWidgetViewModelInterface {
     required init(config: BaseWidgetConfig,
                   delegate: BaseWidgetDelegate,
                   rewardsCalculator: RewardsCalculatorInterface = Catch.rewardsCalculator) {
-        self.price = config.price ?? 0
+        self.amount = config.price ?? 0
         self.items = config.items
         self.userCohorts = config.userCohorts
         self.earnRedeemLabelType = config.earnRedeemLabelConfig
         self.delegate = delegate
         self.rewardsCalculator = rewardsCalculator
         subscribeToNotifications()
-        calculateEarnedRewards(price: price, items: items, userCohorts: userCohorts)
+        calculateEarnedRewards(price: amount, items: items, userCohorts: userCohorts)
     }
 
     // MARK: Public Functions
     func updatePrice(_ price: Int) {
+        self.amount = price
         calculateEarnedRewards(price: price, items: items, userCohorts: userCohorts)
     }
 
@@ -64,10 +63,11 @@ class BaseWidgetViewModel: BaseWidgetViewModelInterface {
             self.rewardsCalculator.fetchCalculatedEarnedReward(price: price,
                                                                items: items,
                                                                userCohorts: userCohorts) { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let reward):
-                    self?.reward = reward
-                    self?.delegate?.didUpdateEarnRedeemMessageData()
+                    self.reward = reward
+                    self.delegate?.updateEarnRedeemMessage(reward: reward, type: self.earnRedeemLabelType)
                 case .failure(let error):
                     Logger().log(error: error)
                 }

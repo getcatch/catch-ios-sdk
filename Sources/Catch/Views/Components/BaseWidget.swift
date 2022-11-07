@@ -132,10 +132,7 @@ public class BaseWidget: UIView, ThemeResponding, BorderConfiguring, BaseWidgetD
         configureBorder(viewHeight: bounds.height, theme: theme)
     }
 
-    internal func didUpdateEarnRedeemMessageData() {
-        guard let reward = viewModel?.reward, let type = viewModel?.earnRedeemLabelType else {
-            return
-        }
+    func updateEarnRedeemMessage(reward: Reward, type: EarnRedeemLabelType) {
         // Ensures UI updates are completed on the main thread
         DispatchQueue.main.async { [weak self] in
             self?.label.updateData(reward: reward, type: type)
