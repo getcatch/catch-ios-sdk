@@ -52,8 +52,8 @@ class MockDataProvider {
     }
 
     static var newUserEarnedRewardsSummary: EarnedRewardsSummary {
-        return EarnedRewardsSummary(signUpBonusAmount: 1000,
-                                    signUpDiscountAmount: 0,
+        return EarnedRewardsSummary(signUpBonusAmount: 0,
+                                    signUpDiscountAmount: 1000,
                                     percentageRewardRate: 0.1,
                                     earnedRewardsTotal: 5000)
     }

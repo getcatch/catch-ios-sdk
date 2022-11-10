@@ -36,7 +36,7 @@ final class RewardsCalculatorTests: XCTestCase {
         let earnedRewards = MockDataProvider.newUserEarnedRewardsSummary
         let calculator = createRewardsCalculator(publicUserData: userData, targetEarnedReward: earnedRewards)
 
-        let savedAmount = earnedRewards.signUpBonusAmount + userData.rewardAmount
+        let savedAmount = earnedRewards.signUpDiscountAmount + userData.rewardAmount
         let expectedCreditAmount = min(savedAmount, purchasePrice)
         calculator.fetchCalculatedEarnedReward(price: purchasePrice,
                                                items: nil,

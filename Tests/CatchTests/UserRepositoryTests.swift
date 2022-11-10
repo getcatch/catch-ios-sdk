@@ -40,8 +40,9 @@ final class UserRepositoryTests: XCTestCase {
         repository.fetchUserData(merchantId: testMerchantId)
 
         currentUser = repository.getCurrentUser()
-        XCTAssertNil(currentUser, "Current user should be nil before user is fetched")
-        XCTAssertFalse(notificationCenter.didPostNotifcation(with: NotificationName.publicUserDataUpdate))
+        // If no user is found, the current user should be set to "no data"
+        XCTAssertEqual(currentUser, PublicUserData.noData)
+        XCTAssertTrue(notificationCenter.didPostNotifcation(with: NotificationName.publicUserDataUpdate))
     }
 
     func testGetUserWithNoDeviceToken() {
