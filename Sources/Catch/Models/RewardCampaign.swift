@@ -19,4 +19,9 @@ struct RewardCampaign: Codable {
     /// The date when the rewards expire.
     let rewardsExpiration: Date
 
+    var campaignURLPath: String {
+        // removes the reward campaign id prefix "rc-" to generate the campaign url
+        let suffix = rewardCampaignId[3...]
+        return String(format: CatchURL.rewardCampaignLandingPage, suffix)
+    }
 }

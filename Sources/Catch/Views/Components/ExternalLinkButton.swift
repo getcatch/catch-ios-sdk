@@ -12,8 +12,8 @@ import UIKit
  */
 class ExternalLinkButton: UIButton {
 
-    private let url: URL?
-    private let title: String
+    private var url: URL?
+    private var title: String
     private var style: NSAttributedStringStyle
 
     // MARK: - Initializers
@@ -39,6 +39,12 @@ class ExternalLinkButton: UIButton {
         self.style = style
         setColors()
         setFormattedTitle(text: title, font: style.font)
+    }
+
+    func updateConfiguration(text: String, url: URL? = nil) {
+        self.title = text
+        self.url = url
+        setFormattedTitle(text: text, font: style.font)
     }
 }
 

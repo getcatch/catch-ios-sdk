@@ -8,13 +8,14 @@
 import Foundation
 
 protocol MerchantRepositoryInterface {
+    var merchantPublicKey: String? { get }
     func getCurrentMerchant() -> Merchant?
     func fetchMerchant(from merchantPublicKey: String, completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
 class MerchantRepository: MerchantRepositoryInterface {
 
-    private var merchantPublicKey: String?
+    internal var merchantPublicKey: String?
     private var merchant: Merchant? {
         didSet {
             if oldValue != merchant {
@@ -41,6 +42,7 @@ class MerchantRepository: MerchantRepositoryInterface {
 
     func fetchMerchant(from merchantPublicKey: String,
                        completion: @escaping (Result<Bool, Error>) -> Void) {
+        self.merchantPublicKey = merchantPublicKey
         cache.get(from: merchantPublicKey) { [weak self] result in
             if case let .success(merchant?) = result {
                 self?.merchant = merchant
