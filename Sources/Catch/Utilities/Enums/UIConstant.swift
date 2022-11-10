@@ -47,8 +47,17 @@ enum UIConstant {
     /// Merchant Card width multiplier
     static let merchantCardWidthMultiplier: CGFloat = 14
 
-    // Merchant Card aspect ratio
+    /// Merchant Card aspect ratio
     static let merchantCardAspectRatio: CGFloat = 0.62
+
+    /// Merchant Card shadow offset
+    static let merchantCardShadowOffset = CGSize(width: 2.0, height: 2.0)
+
+    /// The radius for the merchant card shadow
+    static let merchantCardShadowRadius: CGFloat = 4
+
+    /// The opacity for the merchant card shadow
+    static let merchantCardShadowOpacity: Float = 0.2
 
     /// Merchant Logo width multiplier
     static let merchantLogoWidthMultiplier: CGFloat = 10
@@ -70,4 +79,7 @@ enum UIConstant {
 
     // Minimum view height for large corner radius
     static let minViewHeightForLargeElement: CGFloat = 200
+
+    // Unicode string for en dash (double dash)
+    static let enDash: String = "\u{2013}"
 }
