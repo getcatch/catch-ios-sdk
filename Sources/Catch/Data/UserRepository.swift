@@ -23,8 +23,8 @@ class UserRepository: UserRepositoryInterface {
 
     private var user: PublicUserData? {
         didSet {
-            notificationCenter.post(name: NotificationName.publicUserDataUpdate, object: nil)
             didFetchUserData = true
+            notificationCenter.post(name: NotificationName.publicUserDataUpdate, object: nil)
         }
     }
 

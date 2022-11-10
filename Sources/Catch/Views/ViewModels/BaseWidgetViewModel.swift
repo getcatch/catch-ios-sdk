@@ -26,11 +26,9 @@ class BaseWidgetViewModel: BaseWidgetViewModelInterface {
     internal var earnRedeemLabelType: EarnRedeemLabelType
     internal var amount: Int
 
-    private let items: [Item]?
-    private let userCohorts: [String]?
+    private var items: [Item]?
+    private var userCohorts: [String]?
     private let notificationName: Notification.Name = NotificationName.publicUserDataUpdate
-    private let semaphore = DispatchSemaphore(value: 0)
-    private let serialQueue = DispatchQueue(label: "Queue")
 
     private let rewardsCalculator: RewardsCalculatorInterface
 
@@ -56,23 +54,25 @@ class BaseWidgetViewModel: BaseWidgetViewModelInterface {
 
     // MARK: Private Helpers
     private func calculateEarnedRewards(price: Int, items: [Item]?, userCohorts: [String]?) {
-        serialQueue.async { [unowned self] in
-            if !self.rewardsCalculator.readyToFetch {
-                self.semaphore.wait()
-            }
-            self.rewardsCalculator.fetchCalculatedEarnedReward(price: price,
-                                                               items: items,
-                                                               userCohorts: userCohorts) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let reward):
-                    self.reward = reward
-                    self.delegate?.updateEarnRedeemMessage(reward: reward, type: self.earnRedeemLabelType)
-                case .failure(let error):
-                    Logger().log(error: error)
-                }
+        self.amount = min(0, price)
+        self.items = items
+        self.userCohorts = userCohorts
+        if !self.rewardsCalculator.readyToFetch {
+            return
+        }
+        self.rewardsCalculator.fetchCalculatedEarnedReward(price: price,
+                                                           items: items,
+                                                           userCohorts: userCohorts) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let reward):
+                self.reward = reward
+                self.delegate?.updateEarnRedeemMessage(reward: reward, type: self.earnRedeemLabelType)
+            case .failure(let error):
+                Logger().log(error: error)
             }
         }
+
     }
 
     private func subscribeToNotifications() {
@@ -83,6 +83,6 @@ class BaseWidgetViewModel: BaseWidgetViewModelInterface {
     }
 
     @objc private func didUpdateUser() {
-        semaphore.signal()
+        calculateEarnedRewards(price: amount, items: items, userCohorts: userCohorts)
     }
 }

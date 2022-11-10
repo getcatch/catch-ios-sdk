@@ -8,7 +8,7 @@
 import UIKit
 
 /**
-A UILabel displaying tappable earn/redeem reward messaging with a skeleton loading view.
+ A UILabel displaying tappable earn/redeem reward messaging with a skeleton loading view.
  */
 class EarnRedeemLabel: UILabel, Skeletonizable {
     struct Style {
@@ -39,7 +39,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
 
     private var reward: Reward {
         didSet {
-            hideSkeleton()
+            isLoading = false
         }
     }
 
@@ -77,7 +77,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
         sizeToFit()
-        isLoading = true
+        showSkeleton()
 
         updateAttributedString()
         addTapGesture()
