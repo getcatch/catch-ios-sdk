@@ -11,6 +11,7 @@ enum EarnRedeemLabelType: Equatable {
     case callout(hasOrPrefix: Bool)
     case expressCheckoutCallout
     case paymentMethod(isCompact: Bool)
+    case purchaseConfirmation(merchantName: String, amountEarned: Int)
     case campaignLink(merchantName: String)
 
     // If widget is the non-compact configuration of PaymentMethod,

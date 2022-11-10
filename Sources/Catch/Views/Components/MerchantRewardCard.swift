@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MerchantRewardCard: UIView {
+class MerchantRewardCard: UIView, Skeletonizable {
     // MARK: - Subviews
     var backgroundImageView: RemoteImageView = RemoteImageView(frame: .zero)
     var merchantLogoView: RemoteImageView = RemoteImageView(frame: .zero)
@@ -15,11 +15,15 @@ class MerchantRewardCard: UIView {
     var expirationLabel: UILabel = UILabel(frame: .zero)
 
     // MARK: - Private configuration properties
-    private let merchantLogoImageUrl: String
-    private let cardFontColor: String
-    private let cardBackgroundImageUrl: String?
-    private let cardBackgroundColor: String
-    private var amountString: String?
+    private var merchantLogoImageUrl = String()
+    private var cardFontColor = String()
+    private var cardBackgroundImageUrl: String?
+    private var cardBackgroundColor = String()
+    private var amountString: String? {
+        didSet {
+            amountLabel.text = amountString
+        }
+    }
     private var expirationString: String?
     private var padding: CGFloat = UIConstant.largeSpacing
 
@@ -35,34 +39,21 @@ class MerchantRewardCard: UIView {
         padding * UIConstant.merchantLogoWidthMultiplier
     }
 
-    // MARK: - Initializers
-    /**
-     Initializes a merchant card component.
-     - Parameter merchantLogoImageUrl: The url string for the merchant logo image.
-     - Parameter cardFontColor: A hex string representing the card font color.
-     - Parameter cardBackgroundImageUrl: A string representing the optional
-     merchant card background image. Defaults to nil.
-     - Parameter cardBackgroundColor: A hex string representing the card background color.
-     - Parameter amountString: A formatted price string representing the reward amount.
-     - Parameter expirationString: A formatted date string representing the reward expiration.
-     */
-    init(merchantLogoImageUrl: String,
-         cardFontColor: String,
-         cardBackgroundImageUrl: String? = nil,
-         cardBackgroundColor: String,
-         amountString: String,
-         expirationString: String) {
+    internal var isLoading: Bool = false {
+        didSet {
+            if isLoading {
+                showSkeleton()
+            } else {
+                hideSkeleton()
+            }
+        }
+    }
 
-        self.merchantLogoImageUrl = merchantLogoImageUrl
-        self.cardFontColor = cardFontColor
-        self.cardBackgroundImageUrl  = cardBackgroundImageUrl
-        self.cardBackgroundColor = cardBackgroundColor
-        self.amountString = amountString
-        self.expirationString = expirationString
-
+    // MARK: - Initializer
+    init() {
         super.init(frame: .zero)
-
-        configureViews()
+        addSubviews()
+        configureSubviews()
     }
 
     required init?(coder: NSCoder) {
@@ -70,21 +61,59 @@ class MerchantRewardCard: UIView {
     }
 
     // MARK: - View Configuration
-    private func configureViews() {
+    /**
+     Updates the data for the merchant card component using a merchant.
+     - Parameter merchant: The merchant used to populate the card info.
+     The card will end loading once the merchant is populated.
+     - Parameter earnedAmount: The integer number of cents earned for this reward.
+     - Parameter expiration: The expiration date to display.
+     */
+    internal func updateCardData(merchant: Merchant?, earnedAmount: Int, expiration: Date?) {
+        if let merchant = merchant {
+            self.merchantLogoImageUrl = String(format: CatchURL.logoImage, merchant.merchantId)
+            self.cardFontColor = merchant.cardFontColor
+            self.cardBackgroundImageUrl = merchant.cardBackgroundImageUrl
+            self.cardBackgroundColor = merchant.cardBackgroundColor
+            // only hides the loading view once merchant data has loaded
+            isLoading = false
+        }
+
+        // Hide the amount if it is a negative value
+        self.amountString = earnedAmount < 0 ? String() : StringFormat.priceString(from: earnedAmount)
+
+        var expirationString = String()
+        if let expiration = expiration {
+            let dateAsString = StringFormat.dateString(from: expiration)
+            expirationString = LocalizedString.expiration.localized(dateAsString)
+        }
+        self.expirationString = expirationString
+        configureSubviews()
+    }
+
+    internal func updateEarnedAmount(earnedAmount: Int) {
+        self.amountString = StringFormat.priceString(from: earnedAmount)
+    }
+
+    private func addSubviews() {
         layer.cornerRadius = padding
         layer.masksToBounds = true
-
-        configureImageViews()
-        configureTextLabels()
 
         allSubviews().forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
         setConstraints()
+        isLoading = true
+    }
+
+    private func configureSubviews() {
+        configureImageViews()
+        configureTextLabels()
     }
 
     private func configureImageViews() {
+        backgroundImageView.layer.cornerRadius = padding
+        backgroundImageView.layer.masksToBounds = true
         backgroundImageView.backgroundColor = UIColor(hexString: cardBackgroundColor)
         if let backgroundUrl = cardBackgroundImageUrl {
             backgroundImageView.setImage(url: backgroundUrl)

@@ -27,13 +27,17 @@ enum LocalizedString: String {
 
     // Purchase Confirmation Strings
     case youEarnedCredit = "you_earned_credit"
-    case toSpendAt = "to_spend_at"
+    case toSpend = "to_spend"
+    case atMerchant = "at_merchant"
+    case thisStore = "this_store"
     case viewYourCredit = "view_your_credit"
+    case expiration = "expiration"
 
     // Campaign Link Strings
     case youEarned = "you_earned"
     case credit = "credit"
     case toSpendAtNextTimeYouPayWithCatch = "to_spend_at_next_time_you_pay_with_catch"
+    case claimNowAndStartEarning = "claim_now_and_start_earning"
     case claimStoreCredit = "claim_store_credit"
 
     var localized: String {

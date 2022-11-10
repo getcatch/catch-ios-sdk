@@ -13,4 +13,6 @@ enum CatchURL {
     static let getEarnedRewards = "/api/transactions-svc/merchants/%@/calculate_earned_rewards/public"
     static let getRewardCampaignByExternalName = "/api/transactions-svc/merchants/%@/reward_campaigns/%@/public"
     static let getDonationCampaign = "/api/transactions-svc/merchants/%@/active_donation_campaign/public"
+    static let logoImage = "https://assets.getcatch.com/merchant-assets/%@/card_logo.png"
+    static let signIn = "https://app.getcatch.com/u/sign-in"
 }
