@@ -43,7 +43,7 @@ final class CatchTests: XCTestCase {
         let merchantName = "Merch by Catch"
         let campaignEarnText = StringFormat.getEarnRedeemText(type: .campaignLink(merchantName: merchantName),
                                                               reward: earnedReward)
-        XCTAssertEqual(campaignEarnText, "$10.00 credit")
+        XCTAssertEqual(campaignEarnText, "You earned $10.00")
     }
 
     func testFillerStringGeneration() throws {
@@ -51,7 +51,7 @@ final class CatchTests: XCTestCase {
         XCTAssertEqual(fillerText, "")
 
         fillerText = StringFormat.getEarnRedeemFillerText(type: .paymentMethod(isCompact: false))
-        XCTAssertEqual(fillerText, "Pay by bank. ")
+        XCTAssertEqual(fillerText, "Pay by bank. ")
 
         let merchantName = "Merch by Catch"
         fillerText = StringFormat.getEarnRedeemFillerText(type: .campaignLink(merchantName: merchantName))
