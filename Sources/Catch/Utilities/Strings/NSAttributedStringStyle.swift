@@ -24,4 +24,15 @@ struct NSAttributedStringStyle {
                                             textColor: theme.foregroundColor,
                                             lineSpacing: 0)
     }
+
+    /**
+     Scales the font size for the attributed string.
+     */
+    func withScaledFont(multiplier: Double) -> NSAttributedStringStyle {
+        let scaledPointSize = font.pointSize * multiplier
+        let scaledFont = font.withSize(scaledPointSize)
+        var style = self
+        style.font = scaledFont
+        return style
+    }
 }
