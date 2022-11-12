@@ -67,4 +67,7 @@ enum UIConstant {
 
     // Large logo height
     static let largeLogoHeight: CGFloat = 28
+
+    // Minimum view height for large corner radius
+    static let minViewHeightForLargeElement: CGFloat = 200
 }
