@@ -25,6 +25,9 @@ class RemoteImageView: UIImageView {
         }
         imageCache.loadImage(from: url) { [weak self] loadedImage in
             self?.image = loadedImage
+            if loadedImage != nil {
+                self?.backgroundColor = .clear
+            }
         }
     }
 

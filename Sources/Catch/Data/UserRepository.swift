@@ -8,6 +8,7 @@
 import Foundation
 
 protocol UserRepositoryInterface {
+    var didFetchUserData: Bool { get }
     func getCurrentUser() -> PublicUserData?
     func getDeviceToken() -> String?
     func saveDeviceToken(_ token: String)
@@ -22,11 +23,12 @@ class UserRepository: UserRepositoryInterface {
 
     private var user: PublicUserData? {
         didSet {
-            if oldValue != user {
-                notificationCenter.post(name: Notification.Name(NotificationName.publicUserDataUpdate), object: nil)
-            }
+            notificationCenter.post(name: NotificationName.publicUserDataUpdate, object: nil)
+            didFetchUserData = true
         }
     }
+
+    internal var didFetchUserData: Bool = false
 
     // MARK: - Initializers
 
@@ -64,6 +66,7 @@ class UserRepository: UserRepositoryInterface {
                     completion(.success(publicUserData))
                     self?.user = publicUserData
                 } else {
+                    self?.user = PublicUserData.noData
                     completion(.failure(NetworkError.requestError(.invalidDeviceToken(token))))
                 }
             }

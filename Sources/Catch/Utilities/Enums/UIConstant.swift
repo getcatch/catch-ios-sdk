@@ -17,6 +17,9 @@ enum UIConstant {
     /// 4 point spacing
     static let smallSpacing: CGFloat = 4
 
+    /// 6 point spacing
+    static let smallMediumSpacing: CGFloat = 6
+
     /// 8 point spacing
     static let mediumSpacing: CGFloat = 8
 
@@ -53,6 +56,15 @@ enum UIConstant {
     // Merchant Logo aspect ratio
     static let merchantLogoAspectRatio: CGFloat = 0.25
 
+    // Maximum width for external link button
+    static let maxExternalLinkButtonWidth: CGFloat = 479
+
     // Border color alpha
     static let borderColorAlpha: CGFloat = 0.16
+
+    // Disabled transparency alpha
+    static let disabledAlpha: CGFloat = 0.48
+
+    // Large logo height
+    static let largeLogoHeight: CGFloat = 28
 }

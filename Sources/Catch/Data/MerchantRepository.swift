@@ -18,7 +18,7 @@ class MerchantRepository: MerchantRepositoryInterface {
     private var merchant: Merchant? {
         didSet {
             if oldValue != merchant {
-                notificationCenter.post(name: Notification.Name(NotificationName.merchantUpdate), object: nil)
+                notificationCenter.post(name: NotificationName.merchantUpdate, object: nil)
             }
         }
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 enum NotificationName {
-    static let merchantUpdate = "MerchantUpdate"
-    static let publicUserDataUpdate = "PublicUserDataUpdate"
-    static let globalThemeUpdate = "GlobalThemeUpdate"
+    static let publicUserDataUpdate = Notification.Name("PublicUserDataUpdate")
+    static let globalThemeUpdate = Notification.Name("GlobalThemeUpdate")
+    static let merchantUpdate = Notification.Name("MerchantUpdate")
 }

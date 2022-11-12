@@ -17,7 +17,7 @@ protocol ThemeResponding: UIView {
 extension ThemeResponding {
 
     var notificationName: Notification.Name {
-        Notification.Name(NotificationName.globalThemeUpdate)
+        NotificationName.globalThemeUpdate
     }
 
     // We need to store the notification token in order to remove the observer
@@ -35,8 +35,8 @@ extension ThemeResponding {
     func subscribeToGlobalThemeUpdates() {
         let token = NotificationCenter.default.addObserver(forName: notificationName,
                                                            object: nil,
-                                                           queue: nil) { [unowned self] notification in
-            self.handleGlobalThemeNotification(notification)
+                                                           queue: nil) { [weak self] notification in
+            self?.handleGlobalThemeNotification(notification)
         }
         notificationToken = token
     }

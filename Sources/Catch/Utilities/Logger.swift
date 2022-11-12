@@ -16,4 +16,11 @@ final class Logger {
         print("\(error)")
         #endif
     }
+
+    func log(_ string: String) {
+        #if DEBUG
+        print("------------- INFO -------------")
+        print("\(string)")
+        #endif
+    }
 }
