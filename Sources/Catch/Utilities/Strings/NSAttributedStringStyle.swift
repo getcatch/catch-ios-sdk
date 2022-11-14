@@ -18,4 +18,10 @@ struct NSAttributedStringStyle {
     static var `default`: NSAttributedStringStyle {
         return NSAttributedStringStyle()
     }
+
+    static func infoButtonStyle(theme: Theme) -> NSAttributedStringStyle {
+        return NSAttributedStringStyle(font: CatchFont.infoButton,
+                                            textColor: theme.foregroundColor,
+                                            lineSpacing: 0)
+    }
 }
