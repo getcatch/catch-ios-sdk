@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		820F71A92914878B002877CE /* WidgetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820F71A82914878B002877CE /* WidgetLabel.swift */; };
+		820F71AD29148C48002877CE /* PriceSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820F71AC29148C48002877CE /* PriceSlider.swift */; };
 		827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */; };
 		827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78C328B43DCE00EA3B3C /* ViewController.swift */; };
 		827F78C928B43DCE00EA3B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827F78C828B43DCE00EA3B3C /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 		1005ADA22315CC1790C16F36 /* Pods_Example_ExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_ExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B7CD2B90FDBA402D3B5EB7F /* Pods-Example-ExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-ExampleUITests.release.xcconfig"; path = "Target Support Files/Pods-Example-ExampleUITests/Pods-Example-ExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6F5AD1B66C69FDC05A7A3182 /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		820F71A82914878B002877CE /* WidgetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLabel.swift; sourceTree = "<group>"; };
+		820F71AC29148C48002877CE /* PriceSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceSlider.swift; sourceTree = "<group>"; };
 		827F78BC28B43DCE00EA3B3C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		827F78C328B43DCE00EA3B3C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,8 +101,10 @@
 			children = (
 				827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */,
 				828AE6D12900B5B7008CA36E /* Constant.swift */,
+				820F71AC29148C48002877CE /* PriceSlider.swift */,
 				82F96DB728B6EA45003AEF38 /* SceneDelegate.swift */,
 				827F78C328B43DCE00EA3B3C /* ViewController.swift */,
+				820F71A82914878B002877CE /* WidgetLabel.swift */,
 				827F78C828B43DCE00EA3B3C /* Assets.xcassets */,
 				827F78CA28B43DCE00EA3B3C /* LaunchScreen.storyboard */,
 				827F78CD28B43DCE00EA3B3C /* Info.plist */,
@@ -342,9 +348,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				820F71AD29148C48002877CE /* PriceSlider.swift in Sources */,
 				827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */,
 				827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */,
 				82F96DB828B6EA45003AEF38 /* SceneDelegate.swift in Sources */,
+				820F71A92914878B002877CE /* WidgetLabel.swift in Sources */,
 				828AE6D22900B5B7008CA36E /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
