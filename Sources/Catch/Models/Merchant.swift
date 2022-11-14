@@ -44,4 +44,8 @@ struct Merchant: Codable, Equatable {
         && lhs.rewardsLifetimeInDays == rhs.rewardsLifetimeInDays
     }
 
+    /// The expiration date as calculated by using the current date and the merchant's rewards lifetime.
+    var expirationDate: Date? {
+        return Date().byAdding(days: rewardsLifetimeInDays)
+    }
 }

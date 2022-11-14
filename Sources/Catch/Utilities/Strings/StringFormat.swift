@@ -14,10 +14,10 @@ enum StringFormat {
     static func getEarnRedeemText(type: EarnRedeemLabelType,
                                   reward: Reward) -> String {
         var string: String = ""
-
-        if case .campaignLink = type {
-            string = LocalizedString.credit.localized(reward.toString())
-        } else {
+        switch type {
+        case .purchaseConfirmation, .campaignLink:
+            string = LocalizedString.youEarnedCredit.localized(reward.toString())
+        default:
             let hasOrPrefix = type == .callout(hasOrPrefix: true)
             string = StringFormat.getEarnRedeemString(
                 reward: reward,
@@ -34,7 +34,11 @@ enum StringFormat {
         case .expressCheckoutCallout:
             return " " + LocalizedString.with.localized
         case .paymentMethod(let isCompact):
-            return isCompact ? "" : LocalizedString.payByBank.localized + " "
+            return isCompact ? "" : LocalizedString.payByBank.localized.nonBreaking + " "
+        case .purchaseConfirmation(let merchantName, _):
+            let toSpend = LocalizedString.toSpend.localized
+            let atMerchant = LocalizedString.atMerchant.localized(merchantName).nonBreaking
+            return String(format: " %@ %@", toSpend, atMerchant)
         case .campaignLink(let merchantName):
             return " " + LocalizedString.toSpendAtNextTimeYouPayWithCatch
                 .localized(merchantName)
@@ -54,6 +58,10 @@ enum StringFormat {
      */
     static func percentString(from decimal: Double) -> String {
         return NumberFormatter.percentFormatter.string(from: NSNumber(value: decimal)) ?? String()
+    }
+
+    static func dateString(from date: Date) -> String {
+        return DateFormatter.expirationDate.string(from: date)
     }
 
 }
@@ -90,6 +98,15 @@ extension NumberFormatter {
         formatter.minimumIntegerDigits = 1
         formatter.maximumIntegerDigits = 3
         formatter.maximumFractionDigits = 0
+        return formatter
+    }
+}
+
+extension DateFormatter {
+    static var expirationDate: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yy"
+        formatter.timeZone = TimeZone.current
         return formatter
     }
 }
