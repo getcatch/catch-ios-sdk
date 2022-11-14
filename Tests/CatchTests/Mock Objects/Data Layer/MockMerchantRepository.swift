@@ -9,6 +9,8 @@ import XCTest
 @testable import Catch
 
 class MockMerchantRepository: MerchantRepositoryInterface {
+    var merchantPublicKey: String?
+
     func getCurrentMerchant() -> Merchant? {
         MockDataProvider.defaultMerchant
     }
