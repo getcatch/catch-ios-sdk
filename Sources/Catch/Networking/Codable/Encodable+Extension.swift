@@ -9,8 +9,8 @@ import Foundation
 
 extension Encodable {
 
-    func encoded() throws -> Data {
-        return try APIEncoder().encode(self)
+    func encoded(encodingStrategy: JSONEncoder.KeyEncodingStrategy = .convertToSnakeCase) throws -> Data {
+        return try APIEncoder(encodingStrategy: encodingStrategy).encode(self)
     }
 
     func toQueryItems() throws -> [URLQueryItem] {
