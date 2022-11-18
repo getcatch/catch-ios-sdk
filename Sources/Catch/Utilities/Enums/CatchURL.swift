@@ -16,4 +16,5 @@ enum CatchURL {
     static let logoImage = "https://assets.getcatch.com/merchant-assets/%@/card_logo.png"
     static let signIn = "https://app.getcatch.com/u/sign-in"
     static let rewardCampaignLandingPage = "/u/e/%@"
+    static let tofuPath = "/t/"
 }

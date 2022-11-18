@@ -21,4 +21,7 @@ struct EarnedRewardsSummary: Codable {
     /// Amount of rewards (in US cents) that the user can earn.
     let earnedRewardsTotal: Int?
 
+    /// Rewards rules used for the earnings breakdown modal
+    let earnedRewardBreakdown: [EarnedRewardRuleDetail]
+
 }
