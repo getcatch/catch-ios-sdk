@@ -17,14 +17,15 @@ class CatchWebViewController: UIViewController {
     }()
 
     weak var postMessageHandler: PostMessageHandler?
-
     let listenerName = "iOSListener"
     let url: URL
+    let userRepository: UserRepositoryInterface
 
     // MARK: - Initializers
 
-    init(url: URL) {
+    init(url: URL, userRepository: UserRepositoryInterface = Catch.userRepository) {
         self.url = url
+        self.userRepository = userRepository
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -45,9 +46,11 @@ class CatchWebViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        webView.alpha = 0
         UIView.animate(withDuration: UIConstant.modalAnimationDuration,
                        delay: 0,
                        options: .curveEaseOut, animations: {
+            self.webView.alpha = 1
             self.view.backgroundColor = UIConstant.modalBackgroundColor
         })
     }
@@ -66,8 +69,26 @@ class CatchWebViewController: UIViewController {
 extension CatchWebViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        injectOrSaveDeviceToken(webView)
+
         let script: JSScript = .addPostMessageListener(name: listenerName)
         webView.evaluateScript(script)
+    }
+
+    private func injectOrSaveDeviceToken(_ webView: WKWebView) {
+        // Injects the existing device token into the webview if it exists.
+        if let existingToken = userRepository.getDeviceToken() {
+            let localScript: JSScript = .setLocalStorageItem(name: JSScript.deviceTokenKey, value: existingToken)
+            webView.evaluateScript(localScript)
+        } else {
+            // Pulls device token from the webview's local storage and saves it to the user repository.
+            let localScript: JSScript = .getLocalStorageItem(name: JSScript.deviceTokenKey)
+            webView.evaluateScript(localScript) { [unowned self] result in
+                if case let .success(value) = result, let token = value as? String {
+                    self.userRepository.saveDeviceToken(token)
+                }
+            }
+        }
     }
 
     // this handles target=_blank links by opening them in Safari
@@ -90,7 +111,7 @@ extension CatchWebViewController: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard message.name == listenerName,
               let body = message.body as? [String: Any],
-              let actionString = body["action"] as? String,
+              let actionString = body[JSScript.actionKey] as? String,
               let action = PostMessageAction(rawValue: actionString) else { return }
         postMessageHandler?.handlePostMessage(action)
     }
