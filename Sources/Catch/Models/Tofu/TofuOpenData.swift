@@ -31,10 +31,10 @@ struct TofuOpenData: Encodable {
               let breakdownDict = try? JSONSerialization.jsonObject(with: breakdown),
                 let defaultsDict = try? JSONSerialization.jsonObject(with: defaults) else { return [:] }
         return [
-            "earnedRewardsBreakdown" : breakdownDict,
-            "price" : price,
-            "merchantDefaults" : defaultsDict,
-            "path" : path
+            "earnedRewardsBreakdown": breakdownDict,
+            "price": price,
+            "merchantDefaults": defaultsDict,
+            "path": path
         ]
     }
 }
