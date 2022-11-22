@@ -7,11 +7,17 @@
 
 import Foundation
 
+struct RewardsCalculatorResult {
+    let price: Int
+    let prioritizedReward: Reward
+    let summary: EarnedRewardsSummary
+}
+
 protocol RewardsCalculatorInterface {
     var readyToFetch: Bool { get }
     func getEarnedRewardsSummary() -> EarnedRewardsSummary?
     func fetchCalculatedEarnedReward(price: Int, items: [Item]?, userCohorts: [String]?,
-                                     completion: @escaping (Result<Reward, Error>) -> Void)
+                                     completion: @escaping (Result<RewardsCalculatorResult, Error>) -> Void)
 }
 
 class RewardsCalculator: RewardsCalculatorInterface {
@@ -45,7 +51,7 @@ class RewardsCalculator: RewardsCalculatorInterface {
     func fetchCalculatedEarnedReward(price: Int,
                                      items: [Item]?,
                                      userCohorts: [String]?,
-                                     completion: @escaping (Result<Reward, Error>) -> Void) {
+                                     completion: @escaping (Result<RewardsCalculatorResult, Error>) -> Void) {
 
         guard let merchant = merchantRepository.getCurrentMerchant(),
               let publicUserData = userRepository.getCurrentUser() else {
@@ -66,7 +72,10 @@ class RewardsCalculator: RewardsCalculatorInterface {
                     existingUserRewardAmount: publicUserData.rewardAmount,
                     defaultMerchantRewardRate: merchant.defaultEarnedRewardsRate
                 ) {
-                    completion(.success(rewardToDisplay))
+                    let prioritizedRewardSummary = RewardsCalculatorResult(price: price,
+                                                                           prioritizedReward: rewardToDisplay,
+                                                                           summary: rewardSummary)
+                    completion(.success(prioritizedRewardSummary))
                 }
             case .failure(let error):
                 completion(.failure(error))

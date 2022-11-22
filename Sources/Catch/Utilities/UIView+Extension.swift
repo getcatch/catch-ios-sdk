@@ -25,4 +25,14 @@ extension UIView {
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
     }
+
+    /**
+     Sets the view's layout priorities to prioritize expanding to fill available space.
+     */
+    func setExpandingLayoutPriorities() {
+        setContentHuggingPriority(.defaultLow, for: .horizontal)
+        setContentHuggingPriority(.defaultLow, for: .vertical)
+        setContentCompressionResistancePriority(.required, for: .horizontal)
+        setContentCompressionResistancePriority(.required, for: .vertical)
+    }
 }
