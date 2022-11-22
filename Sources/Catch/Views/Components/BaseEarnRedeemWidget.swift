@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class BaseEarnRedeemWidget: BaseWidget {
+public class BaseEarnRedeemWidget: BaseWidget, InfoButtonDelegate, TofuPresenting {
     // MARK: - Info Button Properties
 
     lazy internal var infoButton = InfoButton(style: infoButtonStyle)
@@ -52,14 +52,21 @@ public class BaseEarnRedeemWidget: BaseWidget {
     }
 
     override internal func didTapEarnRedeemLabel() {
-
+        presentTofu(path: .breakdown)
     }
 
     internal func didTapInfoButton() {
-
+        presentTofu(path: .howItWorks)
     }
 
     private func configureInfoButton() {
+        infoButton.delegate = self
         infoButton.setStyle(NSAttributedStringStyle.infoButtonStyle(theme: theme))
+    }
+
+    private func presentTofu(path: TofuPath) {
+        if let tofuData = viewModel?.rewardsResult {
+            presentTofuModal(rewards: tofuData, path: path)
+        }
     }
 }
