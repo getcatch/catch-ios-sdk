@@ -22,8 +22,7 @@ protocol BaseWidgetViewModelInterface {
 class BaseEarnRedeemWidgetViewModel: BaseWidgetViewModelInterface {
     weak var delegate: BaseWidgetDelegate?
     internal var merchant: Merchant?
-
-    private var rewardsResult: RewardsCalculatorResult?
+    internal var rewardsResult: RewardsCalculatorResult?
     internal var earnRedeemLabelType: EarnRedeemLabelType
     internal var amount: Int
 
