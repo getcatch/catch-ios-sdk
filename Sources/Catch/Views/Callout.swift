@@ -7,11 +7,9 @@
 
 import UIKit
 
-public class Callout: BaseWidget {
+public class Callout: BaseEarnRedeemWidget {
     // MARK: - Properties
     private var orPrefix = false
-
-    lazy private var infoButton = InfoButton(style: infoButtonStyle)
 
     override var orderedSubviews: [UIView] {
         return [label, logo, infoButton]
@@ -38,7 +36,6 @@ public class Callout: BaseWidget {
                                       userCohorts: userCohorts,
                                       earnRedeemLabelConfig: earnRedeemLabelConfig)
         super.init(config: config)
-        configureInfoButton()
     }
 
     required init?(coder: NSCoder) {
@@ -52,14 +49,5 @@ public class Callout: BaseWidget {
         stack.axis = .horizontal
         stack.spacing = UIConstant.smallSpacing
         stack.setCustomSpacing(UIConstant.smallMediumSpacing, after: logo)
-    }
-
-    override func didUpdateTheme() {
-        super.didUpdateTheme()
-        configureInfoButton()
-    }
-
-    private func configureInfoButton() {
-        infoButton.setStyle(NSAttributedStringStyle.infoButtonStyle(theme: theme))
     }
 }

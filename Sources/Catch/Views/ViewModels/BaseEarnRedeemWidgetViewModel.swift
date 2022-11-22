@@ -1,5 +1,5 @@
 //
-//  BaseWidgetViewModel.swift
+//  BaseEarnRedeemWidgetViewModel.swift
 //  Catch
 //
 //  Created by Lucille Benoit on 11/4/22.
@@ -18,11 +18,12 @@ protocol BaseWidgetViewModelInterface {
     func updatePrice(_ price: Int)
 }
 
-// MARK: - BaseWidgetViewModel
-class BaseWidgetViewModel: BaseWidgetViewModelInterface {
+// MARK: - BaseEarnRedeemWidgetViewModel
+class BaseEarnRedeemWidgetViewModel: BaseWidgetViewModelInterface {
     weak var delegate: BaseWidgetDelegate?
     internal var merchant: Merchant?
-    internal var reward: Reward = .percentRate(Constant.defaultRewardsRate)
+
+    private var rewardsResult: RewardsCalculatorResult?
     internal var earnRedeemLabelType: EarnRedeemLabelType
     internal var amount: Int
 
@@ -65,8 +66,9 @@ class BaseWidgetViewModel: BaseWidgetViewModelInterface {
                                                            userCohorts: userCohorts) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let reward):
-                self.reward = reward
+            case .success(let rewardsCalculatorResult):
+                let reward = rewardsCalculatorResult.prioritizedReward
+                self.rewardsResult = rewardsCalculatorResult
                 self.delegate?.updateEarnRedeemMessage(reward: reward, type: self.earnRedeemLabelType)
             case .failure(let error):
                 Logger().log(error: error)

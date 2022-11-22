@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class PaymentMethod: BaseWidget {
+public class PaymentMethod: BaseEarnRedeemWidget {
     /**
      Whether or not the widget is in a disabled state.
      Disabled payment method widgets are displayed slightly greyed out with interaction disabled.
@@ -24,7 +24,6 @@ public class PaymentMethod: BaseWidget {
     public var selected: Bool
 
     private var variant: PaymentMethodVariant
-    lazy private var infoButton = InfoButton(style: infoButtonStyle)
 
     private lazy var labelInfoStack: UIStackView = {
         let stack = UIStackView()
@@ -80,19 +79,11 @@ public class PaymentMethod: BaseWidget {
                                       userCohorts: userCohorts,
                                       earnRedeemLabelConfig: earnRedeemLabelConfig)
         super.init(config: config)
-        configureInfoButton()
         setDisabledState()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: Theme Handling
-
-    override func didUpdateTheme() {
-        super.didUpdateTheme()
-        configureInfoButton()
     }
 
     // MARK: - AutoLayout
@@ -117,9 +108,5 @@ private extension PaymentMethod {
         logo.alpha = transparency
         label.alpha = transparency
         label.isUserInteractionEnabled = !disabled
-    }
-
-    private func configureInfoButton() {
-        infoButton.setStyle(NSAttributedStringStyle.infoButtonStyle(theme: theme))
     }
 }

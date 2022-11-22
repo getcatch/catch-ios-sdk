@@ -8,7 +8,7 @@
 import UIKit
 
 /// The CatchLogo view displays Catch's logo.
-public class CatchLogo: UIView, ThemeResponding {
+public class CatchLogo: UIView, NotificationResponding {
 
     internal var theme: Theme {
         didSet {
@@ -47,10 +47,17 @@ public class CatchLogo: UIView, ThemeResponding {
      - Parameter theme: The Catch color theme.
      */
     public func setTheme(_ theme: Theme) {
-        updateLocalTheme(theme)
+        unsubscribeFromNotifications()
+        self.theme = theme
     }
 
     // MARK: - Private Helpers
+    internal func didReceiveNotification(_ notification: Notification) {
+        if let theme = notification.object as? Theme {
+            self.theme = theme
+        }
+    }
+
     private func configureImageView() {
         imageView.image = theme.logoImage
         imageView.contentMode = .scaleAspectFit
