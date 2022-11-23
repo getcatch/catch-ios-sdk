@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class BaseEarnRedeemWidget: BaseWidget, InfoButtonDelegate {
+public class BaseEarnRedeemWidget: BaseWidget {
     // MARK: - Info Button Properties
 
     lazy internal var infoButton = InfoButton(style: infoButtonStyle)

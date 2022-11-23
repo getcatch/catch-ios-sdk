@@ -18,8 +18,8 @@ final class RewardsCalculatorTests: XCTestCase {
                                                items: nil,
                                                userCohorts: nil) { result in
             switch result {
-            case .success(let reward):
-                if case let Reward.percentRate(rate) = reward {
+            case .success(let rewardResult):
+                if case let Reward.percentRate(rate) = rewardResult.prioritizedReward {
                     XCTAssertEqual(rate, self.defaultRate, "Calculate rewards should have returned the default rate")
                 } else {
                     XCTFail("Calculate earned rewards should have fallen back to percentage rate due to invalid price")
@@ -42,8 +42,8 @@ final class RewardsCalculatorTests: XCTestCase {
                                                items: nil,
                                                userCohorts: nil) { result in
             switch result {
-            case .success(let reward):
-                if case let Reward.earnedCredits(credits) = reward {
+            case .success(let rewardResult):
+                if case let Reward.earnedCredits(credits) = rewardResult.prioritizedReward {
                     XCTAssertEqual(credits, expectedCreditAmount)
                     XCTAssertNotNil(calculator.getEarnedRewardsSummary)
                 } else {
@@ -67,8 +67,8 @@ final class RewardsCalculatorTests: XCTestCase {
                                                items: nil,
                                                userCohorts: nil) { result in
             switch result {
-            case .success(let reward):
-                if case let Reward.redeemableCredits(credits) = reward {
+            case .success(let rewardResult):
+                if case let Reward.redeemableCredits(credits) = rewardResult.prioritizedReward {
                     XCTAssertEqual(credits, expectedCreditAmount)
                     XCTAssertNotNil(calculator.getEarnedRewardsSummary)
                 } else {
@@ -91,8 +91,8 @@ final class RewardsCalculatorTests: XCTestCase {
                                                items: nil,
                                                userCohorts: nil) { result in
             switch result {
-            case .success(let reward):
-                if case let Reward.earnedCredits(credits) = reward {
+            case .success(let rewardResult):
+                if case let Reward.earnedCredits(credits) = rewardResult.prioritizedReward {
                     XCTAssertEqual(credits, expectedCreditAmount)
                     XCTAssertNotNil(calculator.getEarnedRewardsSummary)
                 } else {
@@ -116,7 +116,8 @@ final class RewardsCalculatorTests: XCTestCase {
                                                items: nil,
                                                userCohorts: nil) { result in
 
-            if case let .success(reward) = result, case let Reward.percentRate(rate) = reward {
+            if case let .success(rewardResult) = result,
+                case let Reward.percentRate(rate) = rewardResult.prioritizedReward {
                 XCTAssertEqual(rate, expectedRate)
                 XCTAssertNotNil(calculator.getEarnedRewardsSummary)
             } else {
