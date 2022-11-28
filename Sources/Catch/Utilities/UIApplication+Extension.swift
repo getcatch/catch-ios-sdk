@@ -5,7 +5,7 @@
 //  Created by Lucille Benoit on 11/22/22.
 //
 
-import Foundation
+import UIKit
 
 extension UIApplication {
     static func topViewController() -> UIViewController? {
