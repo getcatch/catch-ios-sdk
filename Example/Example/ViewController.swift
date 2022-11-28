@@ -22,12 +22,4 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if #available(iOS 13.0, *) {
-            logoView.theme = self.traitCollection.userInterfaceStyle == .dark ? .darkColor : .lightColor
-        }
-    }
-
 }
