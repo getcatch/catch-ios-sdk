@@ -9,8 +9,8 @@ import Catch
 import UIKit
 
 /**
- Base class used to demo a Catch widget and any configuration components.
- */
+Base class used to demo a Catch widget and any configuration components.
+*/
 class WidgetDemo: UIView {
     internal var title: String
     internal var widget: UIView
