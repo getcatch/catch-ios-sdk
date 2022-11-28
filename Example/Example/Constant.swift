@@ -26,4 +26,7 @@ enum Constant {
     static let headerHeight: CGFloat = 60
     static let defaultMargin: CGFloat = 12
     static let demoStackSpacing: CGFloat = 48
+
+    // Fonts
+    static let bodyFont = UIFont.systemFont(ofSize: 12)
 }
