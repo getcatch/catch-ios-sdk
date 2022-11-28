@@ -29,4 +29,26 @@ enum Constant {
 
     // Fonts
     static let bodyFont = UIFont.systemFont(ofSize: 12)
+
+    // Callout Demo
+    static let calloutName = "Callout"
+    static let orPrefix = "Or prefix"
+
+    // Express Checkout Callout Demo
+    static let expressCheckoutCalloutName = "Express Checkout Callout"
+
+    // Payment Method Demo
+    static let disabled = "Disabled"
+    static let paymentMethodName = "Payment Method"
+
+    // Purchase Confirmation Demo
+    static let initialEarnedAmount = 1000
+    static let purchaseConfirmationName = "Purchase Confirmation"
+
+    // Campaign Link Demo
+    static let campaignName = "RAWYP"
+    static let campaignLinkName = "Campaign Link"
+
+    // Logo Demo
+    static let logoName = "Logo"
 }
