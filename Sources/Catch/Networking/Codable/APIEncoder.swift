@@ -9,9 +9,10 @@ import Foundation
 
 class APIEncoder: JSONEncoder {
 
-    override init() {
-        super.init()
-        keyEncodingStrategy = .convertToSnakeCase
+    convenience init(encodingStrategy: KeyEncodingStrategy = .convertToSnakeCase) {
+        self.init()
+        keyEncodingStrategy = encodingStrategy
+        outputFormatting = .sortedKeys
         dateEncodingStrategy = .iso8601
     }
 

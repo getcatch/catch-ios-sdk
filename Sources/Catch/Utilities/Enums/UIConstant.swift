@@ -82,4 +82,10 @@ enum UIConstant {
 
     // Unicode string for en dash (double dash)
     static let enDash: String = "\u{2013}"
+
+    // Background color for modal views
+    static let modalBackgroundColor = UIColor.black.withAlphaComponent(0.2)
+
+    // Modal animation duration
+    static let modalAnimationDuration: TimeInterval = 0.3
 }
