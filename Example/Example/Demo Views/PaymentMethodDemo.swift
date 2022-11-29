@@ -14,12 +14,12 @@ class PaymentMethodDemo: WidgetDemo {
         return [label, widgetStack, disabledCheckbox]
     }
 
-    private lazy var disabledCheckbox = Checkbox(title: Constant.disabled)
+    private lazy var disabledCheckbox = Checkbox(title: Strings.disabled)
 
     let paymentMethod = PaymentMethod(price: 0)
 
     init() {
-        super.init(title: Constant.paymentMethodName, widget: paymentMethod)
+        super.init(title: Strings.paymentMethodName, widget: paymentMethod)
         disabledCheckbox.delegate = self
     }
 

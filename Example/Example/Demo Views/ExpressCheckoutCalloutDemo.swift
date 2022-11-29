@@ -13,7 +13,7 @@ class ExpressCheckoutCalloutDemo: WidgetDemo {
     let expressCheckoutCallout = ExpressCheckoutCallout(price: 0)
 
     init() {
-        super.init(title: Constant.expressCheckoutCalloutName, widget: expressCheckoutCallout)
+        super.init(title: Strings.expressCheckoutCalloutName, widget: expressCheckoutCallout)
     }
 
     @available(*, unavailable)

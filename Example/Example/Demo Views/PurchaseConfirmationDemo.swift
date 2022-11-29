@@ -13,7 +13,7 @@ class PurchaseConfirmationDemo: WidgetDemo {
     let purchaseConfirmation = PurchaseConfirmation(earned: Constant.initialEarnedAmount)
 
     init() {
-        super.init(title: Constant.purchaseConfirmationName, widget: purchaseConfirmation)
+        super.init(title: Strings.purchaseConfirmationName, widget: purchaseConfirmation)
     }
 
     @available(*, unavailable)
