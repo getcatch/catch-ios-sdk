@@ -64,7 +64,7 @@ class RewardsCalculator: RewardsCalculatorInterface {
                     rewardSummary: rewardSummary,
                     purchasePrice: price,
                     existingUserRewardAmount: publicUserData.rewardAmount,
-                    defaultMerchantRewardRate: merchant.rewardsRate
+                    defaultMerchantRewardRate: merchant.defaultEarnedRewardsRate
                 ) {
                     completion(.success(rewardToDisplay))
                 }

@@ -49,6 +49,7 @@ public class _Catch {
                            completion: @escaping (Result<Bool, Error>) -> Void) {
 
         guard !publicKey.isEmpty else { return }
+        self.options = options
 
         if options.useCatchFonts {
             CatchFontLoader.registerFonts()

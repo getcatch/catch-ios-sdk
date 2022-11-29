@@ -18,12 +18,15 @@ class MockDataProvider {
         return Merchant(merchantId: "testId",
                         name: "Test Merchant",
                         url: "www.google.com",
-                        rewardsRate: 0.1,
+                        defaultEarnedRewardsRate: 0.1,
                         rewardsLifetimeInDays: 180,
                         cardBackgroundImageUrl: imageURL,
                         cardBackgroundColor: "#C779D0",
                         cardFontColor: "#FFFFFF",
-                        donationRecipient: nil)
+                        donationRecipient: nil,
+                        defaultSignUpBonus: 1000,
+                        defaultSignUpDiscount: 0,
+                        theme: nil)
     }
 
     static var publicUserDataNoCredits: PublicUserData {
@@ -48,20 +51,23 @@ class MockDataProvider {
         return EarnedRewardsSummary(signUpBonusAmount: 0,
                                     signUpDiscountAmount: 0,
                                     percentageRewardRate: 0.1,
-                                    earnedRewardsTotal: 1000)
+                                    earnedRewardsTotal: 1000,
+                                    earnedRewardBreakdown: [])
     }
 
     static var newUserEarnedRewardsSummary: EarnedRewardsSummary {
         return EarnedRewardsSummary(signUpBonusAmount: 0,
                                     signUpDiscountAmount: 1000,
                                     percentageRewardRate: 0.1,
-                                    earnedRewardsTotal: 5000)
+                                    earnedRewardsTotal: 5000,
+                                    earnedRewardBreakdown: [])
     }
 
     static var earnedRewardsSummaryNoRewards: EarnedRewardsSummary {
         return EarnedRewardsSummary(signUpBonusAmount: 0,
                                     signUpDiscountAmount: 0,
                                     percentageRewardRate: 0.15,
-                                    earnedRewardsTotal: 0)
+                                    earnedRewardsTotal: 0,
+                                    earnedRewardBreakdown: [])
     }
 }

@@ -26,7 +26,7 @@ internal class CampaignLinkViewModel: BaseWidgetViewModelInterface, MerchantSubs
     internal var rewardsRateString: String {
         var rate = Constant.defaultRewardsRate
         if let merchant = merchantRepository.getCurrentMerchant() {
-            rate = merchant.rewardsRate
+            rate = merchant.defaultEarnedRewardsRate
         }
         return StringFormat.percentString(from: rate)
     }
@@ -76,7 +76,8 @@ internal class CampaignLinkViewModel: BaseWidgetViewModelInterface, MerchantSubs
             Logger().log(error: error)
             return
         }
-        rewardCampaignService.fetchRewardCampaign(named: name, publicKey: publicKey) { result in
+        rewardCampaignService.fetchRewardCampaign(named: name, publicKey: publicKey) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let campaign):
                 self.rewardCampaign = campaign

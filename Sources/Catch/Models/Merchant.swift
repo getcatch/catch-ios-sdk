@@ -19,7 +19,7 @@ struct Merchant: Codable, Equatable {
     let url: String
 
     /// Between 0 and 1, the fraction of amount paid that a user gets back at this merchant.
-    let rewardsRate: Double
+    let defaultEarnedRewardsRate: Double
 
     /// Number of days after earning that the rewards expire.
     let rewardsLifetimeInDays: Int
@@ -36,11 +36,20 @@ struct Merchant: Codable, Equatable {
     /// The recipient of donation campaigns.
     let donationRecipient: DonationRecipient?
 
+    /// Flat amount that a new Catch user will receive in rewards at this merchant
+    let defaultSignUpBonus: Int
+
+    /// Flat amount that a new Catch user will receive as a discount at this merchant
+    let defaultSignUpDiscount: Int
+
+    /// Theme for web views
+    let theme: MerchantThemeConfig?
+
     static func == (lhs: Merchant, rhs: Merchant) -> Bool {
         return lhs.merchantId == rhs.merchantId
         && lhs.name == rhs.name
         && lhs.url == rhs.url
-        && lhs.rewardsRate == rhs.rewardsRate
+        && lhs.defaultEarnedRewardsRate == rhs.defaultEarnedRewardsRate
         && lhs.rewardsLifetimeInDays == rhs.rewardsLifetimeInDays
     }
 
@@ -48,4 +57,8 @@ struct Merchant: Codable, Equatable {
     var expirationDate: Date? {
         return Date().byAdding(days: rewardsLifetimeInDays)
     }
+}
+
+struct MerchantThemeConfig: Codable {
+    let name: String
 }

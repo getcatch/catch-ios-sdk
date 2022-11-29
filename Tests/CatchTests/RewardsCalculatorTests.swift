@@ -111,7 +111,7 @@ final class RewardsCalculatorTests: XCTestCase {
         let earnedRewards = MockDataProvider.earnedRewardsSummaryNoRewards
         let calculator = createRewardsCalculator(publicUserData: userData, targetEarnedReward: earnedRewards)
 
-        let expectedRate = max(merchant.rewardsRate, earnedRewards.percentageRewardRate)
+        let expectedRate = max(merchant.defaultEarnedRewardsRate, earnedRewards.percentageRewardRate)
         calculator.fetchCalculatedEarnedReward(price: purchasePrice,
                                                items: nil,
                                                userCohorts: nil) { result in

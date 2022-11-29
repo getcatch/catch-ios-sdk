@@ -16,4 +16,14 @@ enum CatchURL {
     static let logoImage = "https://assets.getcatch.com/merchant-assets/%@/card_logo.png"
     static let signIn = "https://app.getcatch.com/u/sign-in"
     static let rewardCampaignLandingPage = "/u/e/%@"
+    static let tofuPath = "/t/"
+
+    static func tofu(_ merchantRepository: MerchantRepositoryInterface) -> URL? {
+        guard let merchant = merchantRepository.getCurrentMerchant(),
+              let publicKey = merchantRepository.merchantPublicKey,
+              let queryItems = try? TofuURLQuery(merchant: merchant,
+                                                publicKey: publicKey).toQueryItems(encodingStrategy: .useDefaultKeys)
+        else { return nil }
+        return URLComponents(path: CatchURL.tofuPath, queryItems: queryItems).url
+    }
 }

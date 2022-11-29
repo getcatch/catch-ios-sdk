@@ -13,12 +13,14 @@ extension Encodable {
         return try APIEncoder(encodingStrategy: encodingStrategy).encode(self)
     }
 
-    func toQueryItems() throws -> [URLQueryItem] {
-        return try asDictionary().map { URLQueryItem(name: $0, value: "\($1)") }
+    func toQueryItems(
+        encodingStrategy: JSONEncoder.KeyEncodingStrategy = .convertToSnakeCase
+    ) throws -> [URLQueryItem] {
+        return try asDictionary(encodingStrategy: encodingStrategy).map { URLQueryItem(name: $0, value: "\($1)") }
     }
 
-    private func asDictionary() throws -> [String: Any] {
-        let data = try self.encoded()
+    private func asDictionary(encodingStrategy: JSONEncoder.KeyEncodingStrategy) throws -> [String: Any] {
+        let data = try self.encoded(encodingStrategy: encodingStrategy)
         guard let dictionary = try JSONSerialization.jsonObject(with: data,
                                                                 options: .allowFragments) as? [String: Any] else {
             throw NSError()
