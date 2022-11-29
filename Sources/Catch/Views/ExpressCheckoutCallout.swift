@@ -7,10 +7,9 @@
 
 import UIKit
 
-public class ExpressCheckoutCallout: BaseWidget {
+public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
 
     // MARK: - Subviews
-    private lazy var infoButton = InfoButton(style: infoButtonStyle)
     private var paymentStepLabel = UILabel(frame: .zero)
     private lazy var spacer = UIView()
     private var needsMultiLineLayout = true
@@ -37,6 +36,10 @@ public class ExpressCheckoutCallout: BaseWidget {
 
     override var orderedSubviews: [UIView] {
         return [topStack, bottomStack]
+    }
+
+    override public var intrinsicContentSize: CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: frame.height)
     }
 
     // MARK: - Initializers
@@ -67,7 +70,6 @@ public class ExpressCheckoutCallout: BaseWidget {
                                       earnRedeemLabelConfig: earnRedeemLabelConfig)
 
         super.init(config: config)
-        configureInfoButton()
         configurePaymentStepLabel()
     }
 
@@ -80,7 +82,6 @@ public class ExpressCheckoutCallout: BaseWidget {
     override func didUpdateTheme() {
         super.didUpdateTheme()
         paymentStepLabel.attributedText = paymentStepString()
-        configureInfoButton()
     }
 
     override func createBenefitTextStyle() -> EarnRedeemLabel.Style {
@@ -98,6 +99,7 @@ public class ExpressCheckoutCallout: BaseWidget {
     // MARK: - Autolayout
 
     override func configureStack() {
+        setExpandingLayoutPriorities()
         stack.axis = .vertical
         stack.alignment = .leading
         stack.distribution = .equalCentering
@@ -145,10 +147,6 @@ private extension ExpressCheckoutCallout {
         mutableString.append(NSAttributedString(string: paymentStepText, style: style))
         mutableString.append(NSAttributedString(string: LocalizedString.paymentStep.localized, style: boldStyle))
         return mutableString
-    }
-
-    func configureInfoButton() {
-        infoButton.setStyle(NSAttributedStringStyle.infoButtonStyle(theme: theme))
     }
 
     func configureOneLineLayout() {

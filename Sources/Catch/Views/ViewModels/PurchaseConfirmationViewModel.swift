@@ -12,24 +12,19 @@ protocol PurchaseConfirmationViewModelDelegate: AnyObject {
     func updateEarnRedeemMessage(reward: Reward, type: EarnRedeemLabelType)
 }
 
-class PurchaseConfirmationViewModel: BaseWidgetViewModelInterface, MerchantSubscribing {
+class PurchaseConfirmationViewModel: BaseCardViewModel {
 
+    // MARK: Properties
     weak var delegate: PurchaseConfirmationViewModelDelegate?
 
-    internal var earnRedeemLabelType: EarnRedeemLabelType {
+    internal var textLabelType: EarnRedeemLabelType {
         return .purchaseConfirmation(merchantName: merchantName, amountEarned: amount)
     }
 
-    private var amount: Int {
+    internal var amount: Int {
         didSet {
-            updateViews()
+            updateMerchantViews()
         }
-    }
-
-    private var merchant: Merchant?
-
-    private var merchantName: String {
-        return merchant?.name ?? LocalizedString.thisStore.localized
     }
 
     // MARK: - Initializers
@@ -40,31 +35,27 @@ class PurchaseConfirmationViewModel: BaseWidgetViewModelInterface, MerchantSubsc
         let amountEarned = config.price ?? 0
         self.amount = amountEarned
         self.delegate = delegate
-        self.merchant = merchantRepository.getCurrentMerchant()
-        updateViews()
-        subscribeToMerchantUpdates()
+        super.init()
+        self.merchantUpdatingDelegate = self
+        updateMerchantViews()
     }
 
-    func updatePrice(_ price: Int) {
-        self.amount = price
+    func updateEarnedAmount(_ amount: Int) {
+        self.amount = amount
     }
 
-    func handleMerchantNotification(merchant: Merchant) {
-        self.merchant = merchant
-        updateViews()
-    }
 }
 
-// MARK: - Private Helpers
-private extension PurchaseConfirmationViewModel {
+// MARK: - BaseCardViewModel Conformance
+extension PurchaseConfirmationViewModel: MerchantRespondingDelegate {
 
-    private func updateViews() {
+    internal func updateMerchantViews() {
         var expirationDate: Date?
         if let merchant = merchant {
             expirationDate = Date().byAdding(days: merchant.rewardsLifetimeInDays)
         }
 
-        delegate?.updateEarnRedeemMessage(reward: .earnedCredits(amount), type: earnRedeemLabelType)
+        delegate?.updateEarnRedeemMessage(reward: .earnedCredits(amount), type: textLabelType)
         delegate?.updateCardData(amount: amount, expiration: expirationDate, merchant: merchant)
     }
 }

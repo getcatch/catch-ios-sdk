@@ -7,14 +7,15 @@
 
 import UIKit
 
-public class BaseWidget: UIView, ThemeResponding, BorderConfiguring, BaseWidgetDelegate {
+public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, BaseWidgetDelegate {
 
     // MARK: - Subviews
     internal let stack: UIStackView = UIStackView()
     internal var logo: CatchLogo
-    lazy internal var label: EarnRedeemLabel = EarnRedeemLabel(type: .expressCheckoutCallout,
+    lazy internal var label: EarnRedeemLabel = EarnRedeemLabel(type: earnRedeemLabelType,
                                                           style: EarnRedeemLabel.Style(),
-                                                          tapHandler: {})
+                                                          tapHandler: didTapEarnRedeemLabel)
+    internal var earnRedeemLabelType: EarnRedeemLabelType
 
     // MARK: - View Configuration Properties
 
@@ -37,9 +38,7 @@ public class BaseWidget: UIView, ThemeResponding, BorderConfiguring, BaseWidgetD
     }
 
     internal var insets: UIEdgeInsets
-    internal var infoButtonStyle: NSAttributedStringStyle
     internal var orderedSubviews: [UIView] { return [] }
-    internal var viewModel: BaseWidgetViewModelInterface?
 
     // MARK: - Initializers
 
@@ -49,9 +48,9 @@ public class BaseWidget: UIView, ThemeResponding, BorderConfiguring, BaseWidgetD
     internal init(config: BaseWidgetConfig) {
         self.theme = config.theme ?? .lightColor
         self.borderStyle = config.borderConfig.style ?? .none
-        self.infoButtonStyle = NSAttributedStringStyle(font: CatchFont.infoButton, lineSpacing: 0)
         self.insets = config.borderConfig.insets
         self.logo = CatchLogo(theme: theme)
+        self.earnRedeemLabelType = config.earnRedeemLabelConfig
 
         super.init(frame: .zero)
         initializeViewModel(config: config)
@@ -61,7 +60,7 @@ public class BaseWidget: UIView, ThemeResponding, BorderConfiguring, BaseWidgetD
             subscribeToGlobalThemeUpdates()
         }
     }
-
+    @objc
     required internal init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -69,22 +68,20 @@ public class BaseWidget: UIView, ThemeResponding, BorderConfiguring, BaseWidgetD
     // MARK: - Public Functions
 
     public func setTheme(_ theme: Theme) {
-        updateLocalTheme(theme)
-    }
-
-    public func setPrice(_ price: Int) {
-        label.isLoading = true
-        viewModel?.updatePrice(price)
-    }
-
-    public func setBorderStyle(_ borderStyle: BorderStyle) {
-        self.borderStyle = borderStyle
+        unsubscribeFromNotifications()
+        self.theme = theme
     }
 
     // MARK: - Internal Functions
 
+    internal func didReceiveNotification(_ notification: Notification) {
+        if let globalTheme = notification.object as? Theme {
+            theme = globalTheme
+        }
+    }
+
     internal func initializeViewModel(config: BaseWidgetConfig) {
-        self.viewModel = BaseWidgetViewModel(config: config, delegate: self)
+        fatalError("Subclass of BaseWidget must implement initialize view model")
     }
 
     internal func didUpdateTheme() {
@@ -138,6 +135,8 @@ public class BaseWidget: UIView, ThemeResponding, BorderConfiguring, BaseWidgetD
             self?.label.updateData(reward: reward, type: type)
         }
     }
+    // handler for tap on link in earn redeem label
+    internal func didTapEarnRedeemLabel() {}
 }
 
 // MARK: - Private Helpers
@@ -145,12 +144,9 @@ public class BaseWidget: UIView, ThemeResponding, BorderConfiguring, BaseWidgetD
 private extension BaseWidget {
 
     func configureEarnRedeemLabel() {
-        guard let type = viewModel?.earnRedeemLabelType else { return }
-        label = EarnRedeemLabel(type: type,
+        label = EarnRedeemLabel(type: earnRedeemLabelType,
                                 style: createBenefitTextStyle(),
-                                tapHandler: {
-
-        })
+                                tapHandler: didTapEarnRedeemLabel)
         label.sizeToFit()
     }
 

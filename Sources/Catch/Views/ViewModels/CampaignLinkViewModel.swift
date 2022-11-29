@@ -14,18 +14,18 @@ protocol CampaignLinkDelegate: AnyObject {
     func updateButtonConfiguration(buttonTitle: String, url: URL?)
 }
 
-internal class CampaignLinkViewModel: BaseWidgetViewModelInterface, MerchantSubscribing {
+internal class CampaignLinkViewModel: BaseCardViewModel {
 
     // MARK: Properties
     weak var delegate: CampaignLinkDelegate?
 
-    internal var earnRedeemLabelType: EarnRedeemLabelType {
+    internal var textLabelType: EarnRedeemLabelType {
         return .campaignLink(merchantName: merchantName)
     }
 
     internal var rewardsRateString: String {
         var rate = Constant.defaultRewardsRate
-        if let merchant = merchantRepository.getCurrentMerchant() {
+        if let merchant = merchant {
             rate = merchant.defaultEarnedRewardsRate
         }
         return StringFormat.percentString(from: rate)
@@ -33,7 +33,7 @@ internal class CampaignLinkViewModel: BaseWidgetViewModelInterface, MerchantSubs
 
     internal var campaignLinkURL: URL?
 
-    private var amount: Int {
+    internal var amount: Int {
         return rewardCampaign?.totalAmount ?? 0
     }
 
@@ -43,12 +43,6 @@ internal class CampaignLinkViewModel: BaseWidgetViewModelInterface, MerchantSubs
         }
     }
 
-    private var merchantName: String {
-        let merchant = merchantRepository.getCurrentMerchant()
-        return merchant?.name ?? LocalizedString.thisStore.localized
-    }
-
-    private let merchantRepository: MerchantRepositoryInterface
     private let rewardCampaignService: RewardCampaignNetworkServiceInterface
 
     // MARK: - Initializer
@@ -58,20 +52,18 @@ internal class CampaignLinkViewModel: BaseWidgetViewModelInterface, MerchantSubs
                   merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository,
                   rewardsService: RewardCampaignNetworkServiceInterface = RewardCampaignNetworkService()) {
         self.delegate = delegate
-        self.merchantRepository = merchantRepository
         self.rewardCampaignService = rewardsService
-        subscribeToMerchantUpdates()
+        super.init()
         fetchCampaignWithExternalName(campaignName)
     }
 
     // MARK: - Functions
-    func updatePrice(_ price: Int) { }
 
     /**
      Fetches an active reward campaign with the given external name for the current merchant.
      */
     private func fetchCampaignWithExternalName(_ name: String) {
-        guard let publicKey = merchantRepository.merchantPublicKey else {
+        guard let publicKey = merchantPublicKey else {
             let error = NetworkError.requestError(.invalidPublicKey(String()))
             Logger().log(error: error)
             return
@@ -104,33 +96,19 @@ internal class CampaignLinkViewModel: BaseWidgetViewModelInterface, MerchantSubs
         DispatchQueue.main.async { [weak self] in
             guard let self = self, let delegate = self.delegate else { return }
             let reward: Reward = .earnedCredits(self.amount)
-            delegate.updateEarnRedeemMessage(reward: reward, type: self.earnRedeemLabelType)
+            delegate.updateEarnRedeemMessage(reward: reward, type: self.textLabelType)
             delegate.updateCardData(amount: self.amount,
                                     expiration: self.rewardCampaign?.rewardsExpiration,
-                                    merchant: self.merchantRepository.getCurrentMerchant())
+                                    merchant: self.merchant)
             let buttonTitle = LocalizedString.claimStoreCredit.localized(reward.toString())
             delegate.updateButtonConfiguration(buttonTitle: buttonTitle, url: self.campaignLinkURL)
         }
     }
 
-    /**
-     Updates the views which are dependant on merchant data.
-     */
-    internal func handleMerchantNotification(merchant: Merchant) {
-        // Ensures that any view updates are handled on the main thread
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self, let delegate = self.delegate else { return }
-            delegate.updateClaimNowMessage(rewardsRateString: self.rewardsRateString)
-            delegate.updateCardData(amount: self.amount,
-                                    expiration: self.rewardCampaign?.rewardsExpiration,
-                                    merchant: merchant)
-        }
-    }
-
-    /**
-     Unsubscribes from merchant update notifications.
-     */
-    deinit {
-        unsubscribeFromMerchantUpdates()
+    internal func updateMerchantViews() {
+        delegate?.updateClaimNowMessage(rewardsRateString: rewardsRateString)
+        delegate?.updateCardData(amount: amount,
+                                 expiration: rewardCampaign?.rewardsExpiration,
+                                 merchant: merchant)
     }
 }
