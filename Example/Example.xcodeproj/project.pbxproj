@@ -10,6 +10,7 @@
 		820F71A92914878B002877CE /* WidgetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820F71A82914878B002877CE /* WidgetLabel.swift */; };
 		820F71AD29148C48002877CE /* PriceSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820F71AC29148C48002877CE /* PriceSlider.swift */; };
 		8251BCCC2935269800049022 /* WidgetDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCCB2935269800049022 /* WidgetDemo.swift */; };
+		8251BCCE2935296900049022 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCCD2935296900049022 /* Checkbox.swift */; };
 		827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */; };
 		827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78C328B43DCE00EA3B3C /* ViewController.swift */; };
 		827F78C928B43DCE00EA3B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827F78C828B43DCE00EA3B3C /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		820F71A82914878B002877CE /* WidgetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLabel.swift; sourceTree = "<group>"; };
 		820F71AC29148C48002877CE /* PriceSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceSlider.swift; sourceTree = "<group>"; };
 		8251BCCB2935269800049022 /* WidgetDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDemo.swift; sourceTree = "<group>"; };
+		8251BCCD2935296900049022 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		827F78BC28B43DCE00EA3B3C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		827F78C328B43DCE00EA3B3C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8251BCCF29352B2500049022 /* Demo Views */ = {
+			isa = PBXGroup;
+			children = (
+				8251BCD029352B3A00049022 /* Components */,
+			);
+			path = "Demo Views";
+			sourceTree = "<group>";
+		};
+		8251BCD029352B3A00049022 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8251BCCD2935296900049022 /* Checkbox.swift */,
+				820F71AC29148C48002877CE /* PriceSlider.swift */,
+				8251BCCB2935269800049022 /* WidgetDemo.swift */,
+				820F71A82914878B002877CE /* WidgetLabel.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		827F78B328B43DCE00EA3B3C = {
 			isa = PBXGroup;
 			children = (
@@ -101,13 +122,11 @@
 		827F78BE28B43DCE00EA3B3C /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				8251BCCF29352B2500049022 /* Demo Views */,
 				827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */,
 				828AE6D12900B5B7008CA36E /* Constant.swift */,
-				820F71AC29148C48002877CE /* PriceSlider.swift */,
 				82F96DB728B6EA45003AEF38 /* SceneDelegate.swift */,
 				827F78C328B43DCE00EA3B3C /* ViewController.swift */,
-				8251BCCB2935269800049022 /* WidgetDemo.swift */,
-				820F71A82914878B002877CE /* WidgetLabel.swift */,
 				827F78C828B43DCE00EA3B3C /* Assets.xcassets */,
 				827F78CA28B43DCE00EA3B3C /* LaunchScreen.storyboard */,
 				827F78CD28B43DCE00EA3B3C /* Info.plist */,
@@ -351,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8251BCCE2935296900049022 /* Checkbox.swift in Sources */,
 				820F71AD29148C48002877CE /* PriceSlider.swift in Sources */,
 				827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */,
 				827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */,
