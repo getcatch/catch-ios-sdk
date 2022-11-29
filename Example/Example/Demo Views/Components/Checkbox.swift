@@ -41,7 +41,7 @@ class Checkbox: UIButton {
         titleLabel?.font = Constant.bodyFont
         setImage(uncheckedImage, for: .normal)
         addTarget(self, action: #selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
-        backgroundColor = Constant.backgroundColor
+        backgroundColor = .clear
         tintColor = UIColor.systemGray
         setTitleColor(UIColor.label, for: .normal)
     }
