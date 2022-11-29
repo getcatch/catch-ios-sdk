@@ -11,6 +11,12 @@
 		820F71AD29148C48002877CE /* PriceSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820F71AC29148C48002877CE /* PriceSlider.swift */; };
 		8251BCCC2935269800049022 /* WidgetDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCCB2935269800049022 /* WidgetDemo.swift */; };
 		8251BCCE2935296900049022 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCCD2935296900049022 /* Checkbox.swift */; };
+		8251BCD229352F1800049022 /* CalloutDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCD129352F1800049022 /* CalloutDemo.swift */; };
+		8251BCD429352F8900049022 /* ExpressCheckoutCalloutDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCD329352F8900049022 /* ExpressCheckoutCalloutDemo.swift */; };
+		8251BCD629352FE300049022 /* PaymentMethodDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCD529352FE300049022 /* PaymentMethodDemo.swift */; };
+		8251BCD82935308000049022 /* PurchaseConfirmationDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCD72935308000049022 /* PurchaseConfirmationDemo.swift */; };
+		8251BCDA2935328B00049022 /* LogoDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCD92935328B00049022 /* LogoDemo.swift */; };
+		8251BCDC293532FA00049022 /* CampaignLinkDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCDB293532FA00049022 /* CampaignLinkDemo.swift */; };
 		827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */; };
 		827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78C328B43DCE00EA3B3C /* ViewController.swift */; };
 		827F78C928B43DCE00EA3B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827F78C828B43DCE00EA3B3C /* Assets.xcassets */; };
@@ -42,6 +48,12 @@
 		820F71AC29148C48002877CE /* PriceSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceSlider.swift; sourceTree = "<group>"; };
 		8251BCCB2935269800049022 /* WidgetDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDemo.swift; sourceTree = "<group>"; };
 		8251BCCD2935296900049022 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		8251BCD129352F1800049022 /* CalloutDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutDemo.swift; sourceTree = "<group>"; };
+		8251BCD329352F8900049022 /* ExpressCheckoutCalloutDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressCheckoutCalloutDemo.swift; sourceTree = "<group>"; };
+		8251BCD529352FE300049022 /* PaymentMethodDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodDemo.swift; sourceTree = "<group>"; };
+		8251BCD72935308000049022 /* PurchaseConfirmationDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseConfirmationDemo.swift; sourceTree = "<group>"; };
+		8251BCD92935328B00049022 /* LogoDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoDemo.swift; sourceTree = "<group>"; };
+		8251BCDB293532FA00049022 /* CampaignLinkDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignLinkDemo.swift; sourceTree = "<group>"; };
 		827F78BC28B43DCE00EA3B3C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		827F78C328B43DCE00EA3B3C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +96,12 @@
 			isa = PBXGroup;
 			children = (
 				8251BCD029352B3A00049022 /* Components */,
+				8251BCD129352F1800049022 /* CalloutDemo.swift */,
+				8251BCDB293532FA00049022 /* CampaignLinkDemo.swift */,
+				8251BCD329352F8900049022 /* ExpressCheckoutCalloutDemo.swift */,
+				8251BCD92935328B00049022 /* LogoDemo.swift */,
+				8251BCD529352FE300049022 /* PaymentMethodDemo.swift */,
+				8251BCD72935308000049022 /* PurchaseConfirmationDemo.swift */,
 			);
 			path = "Demo Views";
 			sourceTree = "<group>";
@@ -370,11 +388,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8251BCDC293532FA00049022 /* CampaignLinkDemo.swift in Sources */,
+				8251BCD229352F1800049022 /* CalloutDemo.swift in Sources */,
+				8251BCD629352FE300049022 /* PaymentMethodDemo.swift in Sources */,
 				8251BCCE2935296900049022 /* Checkbox.swift in Sources */,
+				8251BCD429352F8900049022 /* ExpressCheckoutCalloutDemo.swift in Sources */,
 				820F71AD29148C48002877CE /* PriceSlider.swift in Sources */,
 				827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */,
+				8251BCD82935308000049022 /* PurchaseConfirmationDemo.swift in Sources */,
 				827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */,
 				82F96DB828B6EA45003AEF38 /* SceneDelegate.swift in Sources */,
+				8251BCDA2935328B00049022 /* LogoDemo.swift in Sources */,
 				820F71A92914878B002877CE /* WidgetLabel.swift in Sources */,
 				8251BCCC2935269800049022 /* WidgetDemo.swift in Sources */,
 				828AE6D22900B5B7008CA36E /* Constant.swift in Sources */,
