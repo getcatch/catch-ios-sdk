@@ -6,10 +6,17 @@
 //
 import UIKit
 
+// MARK: - InfoButtonDelegate
+protocol InfoButtonDelegate: AnyObject {
+    func didTapInfoButton()
+}
+
+// MARK: - InfoButton
 /**
  An info UIButton which opens the edu modal or Catch tooltip.
  */
 class InfoButton: UIButton {
+    weak var delegate: InfoButtonDelegate?
     private let infoText = "ⓘ"
     private var style: NSAttributedStringStyle
 
@@ -55,10 +62,10 @@ private extension InfoButton {
     }
 
     @objc func openInfoModal() {
-
+        delegate?.didTapInfoButton()
     }
 
-    private func setConstraints() {
+    func setConstraints() {
         setContentHuggingPriority(.required, for: .horizontal)
         setContentHuggingPriority(.required, for: .vertical)
         translatesAutoresizingMaskIntoConstraints = false
