@@ -27,8 +27,8 @@ enum SegmentedControlItems {
     static var variants: OrderedDictionary<String, PaymentMethodVariant> {
         var dict = OrderedDictionary<String, PaymentMethodVariant>()
         dict[Strings.default] = .standard
-        dict[Strings.lightMono] = .compact
-        dict[Strings.darkColor] = .logoCompact
+        dict[Strings.compact] = .compact
+        dict[Strings.logoCompact] = .logoCompact
         return dict
     }
 

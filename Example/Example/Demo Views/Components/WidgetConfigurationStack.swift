@@ -21,9 +21,9 @@ class WidgetConfigurationStack: UIView {
         }
 
         stack.layoutMargins = UIEdgeInsets(
-            top: 1.5 * Constant.configurationViewSpacing,
+            top: Constant.configurationViewSpacing,
             left: Constant.defaultMargin,
-            bottom: 1.5 * Constant.configurationViewSpacing,
+            bottom: Constant.configurationViewSpacing,
             right: Constant.defaultMargin
         )
         stack.isLayoutMarginsRelativeArrangement = true
