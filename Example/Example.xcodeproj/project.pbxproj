@@ -18,6 +18,10 @@
 		8251BCDA2935328B00049022 /* LogoDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCD92935328B00049022 /* LogoDemo.swift */; };
 		8251BCDC293532FA00049022 /* CampaignLinkDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCDB293532FA00049022 /* CampaignLinkDemo.swift */; };
 		8251BCE42936BDD500049022 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCE32936BDD500049022 /* Strings.swift */; };
+		8251BCE92936DD0300049022 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCE82936DD0300049022 /* OrderedDictionary.swift */; };
+		8251BCEB2936DD7F00049022 /* SegmentedControlItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCEA2936DD7F00049022 /* SegmentedControlItems.swift */; };
+		8251BCED2936DFD400049022 /* WidgetConfigurationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCEC2936DFD400049022 /* WidgetConfigurationStack.swift */; };
+		8251BCEF2936E10300049022 /* SegmentedControlSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCEE2936E10300049022 /* SegmentedControlSection.swift */; };
 		827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */; };
 		827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78C328B43DCE00EA3B3C /* ViewController.swift */; };
 		827F78C928B43DCE00EA3B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827F78C828B43DCE00EA3B3C /* Assets.xcassets */; };
@@ -56,6 +60,10 @@
 		8251BCD92935328B00049022 /* LogoDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoDemo.swift; sourceTree = "<group>"; };
 		8251BCDB293532FA00049022 /* CampaignLinkDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignLinkDemo.swift; sourceTree = "<group>"; };
 		8251BCE32936BDD500049022 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		8251BCE82936DD0300049022 /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		8251BCEA2936DD7F00049022 /* SegmentedControlItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlItems.swift; sourceTree = "<group>"; };
+		8251BCEC2936DFD400049022 /* WidgetConfigurationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConfigurationStack.swift; sourceTree = "<group>"; };
+		8251BCEE2936E10300049022 /* SegmentedControlSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlSection.swift; sourceTree = "<group>"; };
 		827F78BC28B43DCE00EA3B3C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		827F78C328B43DCE00EA3B3C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -113,10 +121,23 @@
 			children = (
 				8251BCCD2935296900049022 /* Checkbox.swift */,
 				820F71AC29148C48002877CE /* PriceSlider.swift */,
+				8251BCEE2936E10300049022 /* SegmentedControlSection.swift */,
+				8251BCEC2936DFD400049022 /* WidgetConfigurationStack.swift */,
 				8251BCCB2935269800049022 /* WidgetDemo.swift */,
 				820F71A82914878B002877CE /* WidgetLabel.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		8251BCE72936DCE600049022 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				828AE6D12900B5B7008CA36E /* Constant.swift */,
+				8251BCE82936DD0300049022 /* OrderedDictionary.swift */,
+				8251BCEA2936DD7F00049022 /* SegmentedControlItems.swift */,
+				8251BCE32936BDD500049022 /* Strings.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		827F78B328B43DCE00EA3B3C = {
@@ -143,10 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				8251BCCF29352B2500049022 /* Demo Views */,
+				8251BCE72936DCE600049022 /* Utils */,
 				827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */,
-				828AE6D12900B5B7008CA36E /* Constant.swift */,
 				82F96DB728B6EA45003AEF38 /* SceneDelegate.swift */,
-				8251BCE32936BDD500049022 /* Strings.swift */,
 				827F78C328B43DCE00EA3B3C /* ViewController.swift */,
 				827F78C828B43DCE00EA3B3C /* Assets.xcassets */,
 				827F78CA28B43DCE00EA3B3C /* LaunchScreen.storyboard */,
@@ -391,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8251BCEB2936DD7F00049022 /* SegmentedControlItems.swift in Sources */,
 				8251BCDC293532FA00049022 /* CampaignLinkDemo.swift in Sources */,
 				8251BCD229352F1800049022 /* CalloutDemo.swift in Sources */,
 				8251BCD629352FE300049022 /* PaymentMethodDemo.swift in Sources */,
@@ -399,11 +420,14 @@
 				820F71AD29148C48002877CE /* PriceSlider.swift in Sources */,
 				827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */,
 				8251BCD82935308000049022 /* PurchaseConfirmationDemo.swift in Sources */,
+				8251BCEF2936E10300049022 /* SegmentedControlSection.swift in Sources */,
 				827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */,
 				8251BCE42936BDD500049022 /* Strings.swift in Sources */,
+				8251BCED2936DFD400049022 /* WidgetConfigurationStack.swift in Sources */,
 				82F96DB828B6EA45003AEF38 /* SceneDelegate.swift in Sources */,
 				8251BCDA2935328B00049022 /* LogoDemo.swift in Sources */,
 				820F71A92914878B002877CE /* WidgetLabel.swift in Sources */,
+				8251BCE92936DD0300049022 /* OrderedDictionary.swift in Sources */,
 				8251BCCC2935269800049022 /* WidgetDemo.swift in Sources */,
 				828AE6D22900B5B7008CA36E /* Constant.swift in Sources */,
 			);
