@@ -19,7 +19,4 @@ class PurchaseConfirmationDemo: WidgetDemo {
     @available(*, unavailable)
     required internal init?(coder: NSCoder) { nil }
 
-    override func setPrice(price: Int) {
-        purchaseConfirmation.setEarnedAmount(price)
-    }
 }

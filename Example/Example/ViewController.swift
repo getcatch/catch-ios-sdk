@@ -19,7 +19,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
 
     private lazy var priceSlider = PriceSlider()
 
-    private lazy var subviews: [UIView] = {
+    private lazy var subviews: [WidgetDemo] = {
         return [
             calloutView,
             expressCheckoutCallout,
@@ -36,10 +36,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
             stack.addArrangedSubview(subview)
         }
         stack.axis = .vertical
-        stack.distribution = .equalSpacing
+        stack.distribution = .fill
         stack.alignment = .fill
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.spacing = Layout.verticalItemSpacing
+        stack.setCustomSpacing(Layout.verticalItemSpacing, after: purchaseConfirmation)
+        stack.setCustomSpacing(Layout.verticalItemSpacing, after: campaignLink)
         stack.isLayoutMarginsRelativeArrangement = true
         stack.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: stack.spacing, right: 0)
         return stack
@@ -73,6 +74,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
             navigationController?.overrideUserInterfaceStyle = .light
         }
         priceSlider.delegate = self
+        addSegmentedControl()
     }
 
     private func setConstraints() {
@@ -80,8 +82,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
         NSLayoutConstraint.activate([
             priceSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             priceSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            priceSlider.heightAnchor.constraint(equalToConstant: 80),
-            priceSlider.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            priceSlider.heightAnchor.constraint(equalToConstant: Constant.priceSliderHeight),
+            priceSlider.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: Constant.demoStackSpacing
+            ),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: priceSlider.bottomAnchor),
@@ -92,11 +97,34 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
         ])
     }
 
+    private func addSegmentedControl() {
+        let items = SegmentedControlItems.themes.keys
+        let segment = SegmentedControlSection(title: nil, items: items)
+        segment.delegate = self
+        self.navigationItem.titleView = segment
+    }
+
     func updatePrice(price: Int) {
         for subview in subviews {
-            if let widget = subview as? WidgetDemo {
-                widget.setPrice(price: price)
+            subview.setPrice(price: price)
+        }
+    }
+}
+
+extension ViewController: SegmentedControlDelegate {
+    func didSelectItem(named key: String, sender: SegmentedControlSection) {
+        if let theme = SegmentedControlItems.themes[key] {
+            switch theme {
+            case .lightMono, .lightColor:
+                navigationController?.overrideUserInterfaceStyle = .light
+            case .darkMono, .darkColor:
+                navigationController?.overrideUserInterfaceStyle = .dark
+            }
+
+            for widget in subviews {
+                widget.setTheme(theme: theme)
             }
         }
     }
+
 }
