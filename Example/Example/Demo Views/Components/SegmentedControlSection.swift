@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SegmentedControlDelegate: AnyObject {
-    func didSelectItem(at index: Int, sender: SegmentedControlSection)
+    func didSelectItem(named key: String, sender: SegmentedControlSection)
 }
 
 /**
@@ -77,7 +77,9 @@ class SegmentedControlSection: UIView {
     @objc
     private func segmentedControlDidChange(_ sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex
-        delegate?.didSelectItem(at: index, sender: self)
+        if let key = sender.titleForSegment(at: index) {
+            delegate?.didSelectItem(named: key, sender: self)
+        }
     }
 
     private func setConstraints() {
