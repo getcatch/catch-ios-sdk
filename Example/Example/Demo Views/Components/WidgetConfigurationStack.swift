@@ -12,6 +12,7 @@ Stack view displaying all components used to configure the widget demos such as 
 */
 class WidgetConfigurationStack: UIView {
     let arrangedSubviews: [UIView]
+    let insets: UIEdgeInsets?
 
     lazy var stack: UIStackView = {
         let stack = UIStackView()
@@ -19,29 +20,21 @@ class WidgetConfigurationStack: UIView {
         for view in arrangedSubviews {
             stack.addArrangedSubview(view)
         }
-
-        stack.layoutMargins = UIEdgeInsets(
-            top: Constant.configurationViewSpacing,
-            left: Constant.defaultMargin,
-            bottom: Constant.configurationViewSpacing,
-            right: Constant.defaultMargin
-        )
-        stack.isLayoutMarginsRelativeArrangement = true
-
+        configureStackInsets(stack)
         stack.axis = .vertical
-        stack.distribution = .equalCentering
-        stack.alignment = .leading
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = Constant.configurationViewSpacing
         return stack
     }()
 
     // MARK: - Initializers
 
-    init(subviews: [UIView]) {
+    init(subviews: [UIView], insets: UIEdgeInsets? = Constant.configurationStackInsets) {
         self.arrangedSubviews = subviews
+        self.insets = insets
         super.init(frame: .zero)
-        addSubview(stack)
-        setConstraints()
+        addConstrainedSubviewToView(stack)
         backgroundColor = Constant.secondaryBackgroundColor
     }
 
@@ -50,16 +43,10 @@ class WidgetConfigurationStack: UIView {
     }
 
     // MARK: - Private Helpers
-
-    private func setConstraints() {
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        let constraints = [
-            stack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stack.topAnchor.constraint(equalTo: topAnchor),
-            stack.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ]
-
-        NSLayoutConstraint.activate(constraints)
+    func configureStackInsets(_ stack: UIStackView) {
+        if let insets = insets {
+            stack.layoutMargins = insets
+            stack.isLayoutMarginsRelativeArrangement = true
+        }
     }
 }

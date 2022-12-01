@@ -49,4 +49,11 @@ enum Strings {
     static let variant = "Variant:"
     static let compact = "Compact"
     static let logoCompact = "Logo Compact"
+
+    // Checkout Fields
+    static let checkoutID = "Checkout ID*"
+    static let prefillUserPhone = "Prefill User Phone"
+    static let prefillUserName = "Prefill User Name"
+    static let prefillUserEmail = "Prefill User Email"
+    static let openCheckout = "Open Checkout"
 }

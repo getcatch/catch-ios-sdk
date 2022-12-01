@@ -19,16 +19,14 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
 
     private lazy var priceSlider = PriceSlider()
 
-    private lazy var subviews: [WidgetDemo] = {
-        return [
-            calloutView,
-            expressCheckoutCallout,
-            paymentMethod,
-            purchaseConfirmation,
-            campaignLink,
-            logoView
-        ]
-    }()
+    private lazy var subviews: [WidgetDemo] = [
+        calloutView,
+        expressCheckoutCallout,
+        paymentMethod,
+        purchaseConfirmation,
+        campaignLink,
+        logoView
+    ]
 
     private lazy var stack: UIStackView = {
         let stack = UIStackView()
@@ -67,12 +65,9 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
 
         view.addSubview(priceSlider)
         view.addSubview(scrollView)
-
         view.backgroundColor = Constant.backgroundColor
         setConstraints()
-        if #available(iOS 13.0, *) {
-            navigationController?.overrideUserInterfaceStyle = .light
-        }
+        navigationController?.overrideUserInterfaceStyle = .light
         priceSlider.delegate = self
         addSegmentedControl()
     }
