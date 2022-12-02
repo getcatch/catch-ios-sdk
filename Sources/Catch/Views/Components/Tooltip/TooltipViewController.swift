@@ -5,7 +5,7 @@
 //  Created by Lucille Benoit on 11/3/22.
 //
 
-import Foundation
+import UIKit
 
 /**
  A wrapper controller around TooltipView 

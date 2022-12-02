@@ -5,7 +5,7 @@
 //  Created by Lucille Benoit on 11/3/22.
 //
 
-import Foundation
+import UIKit
 
 /**
  Protocol for views or controllers which will present tooltip views.
