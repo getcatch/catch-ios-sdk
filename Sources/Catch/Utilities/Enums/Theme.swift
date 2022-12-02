@@ -54,6 +54,15 @@ public enum Theme {
 
     internal var backgroundColor: UIColor {
         switch self {
+        case .lightColor, .lightMono:
+            return .white
+        case .darkColor, .darkMono:
+            return CatchColor.black
+        }
+    }
+
+    internal var buttonTextColor: UIColor {
+        switch self {
         case .lightColor, .lightMono, .darkColor:
             return .white
         case .darkMono:

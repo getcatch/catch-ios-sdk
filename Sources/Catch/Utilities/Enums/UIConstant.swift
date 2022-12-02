@@ -88,4 +88,7 @@ enum UIConstant {
 
     // Modal animation duration
     static let modalAnimationDuration: TimeInterval = 0.3
+
+    // Max tooltip width of 320
+    static let maxTooltipWidth: CGFloat = 320
 }
