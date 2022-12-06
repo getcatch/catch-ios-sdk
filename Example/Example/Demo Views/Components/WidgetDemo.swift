@@ -14,10 +14,10 @@ Base class used to demo a Catch widget and any configuration components.
 class WidgetDemo: UIView {
     internal var title: String
     internal var widget: UIView
+    internal var theme: Theme = .lightColor
+    internal var price: Int = 0
 
     lazy var label = WidgetLabel(text: title)
-    private lazy var leftSpacer = UIView(frame: .zero)
-    private lazy var rightSpacer = UIView(frame: .zero)
 
     lazy var widgetStack: UIStackView = {
         let stack = UIStackView()
@@ -66,7 +66,29 @@ class WidgetDemo: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setPrice(price: Int) {}
+    func updateWidget(_ widget: UIView) {
+        widgetStack.arrangedSubviews[0].removeFromSuperview()
+        self.widget = widget
+        widgetStack.addArrangedSubview(widget)
+    }
+
+    func setPrice(price: Int) {
+        self.price = price
+        if let earnRedeemWidget = widget as? BaseEarnRedeemWidget {
+            earnRedeemWidget.setPrice(price)
+        } else if let purchaseConfirmation = widget as? PurchaseConfirmation {
+            purchaseConfirmation.setEarnedAmount(price)
+        }
+    }
+
+    func setTheme(theme: Theme) {
+        self.theme = theme
+        if let baseWidget = widget as? BaseWidget {
+            baseWidget.setTheme(theme)
+        } else if let logo = widget as? CatchLogo {
+            logo.setTheme(theme)
+        }
+    }
 
     private func setConstraints() {
         widget.translatesAutoresizingMaskIntoConstraints = false
