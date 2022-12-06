@@ -39,6 +39,7 @@ class Checkbox: UIButton {
 
         setTitle(title, for: .normal)
         titleLabel?.font = Constant.bodyFont
+        setInsets(forContentPadding: .zero, imageTitlePadding: Constant.defaultMargin)
         setImage(uncheckedImage, for: .normal)
         addTarget(self, action: #selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
         backgroundColor = .clear
