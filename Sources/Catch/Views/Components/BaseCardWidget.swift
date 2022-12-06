@@ -85,7 +85,7 @@ public class BaseCardWidget: BaseWidget {
     override internal func didUpdateTheme() {
         super.didUpdateTheme()
         let style = NSAttributedStringStyle(font: CatchFont.buttonLabel,
-                                            textColor: theme.backgroundColor,
+                                            textColor: theme.buttonTextColor,
                                             backgroundColor: theme.accentColor)
 
         externalLinkButton.setStyle(style)

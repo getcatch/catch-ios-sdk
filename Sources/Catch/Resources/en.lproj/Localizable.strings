@@ -1,5 +1,5 @@
 /* Tooltip strings */
-"sorry_catch_cant_be_used" = "Sorry, Catch can’t be used to pay for one of more item (like a gift card or subscription) currently in your cart.";
+"sorry_catch_cant_be_used" = "Sorry, Catch can’t be used to pay for one or more item (like a gift card or subscription) currently in your cart.";
 "learn_more_about_catch" = "Learn more about Catch";
 
 /* Earn Redeem message strings */

@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class PaymentMethod: BaseEarnRedeemWidget {
+public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
     /**
      Whether or not the widget is in a disabled state.
      Disabled payment method widgets are displayed slightly greyed out with interaction disabled.
@@ -38,6 +38,8 @@ public class PaymentMethod: BaseEarnRedeemWidget {
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
         return stack
     }()
+
+    internal var tooltipController: UIViewController?
 
     override var additionalConstraints: [NSLayoutConstraint] {
         return [logo.heightAnchor.constraint(equalToConstant: UIConstant.largeLogoHeight)]
@@ -95,18 +97,51 @@ public class PaymentMethod: BaseEarnRedeemWidget {
         stack.alignment = .center
         stack.axis = .horizontal
     }
+
+    override func didTapInfoButton() {
+        if disabled {
+            showToolTip()
+        } else {
+            super.didTapInfoButton()
+        }
+    }
+}
+
+// MARK: - TooltipDelegate
+extension PaymentMethod: TooltipDelegate {
+    func didTapActionText() {
+        removeTooltipView {
+            super.didTapInfoButton()
+        }
+    }
+
+    func didTapCloseButton() {
+        removeTooltipView()
+    }
 }
 
 // MARK: - Private Helpers
 private extension PaymentMethod {
+    func showToolTip() {
+        let text = LocalizedString.sorryCatchCantBeUsed.localized
+        let actionText = LocalizedString.learnMoreAboutCatch.localized
+
+        showTooltip(sourceView: infoButton, text: text, highlightText: actionText, theme: theme)
+     }
 
     /**
      Updates the transparency and interactivity of the widget based on the disabled flag.
      */
-    private func setDisabledState() {
+    func setDisabledState() {
         let transparency = disabled ? UIConstant.disabledAlpha : 1
         logo.alpha = transparency
         label.alpha = transparency
         label.isUserInteractionEnabled = !disabled
+    }
+}
+
+extension PaymentMethod: UIPopoverPresentationControllerDelegate {
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }
