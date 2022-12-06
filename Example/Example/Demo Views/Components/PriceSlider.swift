@@ -22,7 +22,7 @@ class PriceSlider: UIView {
 
     private let priceLabel = UILabel(frame: .zero)
     private let slider = UISlider(frame: .zero)
-    private let priceLabelFormat = Constant.sliderLabelFormat
+    private let priceLabelFormat = Strings.sliderLabelFormat
     private let spacing = Constant.defaultMargin
 
     init() {

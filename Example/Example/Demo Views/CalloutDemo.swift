@@ -14,12 +14,12 @@ class CalloutDemo: WidgetDemo {
         return [label, widgetStack, checkbox]
     }
 
-    private lazy var checkbox = Checkbox(title: Constant.orPrefix)
+    private lazy var checkbox = Checkbox(title: Strings.orPrefix)
 
     let calloutView = Callout(price: 0, borderStyle: .pill)
 
     init() {
-        super.init(title: Constant.calloutName, widget: calloutView)
+        super.init(title: Strings.calloutName, widget: calloutView)
         calloutView.setBorderStyle(.roundedRect)
     }
 
@@ -28,6 +28,5 @@ class CalloutDemo: WidgetDemo {
 
     override func setPrice(price: Int) {
         calloutView.setPrice(price)
-        calloutView.setTheme(.lightColor)
     }
 }

@@ -13,7 +13,7 @@ class LogoDemo: WidgetDemo {
     let logo = CatchLogo()
 
     init() {
-        super.init(title: Constant.logoName, widget: logo)
+        super.init(title: Strings.logoName, widget: logo)
     }
 
     @available(*, unavailable)

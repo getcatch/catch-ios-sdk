@@ -23,7 +23,7 @@ class WidgetLabel: UIView {
         super.init(frame: .zero)
         addSubview(label)
         setConstraints()
-        backgroundColor = UIColor.systemGray6
+        backgroundColor = Constant.headerColor
     }
 
     required init?(coder: NSCoder) {

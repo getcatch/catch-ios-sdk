@@ -9,10 +9,10 @@ import UIKit
 
 class CampaignLinkDemo: WidgetDemo {
 
-    let campaignLinkView = CampaignLink(campaignName: Constant.campaignName)
+    let campaignLinkView = CampaignLink(campaignName: Strings.campaignName)
 
     init() {
-        super.init(title: Constant.campaignLinkName, widget: campaignLinkView)
+        super.init(title: Strings.campaignLinkName, widget: campaignLinkView)
     }
 
     @available(*, unavailable)
