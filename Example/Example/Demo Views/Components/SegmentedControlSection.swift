@@ -33,7 +33,7 @@ class SegmentedControlSection: UIView {
         stack.addArrangedSubview(segmentedControl)
         stack.axis = .horizontal
         stack.distribution = .fill
-        stack.alignment = .center
+        stack.alignment = .fill
         stack.spacing = Constant.defaultMargin
         return stack
     }()
@@ -67,6 +67,7 @@ class SegmentedControlSection: UIView {
     }
 
     private func configureSegmentedControl() {
+        segmentedControl.setContentHuggingPriority(UILayoutPriority(249), for: .horizontal)
         segmentedControl.selectedSegmentTintColor = UIColor.systemGray6
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Constant.bodyFont], for: .normal)

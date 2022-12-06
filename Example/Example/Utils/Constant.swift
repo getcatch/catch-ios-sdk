@@ -27,10 +27,17 @@ enum Constant {
     static let defaultMargin: CGFloat = 12
     static let demoStackSpacing: CGFloat = 48
     static let configurationViewSpacing: CGFloat = 24
+    static let configurationStackInsets = UIEdgeInsets(
+        top: configurationViewSpacing,
+        left: defaultMargin,
+        bottom: configurationViewSpacing,
+        right: defaultMargin
+    )
 
     // Fonts
     static let bodyFont = UIFont.systemFont(ofSize: 12)
     static let bodySmallFont = UIFont.systemFont(ofSize: 10)
+    static let buttonFont = UIFont.boldSystemFont(ofSize: 12)
 
     // Purchase Confirmation Demo
     static let initialEarnedAmount = 1000

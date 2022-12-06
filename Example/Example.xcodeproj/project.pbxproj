@@ -24,6 +24,9 @@
 		8251BCEF2936E10300049022 /* SegmentedControlSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCEE2936E10300049022 /* SegmentedControlSection.swift */; };
 		8251BCF12936F29300049022 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCF02936F29300049022 /* UIButton+Extension.swift */; };
 		8251BCF32937040B00049022 /* BorderSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCF22937040B00049022 /* BorderSegmentedControl.swift */; };
+		8251BCF52938719100049022 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCF42938719100049022 /* UIView+Extension.swift */; };
+		8251BCF7293872C600049022 /* LabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCF6293872C600049022 /* LabelTextField.swift */; };
+		8251BCF929387A0B00049022 /* CheckoutForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251BCF829387A0B00049022 /* CheckoutForm.swift */; };
 		827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */; };
 		827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827F78C328B43DCE00EA3B3C /* ViewController.swift */; };
 		827F78C928B43DCE00EA3B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827F78C828B43DCE00EA3B3C /* Assets.xcassets */; };
@@ -68,6 +71,9 @@
 		8251BCEE2936E10300049022 /* SegmentedControlSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlSection.swift; sourceTree = "<group>"; };
 		8251BCF02936F29300049022 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		8251BCF22937040B00049022 /* BorderSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderSegmentedControl.swift; sourceTree = "<group>"; };
+		8251BCF42938719100049022 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		8251BCF6293872C600049022 /* LabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextField.swift; sourceTree = "<group>"; };
+		8251BCF829387A0B00049022 /* CheckoutForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutForm.swift; sourceTree = "<group>"; };
 		827F78BC28B43DCE00EA3B3C /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827F78BF28B43DCE00EA3B3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		827F78C328B43DCE00EA3B3C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +131,8 @@
 			children = (
 				8251BCF22937040B00049022 /* BorderSegmentedControl.swift */,
 				8251BCCD2935296900049022 /* Checkbox.swift */,
+				8251BCF829387A0B00049022 /* CheckoutForm.swift */,
+				8251BCF6293872C600049022 /* LabelTextField.swift */,
 				820F71AC29148C48002877CE /* PriceSlider.swift */,
 				8251BCEE2936E10300049022 /* SegmentedControlSection.swift */,
 				8251BCEC2936DFD400049022 /* WidgetConfigurationStack.swift */,
@@ -142,6 +150,7 @@
 				8251BCEA2936DD7F00049022 /* SegmentedControlItems.swift */,
 				8251BCE32936BDD500049022 /* Strings.swift */,
 				8251BCF02936F29300049022 /* UIButton+Extension.swift */,
+				8251BCF42938719100049022 /* UIView+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -417,14 +426,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8251BCF52938719100049022 /* UIView+Extension.swift in Sources */,
 				8251BCEB2936DD7F00049022 /* SegmentedControlItems.swift in Sources */,
 				8251BCDC293532FA00049022 /* CampaignLinkDemo.swift in Sources */,
 				8251BCD229352F1800049022 /* CalloutDemo.swift in Sources */,
 				8251BCD629352FE300049022 /* PaymentMethodDemo.swift in Sources */,
 				8251BCCE2935296900049022 /* Checkbox.swift in Sources */,
 				8251BCD429352F8900049022 /* ExpressCheckoutCalloutDemo.swift in Sources */,
+				8251BCF929387A0B00049022 /* CheckoutForm.swift in Sources */,
 				820F71AD29148C48002877CE /* PriceSlider.swift in Sources */,
 				827F78C428B43DCE00EA3B3C /* ViewController.swift in Sources */,
+				8251BCF7293872C600049022 /* LabelTextField.swift in Sources */,
 				8251BCD82935308000049022 /* PurchaseConfirmationDemo.swift in Sources */,
 				8251BCEF2936E10300049022 /* SegmentedControlSection.swift in Sources */,
 				827F78C028B43DCE00EA3B3C /* AppDelegate.swift in Sources */,

@@ -20,8 +20,11 @@ class PaymentMethodDemo: WidgetDemo {
 
     private lazy var configurationStack = WidgetConfigurationStack(subviews: [
         variantControl,
-        disabledCheckbox
+        disabledCheckbox,
+        checkoutForm
     ])
+
+    private lazy var checkoutForm = CheckoutForm()
 
     var paymentMethod = PaymentMethod(price: 0)
 
