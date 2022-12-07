@@ -5,7 +5,7 @@
 //  Created by Lucille Benoit on 12/4/22.
 //
 
-import Foundation
+import UIKit
 
 /**
  The styling for action buttons found in Catch widgets.
