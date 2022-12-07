@@ -14,11 +14,11 @@ class ExternalLinkButton: UIButton {
 
     private var url: URL?
     private var title: String
-    private var style: NSAttributedStringStyle
+    private var style: ActionButtonStyle
 
     // MARK: - Initializers
 
-    init(title: String, url: URL?, style: NSAttributedStringStyle = .default) {
+    init(title: String, url: URL?, style: ActionButtonStyle) {
         self.title = title
         self.url = url
         self.style = style
@@ -35,16 +35,16 @@ class ExternalLinkButton: UIButton {
 
     // MARK: - Functions
 
-    func setStyle(_ style: NSAttributedStringStyle) {
+    func setStyle(style: ActionButtonStyle) {
         self.style = style
         setColors()
-        setFormattedTitle(text: title, font: style.font)
+        setFormattedTitle(text: title, font: style.textStyle?.font)
     }
 
     func updateConfiguration(text: String, url: URL? = nil) {
         self.title = text
         self.url = url
-        setFormattedTitle(text: text, font: style.font)
+        setFormattedTitle(text: text, font: style.textStyle?.font)
     }
 }
 
@@ -52,7 +52,7 @@ class ExternalLinkButton: UIButton {
 
 private extension ExternalLinkButton {
     func configureButton() {
-        layer.cornerRadius = UIConstant.defaultCornerRadius
+        layer.cornerRadius = style.cornerRadius ?? UIConstant.defaultCornerRadius
         layer.masksToBounds = true
 
         if #available(iOS 15.0, *) {
@@ -68,7 +68,9 @@ private extension ExternalLinkButton {
 
     func setColors() {
         tintColor = style.backgroundColor
-        setTextColor(color: style.textColor)
+        if let color = style.textStyle?.textColor {
+            setTextColor(color: color)
+        }
     }
 
     func configureClickAction() {

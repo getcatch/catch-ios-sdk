@@ -7,13 +7,16 @@
 
 import Foundation
 
+/**
+ Text transformation used to capitalize, lowercase or uppercase a string.
+ */
 public enum TextTransform {
     case capitalize
     case lowercase
     case uppercase
     case none
 
-    func transform(_ text: String) -> String {
+    internal func transform(_ text: String) -> String {
         switch self {
         case .capitalize:
             return text.capitalized

@@ -47,8 +47,10 @@ public class BaseCardWidget: BaseWidget {
                   theme: Theme?,
                   borderStyle: BorderStyle,
                   insets: UIEdgeInsets = UIEdgeInsets(inset: UIConstant.largeSpacing)) {
+        let buttonStyle = ActionButtonStyle(textStyle: .default, backgroundColor: theme?.accentColor)
         self.externalLinkButton = ExternalLinkButton(title: buttonTitle,
-                                                     url: buttonURL)
+                                                     url: buttonURL,
+                                                     style: buttonStyle)
         // pill borders will be treated like rounded rect borders for the card based widgets
         let border: BorderStyle = borderStyle == .pill ? .roundedRect : borderStyle
         let config = BaseWidgetConfig(price: initialAmount,
@@ -84,23 +86,16 @@ public class BaseCardWidget: BaseWidget {
 
     override internal func didUpdateTheme() {
         super.didUpdateTheme()
-        let style = NSAttributedStringStyle(font: CatchFont.buttonLabel,
-                                            textColor: theme.buttonTextColor,
+        let textStyle = TextStyle(font: CatchFont.buttonLabel,
+                                  textColor: theme.buttonTextColor)
+        let buttonStyle = ActionButtonStyle(textStyle: textStyle,
                                             backgroundColor: theme.accentColor)
 
-        externalLinkButton.setStyle(style)
+        externalLinkButton.setStyle(style: buttonStyle)
     }
 
-    override internal func createBenefitTextStyle() -> EarnRedeemLabel.Style {
-        let earnStyle = NSAttributedStringStyle(font: CatchFont.linkLarge,
-                                                textColor: theme.accentColor,
-                                                isTappable: false)
-        let redeemStyle = NSAttributedStringStyle(font: CatchFont.linkLarge,
-                                                  textColor: theme.secondaryAccentColor,
-                                                  isTappable: false)
-        let fillerTextStyle = NSAttributedStringStyle(font: CatchFont.bodyLarge,
-                                                      textColor: theme.foregroundColor)
-        return EarnRedeemLabel.Style(filler: fillerTextStyle, earn: earnStyle, redeem: redeemStyle)
+    override internal func createBenefitTextStyle() -> WidgetTextStyle {
+        theme.widgetTextStyle(size: .large)
     }
 
     /**

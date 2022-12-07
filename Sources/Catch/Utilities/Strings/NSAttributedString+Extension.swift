@@ -8,7 +8,8 @@
 import UIKit
 
 extension NSAttributedString {
-    convenience init(string: String, style: NSAttributedStringStyle = .default) {
+    convenience init(string: String, style: TextStyle? = .default) {
+        let style = style ?? .default
         var attributes: [NSAttributedString.Key: Any] = [:]
 
         attributes[.font] = style.font
@@ -18,7 +19,7 @@ extension NSAttributedString {
         paragraphStyle.lineSpacing = style.lineSpacing
         attributes[.paragraphStyle] = paragraphStyle
 
-        if style.isTappable {
+        if style.isUnderlined {
             attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
         }
 

@@ -75,4 +75,32 @@ extension CatchFont {
     private static func getCatchFont(name: FontName, size: CGFloat) -> UIFont {
         return UIFont(name: name.rawValue, size: size) ?? UIFont.systemFont(ofSize: size)
     }
+
+    enum Size {
+        case small
+        case regular
+        case large
+    }
+
+    static func body(size: Size) -> UIFont {
+        switch size {
+        case .small:
+            return bodySmall
+        case .regular:
+            return bodyRegular
+        case .large:
+            return bodyLarge
+        }
+    }
+
+    static func link(size: Size) -> UIFont {
+        switch size {
+        case .small:
+            return linkSmall
+        case .regular:
+            return linkRegular
+        case .large:
+            return linkLarge
+        }
+    }
 }

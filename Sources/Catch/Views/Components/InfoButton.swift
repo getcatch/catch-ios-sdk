@@ -18,10 +18,10 @@ protocol InfoButtonDelegate: AnyObject {
 class InfoButton: UIButton {
     weak var delegate: InfoButtonDelegate?
     private let infoText = "ⓘ"
-    private var style: NSAttributedStringStyle
+    private var style: TextStyle
 
     // MARK: - Initializers
-    init(style: NSAttributedStringStyle = .default) {
+    init(style: TextStyle = .default) {
         self.style = style
         super.init(frame: .zero)
         configureClickAction()
@@ -34,7 +34,7 @@ class InfoButton: UIButton {
     }
 
     // MARK: - Functions
-    func setStyle(_ style: NSAttributedStringStyle) {
+    func setStyle(_ style: TextStyle) {
         self.style = style
         setButtonColors()
     }

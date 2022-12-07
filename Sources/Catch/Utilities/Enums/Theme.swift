@@ -82,4 +82,41 @@ public enum Theme {
             return CatchAssetProvider.image(.logoMonoWhite)
         }
     }
+
+    internal func textStyle(size: CatchFont.Size) -> TextStyle {
+        TextStyle(font: CatchFont.body(size: size), textColor: foregroundColor)
+    }
+
+    internal func benefitTextStyle(size: CatchFont.Size) -> BenefitTextStyle {
+        BenefitTextStyle(earnTextColor: accentColor,
+                         redeemTextColor: secondaryAccentColor,
+                         font: CatchFont.link(size: size))
+    }
+
+    internal func widgetTextStyle(size: CatchFont.Size) -> WidgetTextStyle {
+        return WidgetTextStyle(textStyle: textStyle(size: size),
+                               benefitTextStyle: benefitTextStyle(size: size))
+    }
+
+    internal var infoButtonStyle: TextStyle {
+        TextStyle(font: CatchFont.infoButton,
+                  textColor: foregroundColor,
+                  lineSpacing: 0)
+    }
+
+    internal var actionButtonStyle: ActionButtonStyle {
+        let buttonTextStyle = TextStyle(font: CatchFont.buttonLabel,
+                                        textColor: buttonTextColor)
+        return ActionButtonStyle(textStyle: buttonTextStyle,
+                                 backgroundColor: accentColor,
+                                 cornerRadius: UIConstant.defaultCornerRadius)
+    }
+
+    internal func calloutWidgetStyle(textSize: CatchFont.Size) -> CalloutWidgetStyle {
+        CalloutWidgetStyle(widgetTextStyle: widgetTextStyle(size: textSize), infoButtonStyle: infoButtonStyle)
+    }
+
+    internal var actionWidgetStyle: ActionWidgetStyle {
+        ActionWidgetStyle(widgetTextStyle: widgetTextStyle(size: .large), actionButtonStyle: actionButtonStyle)
+    }
 }

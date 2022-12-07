@@ -40,7 +40,8 @@ extension UIButton {
      Sets the text and font for the title label.
      Works for all iOS versions.
      */
-    func setFormattedTitle(text: String, font: UIFont) {
+    func setFormattedTitle(text: String, font: UIFont?) {
+        let font = font ?? CatchFont.buttonLabel
         if #available(iOS 15, *) {
             var container = AttributeContainer()
             container.font = font

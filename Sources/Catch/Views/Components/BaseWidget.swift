@@ -13,8 +13,8 @@ public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, Base
     internal let stack: UIStackView = UIStackView()
     internal var logo: CatchLogo
     lazy internal var label: EarnRedeemLabel = EarnRedeemLabel(type: earnRedeemLabelType,
-                                                          style: EarnRedeemLabel.Style(),
-                                                          tapHandler: didTapEarnRedeemLabel)
+                                                               style: theme.widgetTextStyle(size: .small),
+                                                               tapHandler: didTapEarnRedeemLabel)
     internal var earnRedeemLabelType: EarnRedeemLabelType
 
     // MARK: - View Configuration Properties
@@ -90,17 +90,8 @@ public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, Base
         logo.setTheme(theme)
     }
 
-    internal func createBenefitTextStyle() -> EarnRedeemLabel.Style {
-
-        let earnStyle = NSAttributedStringStyle(font: CatchFont.linkSmall,
-                                                textColor: theme.accentColor,
-                                                isTappable: true)
-        let redeemStyle = NSAttributedStringStyle(font: CatchFont.linkSmall,
-                                                  textColor: theme.secondaryAccentColor,
-                                                  isTappable: true)
-        let fillerTextStyle = NSAttributedStringStyle(font: CatchFont.bodySmall,
-                                                      textColor: theme.foregroundColor)
-        return EarnRedeemLabel.Style(filler: fillerTextStyle, earn: earnStyle, redeem: redeemStyle)
+    internal func createBenefitTextStyle() -> WidgetTextStyle {
+        theme.widgetTextStyle(size: .small)
     }
 
     // MARK: - AutoLayout

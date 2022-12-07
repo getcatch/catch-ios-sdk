@@ -42,8 +42,11 @@ public class CampaignLink: BaseCardWidget {
 
     private func configureClaimNowLabel() {
         let claimNowText = LocalizedString.claimNowAndStartEarning.localized("10%")
-        let style = label.style.filler.withScaledFont(multiplier: 0.875)
-        claimNowLabel.attributedText = NSAttributedString(string: claimNowText, style: style)
+        claimNowLabel.attributedText = NSAttributedString(string: claimNowText, style: claimNowTextStyle())
+    }
+
+    private func claimNowTextStyle() -> TextStyle {
+        return (label.style.textStyle ?? .default).withScaledFont(multiplier: 0.875)
     }
 
     override func didUpdateTheme() {
@@ -61,8 +64,7 @@ extension CampaignLink: CampaignLinkDelegate {
 
     func updateClaimNowMessage(rewardsRateString: String) {
         let claimNowText = LocalizedString.claimNowAndStartEarning.localized(rewardsRateString)
-        let style = label.style.filler.withScaledFont(multiplier: 0.875)
-        claimNowLabel.attributedText = NSAttributedString(string: claimNowText, style: style)
+        claimNowLabel.attributedText = NSAttributedString(string: claimNowText, style: claimNowTextStyle())
     }
 
     func updateButtonConfiguration(buttonTitle: String, url: URL?) {
