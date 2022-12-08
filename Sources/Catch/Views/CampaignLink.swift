@@ -20,15 +20,18 @@ public class CampaignLink: BaseCardWidget {
         return [logo, label, merchantCard, claimNowLabel, externalLinkButton]
     }
 
+    override var widgetType: StyleResolver.WidgetType { return .campaignLink }
+
     private var campaignName: String
 
     // MARK: - Initializers
 
     public init(campaignName: String,
                 borderStyle: BorderStyle = .roundedRect,
-                theme: Theme? = nil) {
+                theme: Theme? = nil,
+                styleOverrides: ActionWidgetStyle? = nil) {
         self.campaignName = campaignName
-        super.init(theme: theme, borderStyle: borderStyle)
+        super.init(theme: theme, styleOverrides: styleOverrides, borderStyle: borderStyle)
         configureClaimNowLabel()
     }
 
@@ -46,7 +49,8 @@ public class CampaignLink: BaseCardWidget {
     }
 
     private func claimNowTextStyle() -> TextStyle? {
-        return (label.style.textStyle ?? .default)?.withScaledFont(multiplier: 0.875)
+        guard let textStyle = label.style.textStyle else { return nil }
+        return textStyle.withScaledFont(multiplier: 0.875)
     }
 
     override func didUpdateTheme() {

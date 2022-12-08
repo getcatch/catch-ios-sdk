@@ -16,99 +16,55 @@ struct StyleResolver {
         case campaignLink
     }
 
-    internal static func resolved(_ localTheme: Theme?,
-                                  widgetType: WidgetType,
-                                  localOverrides: WidgetStyle) -> WidgetStyle? {
-        /// Calculate the global style configurations for the given widget type
-        let globalStyleConfig = resolvedWidgetSpecificGlobalStyle(for: widgetType)
+    internal static func resolved(widgetType: WidgetType,
+                                  localTheme: Theme?,
+                                  localOverrides: WidgetStyle?,
+                                  globalTheme: Theme = Catch.getTheme()) -> WidgetStyle? {
+        var finalWidgetStyle: WidgetStyle?
+        let localThemeStyling = localTheme?.styleDefaultForWidgetType(widgetType)
 
-        /// Calculate the local style configurations for the given widget type
-        let localStyleConfig = resolvedLocalStyle(localTheme,
-                                                  widgetType: widgetType,
-                                                  localOverrides: localOverrides)
+        // If a local theme has been set, ignore all global styling
+        if localThemeStyling != nil {
+            // Override local theme with any local overrides
+            finalWidgetStyle = resolveWidgetStyle(localThemeStyling, overrides: localOverrides)
+        } else {
+            // Convert the global theme to the default global WidgetStyle for the specific widget type.
+            let globalStyle = CatchStyleConfig.defaults(theme: globalTheme).styleConfigForWidget(widgetType)
 
-        /// Resolve the local and global styles by overriding any global style rules with those that are set locally
-        if let global = globalStyleConfig as? LabelWidgetStyle, let local = localStyleConfig as? LabelWidgetStyle {
-            return LabelWidgetStyle.resolved(global, withOverrides: local)
+            // Get global overrides for the specific widget type
+            let globalOverrides = Catch.getGlobalStyleOverrides()
+            let globalWidgetOverrides = resolvedGlobalOverridesForWidget(globalStyleConfig: globalOverrides,
+                                                                         type: widgetType)
+
+            // Override the global theme with global overrides
+            let resolvedGlobalStyle = resolveWidgetStyle(globalStyle, overrides: globalWidgetOverrides)
+
+            // Override the resolved global WidgetStyle with any local overrides
+            finalWidgetStyle = resolveWidgetStyle(resolvedGlobalStyle, overrides: localOverrides)
         }
 
-        if let global = globalStyleConfig as? ActionWidgetStyle, let local = localStyleConfig as? ActionWidgetStyle {
-            return ActionWidgetStyle.resolved(global, withOverrides: local)
-        }
-
-        return nil
+        return finalWidgetStyle
     }
 
-    /// Resolves applicable local style rules between the local Catch theme and any local style overrides.
-    private static func resolvedLocalStyle(_ theme: Theme?,
-                                           widgetType: WidgetType,
-                                           localOverrides: WidgetStyle?) -> WidgetStyle? {
-        if let overrides = localOverrides as? LabelWidgetStyle {
-            let themeStyling = LabelWidgetStyle.defaults(theme: theme, widgetType: widgetType)
-            return LabelWidgetStyle.resolved(themeStyling, withOverrides: overrides)
-        }
-
-        if let overrides = localOverrides as? ActionWidgetStyle {
-            let themeStyling = ActionWidgetStyle.defaults(theme: theme)
-            return ActionWidgetStyle.resolved(themeStyling, withOverrides: overrides)
-        }
-
-        return nil
-    }
-
-    /// Resolves applicable global styling for a given widget type based on the resolved global style config.
-    private static func resolvedWidgetSpecificGlobalStyle(for type: WidgetType) -> WidgetStyle? {
-        let globalStyleConfig = resolvedGlobalStyle(withOverrides: nil) // todo this should change to Catch.globalOverrides
+    // Given a base WidgetStyle and overrides, resolves all applicable style rules
+    private static func resolveWidgetStyle(_ style: WidgetStyle?, overrides: WidgetStyle?) -> WidgetStyle? {
+        guard style != nil else { return overrides }
+        guard overrides != nil else { return style }
+        guard let type = style?.type, type == overrides?.type else { return  nil }
         switch type {
-        case .callout, .expressCheckoutCallout, .paymentMethod:
-            return globalStyleConfig.resolvedLabelWidgetStyle(for: type)
-        case .purchaseConfirmation, .campaignLink:
-            return globalStyleConfig.resolvedActionWidgetStyle(for: type)
+        case .labelWidget:
+            return LabelWidgetStyle.resolved(style as? LabelWidgetStyle, withOverrides: overrides as? LabelWidgetStyle)
+        case .actionWidget:
+            return ActionWidgetStyle.resolved(style as? ActionWidgetStyle, withOverrides: overrides as? ActionWidgetStyle)
         }
     }
 
-    /// Resolves applicable global styling between the global Catch Theme and the global Catch Style Config overrides.
-    private static func resolvedGlobalStyle(_ theme: Theme? = Catch.getTheme(),
-                                            withOverrides overrides: CatchStyleConfig?) -> CatchStyleConfig {
-        /// Converts the Catch standard theme into a style config struct
-        let themeStyle = CatchStyleConfig.defaults(theme: theme)
-
-        /// Resolve all general global style rules
-        let resolvedTextStyle = TextStyle.resolved(themeStyle.textStyle, withOverrides: overrides?.textStyle)
-        let resolvedBenefitTextStyle = BenefitTextStyle.resolved(themeStyle.benefitTextStyle,
-                                                                 withOverrides: overrides?.benefitTextStyle)
-        let resolvedInfoButtonStyle = TextStyle.resolved(themeStyle.infoButtonStyle,
-                                                         withOverrides: overrides?.infoButtonStyle)
-        let resolvedActionButtonStyle = ActionButtonStyle.resolved(themeStyle.actionButtonStyle,
-                                                                   withOverrides: overrides?.actionButtonStyle)
-
-        /// Resolve all global widget style rules
-        let resolvedCalloutStyle = LabelWidgetStyle.resolved(themeStyle.calloutStyle,
-                                                             withOverrides: overrides?.calloutStyle)
-        let resolvedExpressCheckoutStyle = LabelWidgetStyle.resolved(
-            themeStyle.expressCheckoutCalloutStyle,
-            withOverrides: overrides?.expressCheckoutCalloutStyle
-        )
-        let resolvedPaymentMethodStyle = LabelWidgetStyle.resolved(themeStyle.paymentMethodStyle,
-                                                                   withOverrides: overrides?.paymentMethodStyle)
-        let resolvedPurchaseConfirmationStyle = ActionWidgetStyle.resolved(
-            themeStyle.purchaseConfirmationStyle,
-            withOverrides: overrides?.purchaseConfirmationStyle
-        )
-        let resolvedCampaignLinkStyle = ActionWidgetStyle.resolved(themeStyle.campaignLinkStyle,
-                                                                   withOverrides: overrides?.campaignLinkStyle)
-
-        /// Returns all applicable global style rules after resolving the global theme with any global style overrides
-        return CatchStyleConfig(
-            textStyle: resolvedTextStyle,
-            benefitTextStyle: resolvedBenefitTextStyle,
-            infoButtonStyle: resolvedInfoButtonStyle,
-            actionButtonStyle: resolvedActionButtonStyle,
-            calloutStyle: resolvedCalloutStyle,
-            expressCheckoutCalloutStyle: resolvedExpressCheckoutStyle,
-            paymentMethodStyle: resolvedPaymentMethodStyle,
-            purchaseConfirmationStyle: resolvedPurchaseConfirmationStyle,
-            campaignLinkStyle: resolvedCampaignLinkStyle
-        )
+    // Resolves all overrides which are applicable to a given widget type
+    private static func resolvedGlobalOverridesForWidget(globalStyleConfig: CatchStyleConfig?,
+                                                          type: StyleResolver.WidgetType) -> WidgetStyle? {
+        guard let globalStyle = globalStyleConfig else { return nil }
+        let universalGlobalOverrides = globalStyle.universalConfigForWidget(type)
+        let widgetGlobalOverrides = globalStyle.styleConfigForWidget(type)
+        return resolveWidgetStyle(universalGlobalOverrides, overrides: widgetGlobalOverrides)
     }
 }

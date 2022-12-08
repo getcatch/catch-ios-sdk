@@ -15,6 +15,8 @@ import Foundation
  - Payment Method
  */
 public struct InfoWidgetStyle: WidgetStyle {
+    internal var type: WidgetStyleType = .labelWidget
+
     /// Configures the styling of text components within the widget.
     var widgetTextStyle: WidgetTextStyle?
 

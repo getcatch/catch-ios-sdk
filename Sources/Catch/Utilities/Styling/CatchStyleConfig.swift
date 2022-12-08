@@ -45,18 +45,25 @@ public struct CatchStyleConfig {
         return WidgetTextStyle(textStyle: textStyle, benefitTextStyle: benefitTextStyle)
     }
 
-    internal func resolvedLabelWidgetStyle(for widgetType: StyleResolver.WidgetType) -> LabelWidgetStyle? {
-        guard let labelWidgetStyle = styleConfigForWidgetType(widgetType) as? LabelWidgetStyle else { return nil }
-        let infoButtonConfig = TextStyle.resolved(infoButtonStyle, withOverrides: labelWidgetStyle.infoButtonStyle)
-        return LabelWidgetStyle(widgetTextStyle: resolvedTextStyles(for: widgetType), infoButtonStyle: infoButtonConfig)
-    }
-
-    internal func resolvedActionWidgetStyle(for widgetType: StyleResolver.WidgetType) -> ActionWidgetStyle? {
-        guard let actionWidgetStyle = styleConfigForWidgetType(widgetType) as? ActionWidgetStyle else { return nil }
-        let actionButtonConfig = ActionButtonStyle.resolved(actionButtonStyle,
-                                                            withOverrides: actionWidgetStyle.actionButtonStyle)
-        return ActionWidgetStyle(widgetTextStyle: resolvedTextStyles(for: widgetType),
-                                 actionButtonStyle: actionButtonConfig)
+    /// Initializes a Catch style coniguration.
+    public init(textStyle: TextStyle? = nil,
+                benefitTextStyle: BenefitTextStyle? = nil,
+                infoButtonStyle: TextStyle? = nil,
+                actionButtonStyle: ActionButtonStyle? = nil,
+                calloutStyle: LabelWidgetStyle? = nil,
+                expressCheckoutCalloutStyle: LabelWidgetStyle? = nil,
+                paymentMethodStyle: LabelWidgetStyle? = nil,
+                purchaseConfirmationStyle: ActionWidgetStyle? = nil,
+                campaignLinkStyle: ActionWidgetStyle? = nil) {
+        self.textStyle = textStyle
+        self.benefitTextStyle = benefitTextStyle
+        self.infoButtonStyle = infoButtonStyle
+        self.actionButtonStyle = actionButtonStyle
+        self.calloutStyle = calloutStyle
+        self.expressCheckoutCalloutStyle = expressCheckoutCalloutStyle
+        self.paymentMethodStyle = paymentMethodStyle
+        self.purchaseConfirmationStyle = purchaseConfirmationStyle
+        self.campaignLinkStyle = campaignLinkStyle
     }
 
     internal static func defaults(theme: Theme?) -> CatchStyleConfig {
@@ -71,13 +78,7 @@ public struct CatchStyleConfig {
                                 campaignLinkStyle: theme?.actionWidgetStyle)
     }
 
-    private func resolvedTextStyles(for widgetType: StyleResolver.WidgetType) -> WidgetTextStyle {
-        let globalWidgetOverrides = styleConfigForWidgetType(widgetType)
-        return WidgetTextStyle.resolved(widgetTextStyles,
-                                        withOverrides: globalWidgetOverrides?.widgetTextStyle)
-    }
-
-    private func styleConfigForWidgetType(_ type: StyleResolver.WidgetType) -> WidgetStyle? {
+    internal func styleConfigForWidget(_ type: StyleResolver.WidgetType) -> WidgetStyle? {
         switch type {
         case .callout:
             return calloutStyle
@@ -89,6 +90,15 @@ public struct CatchStyleConfig {
             return purchaseConfirmationStyle
         case .campaignLink:
             return campaignLinkStyle
+        }
+    }
+
+    internal func universalConfigForWidget(_ type: StyleResolver.WidgetType) -> WidgetStyle {
+        switch type {
+        case .callout, .expressCheckoutCallout, .paymentMethod:
+            return LabelWidgetStyle(widgetTextStyle: widgetTextStyles, infoButtonStyle: infoButtonStyle)
+        case .purchaseConfirmation, .campaignLink:
+            return ActionWidgetStyle(widgetTextStyle: widgetTextStyles, actionButtonStyle: actionButtonStyle)
         }
     }
 }

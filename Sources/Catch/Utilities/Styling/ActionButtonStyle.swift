@@ -51,4 +51,11 @@ public struct ActionButtonStyle {
                           cornerRadius: overrides?.cornerRadius ?? buttonStyle?.cornerRadius)
     }
 
+    static func defaults(_ theme: Theme) -> ActionButtonStyle {
+        let textStyle = TextStyle(font: CatchFont.buttonLabel, textColor: theme.buttonTextColor)
+        let buttonStyle = ActionButtonStyle(textStyle: textStyle,
+                                            backgroundColor: theme.accentColor,
+                                            cornerRadius: UIConstant.defaultCornerRadius)
+        return buttonStyle
+    }
 }

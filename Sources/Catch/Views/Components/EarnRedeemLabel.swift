@@ -42,12 +42,12 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
         let prefixString = type == .callout(hasOrPrefix: true)
         ? LocalizedString.or.localized + " "
         : ""
-        return NSAttributedString(string: prefixString, style: style.textStyle ?? .default)
+        return NSAttributedString(string: prefixString, style: style.textStyle)
     }
 
     private var fillerString: NSAttributedString {
         let text = StringFormat.getEarnRedeemFillerText(type: type)
-        return NSAttributedString(string: text, style: style.textStyle ?? .default)
+        return NSAttributedString(string: text, style: style.textStyle)
     }
 
     // MARK: - Initializers

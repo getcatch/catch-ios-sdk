@@ -73,6 +73,10 @@ public class _Catch {
         return options.theme
     }
 
+    public func getGlobalStyleOverrides() -> CatchStyleConfig? {
+        return options.globalStyleOverrides
+    }
+
     internal var environmentHost: String {
         options.environment.host
     }

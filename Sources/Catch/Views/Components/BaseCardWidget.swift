@@ -18,6 +18,7 @@ public class BaseCardWidget: BaseWidget {
 
     // MARK: - View Configuration Properties
 
+    internal var resolvedActionWidgetStyling: ActionWidgetStyle? { return resolvedStyling as? ActionWidgetStyle }
     /**
      Constraints to pin the button to the edges of the parent view.
      */
@@ -45,9 +46,10 @@ public class BaseCardWidget: BaseWidget {
                   buttonTitle: String = String(),
                   buttonURL: URL? = nil,
                   theme: Theme?,
+                  styleOverrides: ActionWidgetStyle?,
                   borderStyle: BorderStyle,
                   insets: UIEdgeInsets = UIEdgeInsets(inset: UIConstant.largeSpacing)) {
-        let buttonStyle = ActionButtonStyle(textStyle: .default, backgroundColor: theme?.accentColor)
+        let buttonStyle = ActionButtonStyle(backgroundColor: theme?.accentColor)
         self.externalLinkButton = ExternalLinkButton(title: buttonTitle,
                                                      url: buttonURL,
                                                      style: buttonStyle)
@@ -55,6 +57,7 @@ public class BaseCardWidget: BaseWidget {
         let border: BorderStyle = borderStyle == .pill ? .roundedRect : borderStyle
         let config = BaseWidgetConfig(price: initialAmount,
                                       theme: theme,
+                                      styleOverrides: styleOverrides,
                                       borderConfig: BorderConfig(insets: insets, style: border))
         super.init(config: config)
         externalLinkButton.translatesAutoresizingMaskIntoConstraints = false
@@ -86,16 +89,14 @@ public class BaseCardWidget: BaseWidget {
 
     override internal func didUpdateTheme() {
         super.didUpdateTheme()
-        let textStyle = TextStyle(font: CatchFont.buttonLabel,
-                                  textColor: theme.buttonTextColor)
-        let buttonStyle = ActionButtonStyle(textStyle: textStyle,
-                                            backgroundColor: theme.accentColor)
+        let actionButtonStyle = resolvedActionWidgetStyling?.actionButtonStyle
+        let buttonStyle = actionButtonStyle ?? ActionButtonStyle.defaults(theme)
 
         externalLinkButton.setStyle(style: buttonStyle)
     }
 
     override internal func createBenefitTextStyle() -> WidgetTextStyle {
-        theme.widgetTextStyle(size: .large)
+        resolvedActionWidgetStyling?.widgetTextStyle ?? theme.widgetTextStyle(size: .large)
     }
 
     /**

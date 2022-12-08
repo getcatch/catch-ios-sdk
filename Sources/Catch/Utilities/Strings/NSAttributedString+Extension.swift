@@ -8,8 +8,8 @@
 import UIKit
 
 extension NSAttributedString {
-    convenience init(string: String, style: TextStyle? = .default) {
-        let style = style ?? .default
+    convenience init(string: String, style: TextStyle? = nil) {
+        let style = style ?? TextStyle()
         var attributes: [NSAttributedString.Key: Any] = [:]
 
         attributes[.font] = style.font
@@ -19,6 +19,10 @@ extension NSAttributedString {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = lineSpacing
             attributes[.paragraphStyle] = paragraphStyle
+        }
+
+        if let letterSpacing = style.letterSpacing {
+            attributes[.kern] = letterSpacing
         }
 
         if style.isUnderlined ?? false {

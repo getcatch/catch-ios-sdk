@@ -21,7 +21,7 @@ class InfoButton: UIButton {
     private var style: TextStyle
 
     // MARK: - Initializers
-    init(style: TextStyle = .default) {
+    init(style: TextStyle = TextStyle()) {
         self.style = style
         super.init(frame: .zero)
         configureClickAction()
@@ -37,6 +37,7 @@ class InfoButton: UIButton {
     func setStyle(_ style: TextStyle) {
         self.style = style
         setButtonColors()
+        setStyledButtonTitle()
     }
 }
 
@@ -47,15 +48,19 @@ private extension InfoButton {
             configuration = UIButton.Configuration.plain()
         }
 
-        let attributedString = NSAttributedString(string: infoText, style: style)
-        setFormattedTitle(attributedString: attributedString)
+        setStyledButtonTitle()
         setInsets(forContentPadding: .zero, imageTitlePadding: 0)
         setButtonColors()
     }
 
+    func setStyledButtonTitle() {
+        let attributedString = NSAttributedString(string: infoText, style: style)
+        setFormattedTitle(attributedString: attributedString)
+    }
+
     func setButtonColors() {
-        tintColor = style.textColor
-        layer.borderColor = style.textColor?.cgColor
+        guard let color = style.textColor else { return }
+        setTextColor(color: color)
     }
 
     func configureClickAction() {

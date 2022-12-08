@@ -84,7 +84,9 @@ public enum Theme {
     }
 
     internal func textStyle(size: CatchFont.Size) -> TextStyle {
-        TextStyle(font: CatchFont.body(size: size), textColor: foregroundColor)
+        TextStyle(font: CatchFont.body(size: size),
+                  textColor: foregroundColor,
+                  lineSpacing: UIConstant.defaultLineSpacing)
     }
 
     internal func benefitTextStyle(size: CatchFont.Size) -> BenefitTextStyle {
@@ -118,5 +120,16 @@ public enum Theme {
 
     internal var actionWidgetStyle: ActionWidgetStyle {
         ActionWidgetStyle(widgetTextStyle: widgetTextStyle(size: .large), actionButtonStyle: actionButtonStyle)
+    }
+
+    internal func styleDefaultForWidgetType(_ type: StyleResolver.WidgetType) -> WidgetStyle? {
+        switch type {
+        case .callout, .paymentMethod:
+            return labelWidgetStyle(textSize: .small)
+        case .expressCheckoutCallout:
+            return labelWidgetStyle(textSize: .regular)
+        case .purchaseConfirmation, .campaignLink:
+            return actionWidgetStyle
+        }
     }
 }

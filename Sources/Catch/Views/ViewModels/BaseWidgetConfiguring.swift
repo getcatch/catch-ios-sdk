@@ -10,6 +10,7 @@ import UIKit
 struct BaseWidgetConfig {
     var price: Int?
     var theme: Theme?
+    var styleOverrides: WidgetStyle?
     var borderConfig: BorderConfig = BorderConfig()
     var items: [Item]?
     var userCohorts: [String]?

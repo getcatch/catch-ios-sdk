@@ -27,7 +27,7 @@ public class CatchLogo: UIView, NotificationResponding {
      - Parameter theme: The Catch color theme.
      */
     public init(theme: Theme? = nil) {
-        self.theme = theme ?? .lightColor
+        self.theme = theme ?? Catch.getTheme()
         super.init(frame: .zero)
         configureImageView()
         // Only subscribe to global theme updates if no local theme has been set

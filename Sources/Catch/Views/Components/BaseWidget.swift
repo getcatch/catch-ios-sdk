@@ -25,6 +25,14 @@ public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, Base
         }
     }
 
+    internal var didSetLocalTheme: Bool
+    internal var styleOverrides: WidgetStyle?
+    internal var widgetType: StyleResolver.WidgetType {
+        fatalError("Subclass of BaseWidget must override widget type")
+    }
+
+    internal final var resolvedStyling: WidgetStyle?
+
     internal var borderStyle: BorderStyle {
         didSet {
             configureBorder(viewHeight: bounds.height, theme: theme)
@@ -46,13 +54,16 @@ public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, Base
      Internal initializer prevents others from initializing the BaseWidget class directly.
      */
     internal init(config: BaseWidgetConfig) {
-        self.theme = config.theme ?? .lightColor
+        self.theme = config.theme ?? Catch.getTheme()
+        self.didSetLocalTheme = config.theme != nil
+        self.styleOverrides = config.styleOverrides
         self.borderStyle = config.borderConfig.style ?? .none
         self.insets = config.borderConfig.insets
-        self.logo = CatchLogo(theme: theme)
+        self.logo = CatchLogo(theme: config.theme)
         self.earnRedeemLabelType = config.earnRedeemLabelConfig
 
         super.init(frame: .zero)
+        resolveWidgetStyle()
         initializeViewModel(config: config)
         stack.translatesAutoresizingMaskIntoConstraints = false
         configureSubviews()
@@ -68,6 +79,7 @@ public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, Base
     // MARK: - Public Functions
 
     public func setTheme(_ theme: Theme) {
+        didSetLocalTheme = true
         unsubscribeFromNotifications()
         self.theme = theme
     }
@@ -85,13 +97,14 @@ public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, Base
     }
 
     internal func didUpdateTheme() {
+        resolveWidgetStyle()
         label.style = createBenefitTextStyle()
         layer.borderColor = theme.borderColor
         logo.setTheme(theme)
     }
 
     internal func createBenefitTextStyle() -> WidgetTextStyle {
-        theme.widgetTextStyle(size: .small)
+        return resolvedStyling?.widgetTextStyle ?? theme.widgetTextStyle(size: .small)
     }
 
     // MARK: - AutoLayout
@@ -154,5 +167,12 @@ private extension BaseWidget {
         addSubview(stack)
 
         setConstraints()
+    }
+
+    func resolveWidgetStyle() {
+        let localTheme  = didSetLocalTheme ? theme : nil
+        resolvedStyling = StyleResolver.resolved(widgetType: widgetType,
+                                                 localTheme: localTheme,
+                                                 localOverrides: styleOverrides)
     }
 }

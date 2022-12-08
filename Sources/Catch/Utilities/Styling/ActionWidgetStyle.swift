@@ -9,6 +9,12 @@ import Foundation
 
 protocol WidgetStyle {
     var widgetTextStyle: WidgetTextStyle? { get set }
+    var type: WidgetStyleType { get }
+}
+
+enum WidgetStyleType {
+    case actionWidget
+    case labelWidget
 }
 
 /**
@@ -18,6 +24,8 @@ protocol WidgetStyle {
  - Campaign Link
  */
 public struct ActionWidgetStyle: WidgetStyle {
+    internal var type: WidgetStyleType = .actionWidget
+
     /// Configures the styling of text components within the widget.
     var widgetTextStyle: WidgetTextStyle?
 

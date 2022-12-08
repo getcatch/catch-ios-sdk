@@ -49,6 +49,8 @@ public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
         return variant == .compact ? [labelInfoStack] : [logo, labelInfoStack]
     }
 
+    override var widgetType: StyleResolver.WidgetType { return .paymentMethod }
+
     // MARK: - Initializers
     /**
      Initializes a new payment method widget which is designed specifically to be displayed in
@@ -67,6 +69,7 @@ public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
                 selected: Bool = false,
                 disabled: Bool = false,
                 theme: Theme? = nil,
+                styleOverrides: LabelWidgetStyle? = nil,
                 variant: PaymentMethodVariant = .standard,
                 items: [Item]? = nil,
                 userCohorts: [String]? = nil
@@ -77,6 +80,7 @@ public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
         let earnRedeemLabelConfig: EarnRedeemLabelType = .paymentMethod(isCompact: variant == .logoCompact)
         let config = BaseWidgetConfig(price: price,
                                       theme: theme,
+                                      styleOverrides: styleOverrides,
                                       items: items,
                                       userCohorts: userCohorts,
                                       earnRedeemLabelConfig: earnRedeemLabelConfig)

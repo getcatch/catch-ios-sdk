@@ -15,12 +15,15 @@ public class Callout: BaseEarnRedeemWidget {
         return [label, logo, infoButton]
     }
 
+    override var widgetType: StyleResolver.WidgetType { return .callout }
+
     // MARK: - Initializers
 
     public init(price: Int? = nil,
                 borderStyle: BorderStyle = .roundedRect,
                 orPrefix: Bool = false,
                 theme: Theme? = nil,
+                styleOverrides: LabelWidgetStyle? = nil,
                 items: [Item]? = nil,
                 userCohorts: [String]? = nil) {
         self.orPrefix = orPrefix
@@ -31,6 +34,7 @@ public class Callout: BaseEarnRedeemWidget {
         let borderConfig = BorderConfig(insets: insets, style: borderStyle)
         let config = BaseWidgetConfig(price: price,
                                       theme: theme,
+                                      styleOverrides: styleOverrides,
                                       borderConfig: borderConfig,
                                       items: items,
                                       userCohorts: userCohorts,

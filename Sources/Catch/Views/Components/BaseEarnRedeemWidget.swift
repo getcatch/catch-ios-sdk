@@ -11,8 +11,11 @@ public class BaseEarnRedeemWidget: BaseWidget, InfoButtonDelegate, TofuPresentin
     // MARK: - Info Button Properties
 
     lazy internal var infoButton = InfoButton(style: infoButtonStyle)
-    internal var infoButtonStyle: TextStyle
+    internal var infoButtonStyle: TextStyle {
+        resolvedLabelWidgetStyling?.infoButtonStyle ?? TextStyle()
+    }
     internal var viewModel: BaseEarnRedeemWidgetViewModel?
+    internal var resolvedLabelWidgetStyling: LabelWidgetStyle? { return resolvedStyling as? LabelWidgetStyle }
 
     // MARK: - Initializers
 
@@ -20,8 +23,6 @@ public class BaseEarnRedeemWidget: BaseWidget, InfoButtonDelegate, TofuPresentin
      Internal initializer prevents others from initializing the BaseEarnRedeemWidget class directly.
      */
     override internal init(config: BaseWidgetConfig) {
-        self.infoButtonStyle = TextStyle(font: CatchFont.infoButton, lineSpacing: 0)
-
         super.init(config: config)
         configureInfoButton()
     }
@@ -61,7 +62,7 @@ public class BaseEarnRedeemWidget: BaseWidget, InfoButtonDelegate, TofuPresentin
 
     private func configureInfoButton() {
         infoButton.delegate = self
-        infoButton.setStyle(TextStyle.infoButtonStyle(theme: theme))
+        infoButton.setStyle(infoButtonStyle)
     }
 
     private func presentTofu(path: TofuPath) {
