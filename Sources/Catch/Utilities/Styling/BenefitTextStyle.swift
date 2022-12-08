@@ -34,4 +34,12 @@ public struct BenefitTextStyle {
         self.redeemTextColor = redeemTextColor
         self.font = font
     }
+
+    internal static func resolved(_ style: BenefitTextStyle?,
+                                  withOverrides overrides: BenefitTextStyle?) -> BenefitTextStyle? {
+        BenefitTextStyle(earnTextColor: overrides?.earnTextColor ?? style?.earnTextColor,
+                         redeemTextColor: overrides?.redeemTextColor ?? style?.redeemTextColor,
+                         font: overrides?.font ?? style?.font)
+
+    }
 }

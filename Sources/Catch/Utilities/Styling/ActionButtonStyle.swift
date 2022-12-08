@@ -42,4 +42,13 @@ public struct ActionButtonStyle {
         self.cornerRadius = cornerRadius
         self.shadowStyle = shadowStyle
     }
+
+    static func resolved(_ buttonStyle: ActionButtonStyle?,
+                         withOverrides overrides: ActionButtonStyle?) -> ActionButtonStyle? {
+        ActionButtonStyle(textStyle: TextStyle.resolved(buttonStyle?.textStyle, withOverrides: overrides?.textStyle),
+                          backgroundColor: overrides?.backgroundColor ?? buttonStyle?.backgroundColor,
+                          height: overrides?.height ?? buttonStyle?.height,
+                          cornerRadius: overrides?.cornerRadius ?? buttonStyle?.cornerRadius)
+    }
+
 }

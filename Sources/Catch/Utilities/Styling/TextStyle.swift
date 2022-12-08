@@ -30,7 +30,12 @@ public struct TextStyle {
     internal var isUnderlined: Bool?
 
     static var `default`: TextStyle {
-        return TextStyle()
+        return TextStyle(font: CatchFont.bodySmall,
+                         textColor: Theme.lightColor.foregroundColor,
+                         textTransform: TextTransform.none,
+                         lineSpacing: UIConstant.defaultLineSpacing,
+                         letterSpacing: 0,
+                         isUnderlined: false)
     }
 
     /// Initializes a TextStyle configuration.
@@ -70,12 +75,23 @@ public struct TextStyle {
     /**
      Scales the font size for the attributed string.
      */
-    internal func withScaledFont(multiplier: Double) -> TextStyle {
-        guard let font = font else { return self }
+    internal func withScaledFont(multiplier: Double) -> TextStyle? {
+        guard let font = font else { return nil }
         let scaledPointSize = font.pointSize * multiplier
         let scaledFont = font.withSize(scaledPointSize)
         var style = self
         style.font = scaledFont
         return style
+    }
+
+    internal static func resolved(_ textStyle: TextStyle?,
+                                  withOverrides overrides: TextStyle?) -> TextStyle? {
+        TextStyle(font: overrides?.font ?? textStyle?.font,
+                  textColor: overrides?.textColor ?? textStyle?.textColor,
+                  textTransform: overrides?.textTransform ?? textStyle?.textTransform,
+                  lineSpacing: overrides?.lineSpacing ?? textStyle?.lineSpacing,
+                  letterSpacing: overrides?.letterSpacing ?? textStyle?.letterSpacing,
+                  isUnderlined: overrides?.isUnderlined ?? textStyle?.isUnderlined)
+
     }
 }

@@ -69,6 +69,10 @@ public class _Catch {
         notificationCenter.post(name: NotificationName.globalThemeUpdate, object: theme)
     }
 
+    internal func getTheme() -> Theme {
+        return options.theme
+    }
+
     internal var environmentHost: String {
         options.environment.host
     }

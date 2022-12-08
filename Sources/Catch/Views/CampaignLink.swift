@@ -45,8 +45,8 @@ public class CampaignLink: BaseCardWidget {
         claimNowLabel.attributedText = NSAttributedString(string: claimNowText, style: claimNowTextStyle())
     }
 
-    private func claimNowTextStyle() -> TextStyle {
-        return (label.style.textStyle ?? .default).withScaledFont(multiplier: 0.875)
+    private func claimNowTextStyle() -> TextStyle? {
+        return (label.style.textStyle ?? .default)?.withScaledFont(multiplier: 0.875)
     }
 
     override func didUpdateTheme() {
