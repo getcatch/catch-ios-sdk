@@ -59,7 +59,8 @@ private extension ExternalLinkButton {
         if #available(iOS 15.0, *) {
             configuration = UIButton.Configuration.filled()
 
-            /// Set the background corner radius to 0 so that the background respects whichever corner radius is set on the layer.
+            /// Set the background corner radius to 0 so that the background respects
+            /// the corner radius that's set on the button's layer.
             configuration?.background.cornerRadius = 0
             configuration?.cornerStyle = .fixed
         }
