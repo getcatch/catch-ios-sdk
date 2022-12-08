@@ -37,20 +37,15 @@ extension UIButton {
     }
 
     /**
-     Sets the text and font for the title label.
+     Sets the text and text attributes for the title label.
      Works for all iOS versions.
      */
-    func setFormattedTitle(text: String, font: UIFont?) {
-        let font = font ?? CatchFont.buttonLabel
+    func setFormattedTitle(attributedString: NSAttributedString) {
         if #available(iOS 15, *) {
-            var container = AttributeContainer()
-            container.font = font
-            configuration?.attributedTitle = AttributedString(text, attributes: container)
+            configuration?.attributedTitle = AttributedString(attributedString)
         } else {
-            setTitle(text, for: .normal)
-            titleLabel?.font = font
+            setAttributedTitle(attributedString, for: .normal)
         }
-
     }
 
     /**
@@ -79,6 +74,31 @@ extension UIButton {
         } else {
             setImage(image, for: .normal)
             semanticContentAttribute = .forceRightToLeft
+            imageView?.contentMode = .scaleAspectFit
+        }
+    }
+
+    /**
+     Sets the color for foreground views such as images
+     Works for all iOS versions.
+     */
+    func setTintColor(color: UIColor) {
+        if #available(iOS 15, *) {
+            configuration?.baseForegroundColor = color
+        } else {
+            tintColor = color
+        }
+    }
+
+    /**
+     Sets the button's background color
+     Works for all iOS versions.
+     */
+    func setBackgroundColor(color: UIColor) {
+        if #available(iOS 15, *) {
+            configuration?.baseBackgroundColor = color
+        } else {
+            backgroundColor = color
         }
     }
 }

@@ -47,14 +47,15 @@ private extension InfoButton {
             configuration = UIButton.Configuration.plain()
         }
 
-        setFormattedTitle(text: infoText, font: style.font)
+        let attributedString = NSAttributedString(string: infoText, style: style)
+        setFormattedTitle(attributedString: attributedString)
         setInsets(forContentPadding: .zero, imageTitlePadding: 0)
         setButtonColors()
     }
 
     func setButtonColors() {
         tintColor = style.textColor
-        layer.borderColor = style.textColor.cgColor
+        layer.borderColor = style.textColor?.cgColor
     }
 
     func configureClickAction() {

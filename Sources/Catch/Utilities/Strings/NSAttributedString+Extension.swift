@@ -15,15 +15,17 @@ extension NSAttributedString {
         attributes[.font] = style.font
         attributes[.foregroundColor] = style.textColor
 
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = style.lineSpacing
-        attributes[.paragraphStyle] = paragraphStyle
+        if let lineSpacing = style.lineSpacing {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = lineSpacing
+            attributes[.paragraphStyle] = paragraphStyle
+        }
 
-        if style.isUnderlined {
+        if style.isUnderlined ?? false {
             attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
         }
 
-        let transformedString = style.textTransform.transform(string)
+        let transformedString = style.textTransform?.transform(string) ?? string
 
         self.init(string: transformedString, attributes: attributes)
     }

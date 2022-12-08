@@ -5,7 +5,7 @@
 //  Created by Lucille Benoit on 12/4/22.
 //
 
-import Foundation
+import UIKit
 
 /**
  The text style set for Catch widgets. This includes the general text styling (see ``TextStyle``)
@@ -26,12 +26,12 @@ public struct WidgetTextStyle {
     }
 
     /// The calculated earn message text style.
-    internal func earnTextStyle(isUnderlined: Bool) -> TextStyle?  {
+    internal func earnTextStyle(isUnderlined: Bool) -> TextStyle? {
         calculateBenefitTextStyle(color: benefitTextStyle?.earnTextColor, isUnderlined: isUnderlined)
     }
 
     /// The calculated redeem message text style.
-    internal var redeemTextStyle: TextStyle?  {
+    internal var redeemTextStyle: TextStyle? {
         calculateBenefitTextStyle(color: benefitTextStyle?.redeemTextColor, isUnderlined: true)
     }
 

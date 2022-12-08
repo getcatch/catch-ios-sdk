@@ -28,7 +28,7 @@ enum EarnRedeemLabelType: Equatable {
 
     var benefitTextIsUnderlined: Bool {
         switch self {
-        case .callout(_), .expressCheckoutCallout, .paymentMethod(_):
+        case .callout, .expressCheckoutCallout, .paymentMethod:
             return true
         default:
             return false
