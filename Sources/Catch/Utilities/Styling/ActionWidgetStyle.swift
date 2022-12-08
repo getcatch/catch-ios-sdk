@@ -19,4 +19,10 @@ public struct ActionWidgetStyle {
 
     /// Configures the styling of the action button within the widget.
     var actionButtonStyle: ActionButtonStyle?
+
+    /// Initializes an ActionWidgetStyle configuration.
+    public init(widgetTextStyle: WidgetTextStyle? = nil, actionButtonStyle: ActionButtonStyle? = nil) {
+        self.widgetTextStyle = widgetTextStyle
+        self.actionButtonStyle = actionButtonStyle
+    }
 }

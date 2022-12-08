@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TextTransform {
+public enum TextTransform {
     case capitalize
     case lowercase
     case uppercase

@@ -27,4 +27,14 @@ public struct ActionButtonStyle {
     /// Configures the button's corner radius
     var cornerRadius: CGFloat?
 
+    /// Initializes an ActionButtonStyle configuration
+    public init(textStyle: TextStyle? = nil,
+                backgroundColor: UIColor? = nil,
+                height: CGFloat? = nil,
+                cornerRadius: CGFloat? = nil) {
+        self.textStyle = textStyle
+        self.backgroundColor = backgroundColor
+        self.height = height
+        self.cornerRadius = cornerRadius
+    }
 }

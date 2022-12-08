@@ -18,4 +18,11 @@ public struct WidgetTextStyle {
     /// Configures the colors and font specifically for the benefit text (ex. "Earn x% credit")
     /// All other text attributes will be inherited from the textStyle.
     var benefitTextStyle: BenefitTextStyle?
+
+    /// Initializes a WidgetTextStyle configuration.
+    public init(textStyle: TextStyle? = nil, benefitTextStyle: BenefitTextStyle? = nil) {
+        self.textStyle = textStyle
+        self.benefitTextStyle = benefitTextStyle
+    }
+
 }

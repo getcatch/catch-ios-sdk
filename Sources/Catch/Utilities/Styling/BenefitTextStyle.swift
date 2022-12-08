@@ -27,4 +27,11 @@ public struct BenefitTextStyle {
 
     /// Configures the font to highlight the benefit text.
     var font: UIFont?
+
+    /// Initializes a BenefitTextStyle configuration.
+    public init(earnTextColor: UIColor? = nil, redeemTextColor: UIColor? = nil, font: UIFont? = nil) {
+        self.earnTextColor = earnTextColor
+        self.redeemTextColor = redeemTextColor
+        self.font = font
+    }
 }
