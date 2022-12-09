@@ -55,13 +55,14 @@ struct StyleResolver {
         case .labelWidget:
             return LabelWidgetStyle.resolved(style as? LabelWidgetStyle, withOverrides: overrides as? LabelWidgetStyle)
         case .actionWidget:
-            return ActionWidgetStyle.resolved(style as? ActionWidgetStyle, withOverrides: overrides as? ActionWidgetStyle)
+            return ActionWidgetStyle.resolved(style as? ActionWidgetStyle,
+                                              withOverrides: overrides as? ActionWidgetStyle)
         }
     }
 
     // Resolves all overrides which are applicable to a given widget type
     private static func resolvedGlobalOverridesForWidget(globalStyleConfig: CatchStyleConfig?,
-                                                          type: StyleResolver.WidgetType) -> WidgetStyle? {
+                                                         type: StyleResolver.WidgetType) -> WidgetStyle? {
         guard let globalStyle = globalStyleConfig else { return nil }
         let universalGlobalOverrides = globalStyle.universalConfigForWidget(type)
         let widgetGlobalOverrides = globalStyle.styleConfigForWidget(type)
