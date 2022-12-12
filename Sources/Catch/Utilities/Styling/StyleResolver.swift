@@ -16,10 +16,13 @@ struct StyleResolver {
         case campaignLink
     }
 
-    internal static func resolved(widgetType: WidgetType,
-                                  localTheme: Theme?,
-                                  localOverrides: WidgetStyle?,
-                                  globalTheme: Theme = Catch.getTheme()) -> WidgetStyle? {
+    internal static func resolved(
+        widgetType: WidgetType,
+        localTheme: Theme?,
+        localOverrides: WidgetStyle?,
+        globalTheme: Theme = Catch.getTheme(),
+        globalOverrides: CatchStyleConfig? = Catch.getGlobalStyleOverrides()
+    ) -> WidgetStyle? {
         var finalWidgetStyle: WidgetStyle?
         let localThemeStyling = localTheme?.styleDefaultForWidgetType(widgetType)
 
@@ -32,7 +35,6 @@ struct StyleResolver {
             let globalStyle = CatchStyleConfig.defaults(theme: globalTheme).styleConfigForWidget(widgetType)
 
             // Get global overrides for the specific widget type
-            let globalOverrides = Catch.getGlobalStyleOverrides()
             let globalWidgetOverrides = resolvedGlobalOverridesForWidget(globalStyleConfig: globalOverrides,
                                                                          type: widgetType)
 
