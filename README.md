@@ -7,7 +7,7 @@
 [![Cocoapods compatible](https://img.shields.io/badge/Cocoapods-compatible-brightgreen)](https://guides.cocoapods.org/using/getting-started.html)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/badge/license-MIT-lightgray)](https://github.com/getcatch/catch-ios-sdk/blob/main/LICENSE)
-[![Platform](https://img.shields.io/cocoapods/p/ios)](https://catch.readme.io/)
+[![Platform](https://img.shields.io/badge/platform-ios-lightgray)](https://catch.readme.io/)
 
 The Catch iOS SDK allows you to integrate [Catch](https://www.getcatch.com) as a payment option in your native iOS apps.
 
