@@ -8,20 +8,28 @@
 import Foundation
 
 /**
- An object specifying item details to be passed into widgets
- in order to calculate sku-based rewards.
+ An object specifying item details.
  */
-public struct Item {
-    let sku: String?
-    let name: String?
-    let price: Int?
-    let quantity: Int?
+public struct Item: Codable {
+    var name: String
+    var sku: String
+    var price: Price
+    var quantity: Int
+    var category: [String]?
+    var imageUrl: String
+
+    /// Initializes an item object.
+    public init(name: String, sku: String, price: Price, quantity: Int, category: [String]? = nil, imageUrl: String) {
+        self.name = name
+        self.sku = sku
+        self.price = price
+        self.quantity = quantity
+        self.category = category
+        self.imageUrl = imageUrl
+    }
 
     internal var queryString: String {
-        let strings = [sku ?? "",
-                       name ?? "",
-                       price?.stringValue ?? "",
-                       quantity?.stringValue ?? ""]
+        let strings = [sku, name, price.amount.stringValue, quantity.stringValue]
 
         return strings.joined(separator: ";")
     }
