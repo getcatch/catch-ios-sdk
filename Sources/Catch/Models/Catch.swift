@@ -6,7 +6,7 @@
 //  Created by Lucille Benoit on 9/14/22.
 //
 
-import Foundation
+import UIKit
 
 public let Catch = _Catch.sharedInstance
 
@@ -79,5 +79,17 @@ public class _Catch {
 
     internal var environmentHost: String {
         options.environment.host
+    }
+
+    /**
+     Opens the checkout flow.
+     - Parameter checkoutId: The unique identifier for the checkout
+     - Parameter options: Prefill values and callback functions for checkout confirmed or canceled.
+     */
+    public static func openCheckout(checkoutId: String,
+                                    options: CheckoutOptions) {
+        guard let webController = CheckoutController(checkoutId: checkoutId, options: options) else { return }
+        webController.modalPresentationStyle = .overFullScreen
+        UIApplication.topViewController()?.present(webController, animated: true)
     }
 }

@@ -17,13 +17,27 @@ enum CatchURL {
     static let signIn = "https://app.getcatch.com/u/sign-in"
     static let rewardCampaignLandingPage = "/u/e/%@"
     static let tofuPath = "/t/"
+    static let checkoutPath = "/c/"
 
     static func tofu(_ merchantRepository: MerchantRepositoryInterface) -> URL? {
         guard let merchant = merchantRepository.getCurrentMerchant(),
               let publicKey = merchantRepository.merchantPublicKey,
               let queryItems = try? TofuURLQuery(merchant: merchant,
-                                                publicKey: publicKey).toQueryItems(encodingStrategy: .useDefaultKeys)
+                                                 publicKey: publicKey).toQueryItems(encodingStrategy: .useDefaultKeys)
         else { return nil }
         return URLComponents(path: CatchURL.tofuPath, queryItems: queryItems).url
+    }
+
+    static func checkout(checkoutId: String,
+                         prefillFields: CheckoutPrefill?,
+                         merchantRepository: MerchantRepositoryInterface) -> URL? {
+        guard let merchant = merchantRepository.getCurrentMerchant(),
+              let publicKey = merchantRepository.merchantPublicKey else { return nil }
+        let queryItems = try? CheckoutURLQuery(checkoutId: checkoutId,
+                                               prefill: prefillFields,
+                                               themeConfig: merchant.theme,
+                                               publicKey: publicKey
+        ).toQueryItems(encodingStrategy: .useDefaultKeys)
+        return URLComponents(path: CatchURL.checkoutPath, queryItems: queryItems).url
     }
 }
