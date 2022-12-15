@@ -19,9 +19,9 @@ final class StyleResolverTests: XCTestCase {
                                                    localTheme: localTheme,
                                                    localOverrides: localOverrides,
                                                    globalTheme: .lightColor,
-                                                   globalOverrides: nil) as? LabelWidgetStyle
+                                                   globalOverrides: nil) as? InfoWidgetStyle
 
-        XCTAssertNotNil(resolvedStyle, "The resolved style should be of type LabelWidgetStyle")
+        XCTAssertNotNil(resolvedStyle, "The resolved style should be of type InfoWidgetStyle")
         let textStyle = resolvedStyle?.widgetTextStyle?.textStyle
         let overrideTextStyle = localOverrides.widgetTextStyle?.textStyle
         let themeTextStyle = localTheme.styleDefaultForWidgetType(widgetType)?.widgetTextStyle?.textStyle
@@ -81,9 +81,9 @@ final class StyleResolverTests: XCTestCase {
                                                    localTheme: nil,
                                                    localOverrides: nil,
                                                    globalTheme: globalTheme,
-                                                   globalOverrides: globalCatchConfig) as? LabelWidgetStyle
+                                                   globalOverrides: globalCatchConfig) as? InfoWidgetStyle
 
-        XCTAssertNotNil(resolvedStyle, "The resolved style should be of type LabelWidgetStyle")
+        XCTAssertNotNil(resolvedStyle, "The resolved style should be of type InfoWidgetStyle")
         let textStyle = resolvedStyle?.widgetTextStyle?.textStyle
         let globalWidgetSpecificTextStyle = globalWidgetSpecificOverrides?.widgetTextStyle?.textStyle
         let themeTextStyle = globalTheme.styleDefaultForWidgetType(widgetType)?.widgetTextStyle?.textStyle

@@ -23,7 +23,7 @@ class MockStyles {
     static let generalTextTransform: TextTransform = .uppercase
 
     // Widget styles
-    static let localCalloutOverrides = LabelWidgetStyle(widgetTextStyle: overrideTextStyles,
+    static let localCalloutOverrides = InfoWidgetStyle(widgetTextStyle: overrideTextStyles,
                                                         infoButtonStyle: overrideTextStyle)
     static let localPurchaseConfirmationOverrides = ActionWidgetStyle(widgetTextStyle: overrideTextStyles,
                                                                       actionButtonStyle: overrideButtonStyle)
