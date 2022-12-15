@@ -27,13 +27,13 @@ public struct CatchStyleConfig {
     var actionButtonStyle: ActionButtonStyle?
 
     /// Configures the styling for all callout widgets
-    var calloutStyle: LabelWidgetStyle?
+    var calloutStyle: InfoWidgetStyle?
 
     /// Configures the styling for all express checkout callout widgets
-    var expressCheckoutCalloutStyle: LabelWidgetStyle?
+    var expressCheckoutCalloutStyle: InfoWidgetStyle?
 
     /// Configures the styling for all payment method widgets
-    var paymentMethodStyle: LabelWidgetStyle?
+    var paymentMethodStyle: InfoWidgetStyle?
 
     /// Configures the styling for all purchase confirmation widgets
     var purchaseConfirmationStyle: ActionWidgetStyle?
@@ -50,9 +50,9 @@ public struct CatchStyleConfig {
                 benefitTextStyle: BenefitTextStyle? = nil,
                 infoButtonStyle: TextStyle? = nil,
                 actionButtonStyle: ActionButtonStyle? = nil,
-                calloutStyle: LabelWidgetStyle? = nil,
-                expressCheckoutCalloutStyle: LabelWidgetStyle? = nil,
-                paymentMethodStyle: LabelWidgetStyle? = nil,
+                calloutStyle: InfoWidgetStyle? = nil,
+                expressCheckoutCalloutStyle: InfoWidgetStyle? = nil,
+                paymentMethodStyle: InfoWidgetStyle? = nil,
                 purchaseConfirmationStyle: ActionWidgetStyle? = nil,
                 campaignLinkStyle: ActionWidgetStyle? = nil) {
         self.textStyle = textStyle
@@ -71,9 +71,9 @@ public struct CatchStyleConfig {
                                 benefitTextStyle: theme?.benefitTextStyle(size: .small),
                                 infoButtonStyle: theme?.infoButtonStyle,
                                 actionButtonStyle: theme?.actionButtonStyle,
-                                calloutStyle: theme?.labelWidgetStyle(textSize: .small),
-                                expressCheckoutCalloutStyle: theme?.labelWidgetStyle(textSize: .regular),
-                                paymentMethodStyle: theme?.labelWidgetStyle(textSize: .small),
+                                calloutStyle: theme?.infoWidgetStyle(textSize: .small),
+                                expressCheckoutCalloutStyle: theme?.infoWidgetStyle(textSize: .regular),
+                                paymentMethodStyle: theme?.infoWidgetStyle(textSize: .small),
                                 purchaseConfirmationStyle: theme?.actionWidgetStyle,
                                 campaignLinkStyle: theme?.actionWidgetStyle)
     }
@@ -96,7 +96,7 @@ public struct CatchStyleConfig {
     internal func universalConfigForWidget(_ type: StyleResolver.WidgetType) -> WidgetStyle {
         switch type {
         case .callout, .expressCheckoutCallout, .paymentMethod:
-            return LabelWidgetStyle(widgetTextStyle: widgetTextStyles, infoButtonStyle: infoButtonStyle)
+            return InfoWidgetStyle(widgetTextStyle: widgetTextStyles, infoButtonStyle: infoButtonStyle)
         case .purchaseConfirmation, .campaignLink:
             return ActionWidgetStyle(widgetTextStyle: widgetTextStyles, actionButtonStyle: actionButtonStyle)
         }

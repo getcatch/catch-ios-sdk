@@ -53,7 +53,7 @@ struct StyleResolver {
         guard let type = style?.type, type == overrides?.type else { return  nil }
         switch type {
         case .labelWidget:
-            return LabelWidgetStyle.resolved(style as? LabelWidgetStyle, withOverrides: overrides as? LabelWidgetStyle)
+            return InfoWidgetStyle.resolved(style as? InfoWidgetStyle, withOverrides: overrides as? InfoWidgetStyle)
         case .actionWidget:
             return ActionWidgetStyle.resolved(style as? ActionWidgetStyle,
                                               withOverrides: overrides as? ActionWidgetStyle)

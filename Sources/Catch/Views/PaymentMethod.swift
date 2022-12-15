@@ -69,7 +69,7 @@ public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
                 selected: Bool = false,
                 disabled: Bool = false,
                 theme: Theme? = nil,
-                styleOverrides: LabelWidgetStyle? = nil,
+                styleOverrides: InfoWidgetStyle? = nil,
                 variant: PaymentMethodVariant = .standard,
                 items: [Item]? = nil,
                 userCohorts: [String]? = nil

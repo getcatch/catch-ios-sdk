@@ -23,7 +23,7 @@ public class Callout: BaseEarnRedeemWidget {
                 borderStyle: BorderStyle = .roundedRect,
                 orPrefix: Bool = false,
                 theme: Theme? = nil,
-                styleOverrides: LabelWidgetStyle? = nil,
+                styleOverrides: InfoWidgetStyle? = nil,
                 items: [Item]? = nil,
                 userCohorts: [String]? = nil) {
         self.orPrefix = orPrefix

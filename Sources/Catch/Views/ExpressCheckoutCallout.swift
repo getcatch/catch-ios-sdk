@@ -60,7 +60,7 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
     public init(price: Int? = nil,
                 borderStyle: BorderStyle = .roundedRect,
                 theme: Theme? = nil,
-                styleOverrides: LabelWidgetStyle? = nil,
+                styleOverrides: InfoWidgetStyle? = nil,
                 items: [Item]? = nil,
                 userCohorts: [String]? = nil) {
         let earnRedeemLabelConfig: EarnRedeemLabelType = .expressCheckoutCallout

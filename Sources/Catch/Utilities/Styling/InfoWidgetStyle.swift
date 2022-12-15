@@ -29,16 +29,16 @@ public struct InfoWidgetStyle: WidgetStyle {
         self.infoButtonStyle = infoButtonStyle
     }
 
-    internal static func resolved(_ style: LabelWidgetStyle?,
-                                  withOverrides overrides: LabelWidgetStyle?) -> LabelWidgetStyle? {
-        return LabelWidgetStyle(widgetTextStyle: WidgetTextStyle.resolved(style?.widgetTextStyle,
+    internal static func resolved(_ style: InfoWidgetStyle?,
+                                  withOverrides overrides: InfoWidgetStyle?) -> InfoWidgetStyle? {
+        return InfoWidgetStyle(widgetTextStyle: WidgetTextStyle.resolved(style?.widgetTextStyle,
                                                                           withOverrides: overrides?.widgetTextStyle),
                                 infoButtonStyle: TextStyle.resolved(style?.infoButtonStyle,
                                                                     withOverrides: overrides?.infoButtonStyle))
     }
 
-    internal static func defaults(theme: Theme?, widgetType: StyleResolver.WidgetType) -> LabelWidgetStyle? {
+    internal static func defaults(theme: Theme?, widgetType: StyleResolver.WidgetType) -> InfoWidgetStyle? {
         let size: CatchFont.Size = widgetType == .expressCheckoutCallout ? .regular : .small
-        return theme?.labelWidgetStyle(textSize: size)
+        return theme?.infoWidgetStyle(textSize: size)
     }
 }

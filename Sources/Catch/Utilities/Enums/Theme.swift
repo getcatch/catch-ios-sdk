@@ -114,7 +114,7 @@ public enum Theme {
                                  cornerRadius: UIConstant.defaultCornerRadius)
     }
 
-    internal func labelWidgetStyle(textSize: CatchFont.Size) -> InfoWidgetStyle {
+    internal func infoWidgetStyle(textSize: CatchFont.Size) -> InfoWidgetStyle {
         InfoWidgetStyle(widgetTextStyle: widgetTextStyle(size: textSize), infoButtonStyle: infoButtonStyle)
     }
 
@@ -125,9 +125,9 @@ public enum Theme {
     internal func styleDefaultForWidgetType(_ type: StyleResolver.WidgetType) -> WidgetStyle? {
         switch type {
         case .callout, .paymentMethod:
-            return labelWidgetStyle(textSize: .small)
+            return infoWidgetStyle(textSize: .small)
         case .expressCheckoutCallout:
-            return labelWidgetStyle(textSize: .regular)
+            return infoWidgetStyle(textSize: .regular)
         case .purchaseConfirmation, .campaignLink:
             return actionWidgetStyle
         }

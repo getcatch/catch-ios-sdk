@@ -15,7 +15,7 @@ public class BaseEarnRedeemWidget: BaseWidget, InfoButtonDelegate, TofuPresentin
         resolvedLabelWidgetStyling?.infoButtonStyle ?? TextStyle()
     }
     internal var viewModel: BaseEarnRedeemWidgetViewModel?
-    internal var resolvedLabelWidgetStyling: LabelWidgetStyle? { return resolvedStyling as? LabelWidgetStyle }
+    internal var resolvedLabelWidgetStyling: InfoWidgetStyle? { return resolvedStyling as? InfoWidgetStyle }
 
     // MARK: - Initializers
 
