@@ -27,7 +27,7 @@ public struct TextStyle {
     var letterSpacing: CGFloat?
 
     /// Configures the text to appear underlined.
-    var isUnderlined: Bool?
+    internal var isUnderlined: Bool?
 
     static var `default`: TextStyle {
         return TextStyle()
@@ -38,14 +38,12 @@ public struct TextStyle {
                 textColor: UIColor? = nil,
                 textTransform: TextTransform? = nil,
                 lineSpacing: CGFloat? = nil,
-                letterSpacing: CGFloat? = nil,
-                isUnderlined: Bool? = nil) {
+                letterSpacing: CGFloat? = nil) {
         self.font = font
         self.textColor = textColor
         self.textTransform = textTransform
         self.lineSpacing = lineSpacing
         self.letterSpacing = letterSpacing
-        self.isUnderlined = isUnderlined
     }
 
     internal static func infoButtonStyle(theme: Theme) -> TextStyle {

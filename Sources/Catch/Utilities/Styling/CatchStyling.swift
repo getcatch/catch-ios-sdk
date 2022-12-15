@@ -27,13 +27,13 @@ public struct CatchStyling {
     var actionButtonStyle: ActionButtonStyle?
 
     /// Configures the styling for all callout widgets
-    var calloutStyle: LabelWidgetStyle?
+    var calloutStyle: InfoWidgetStyle?
 
     /// Configures the styling for all express checkout callout widgets
-    var expressCheckoutCalloutStyle: LabelWidgetStyle?
+    var expressCheckoutCalloutStyle: InfoWidgetStyle?
 
     /// Configures the styling for all payment method widgets
-    var paymentMethodStyle: LabelWidgetStyle?
+    var paymentMethodStyle: InfoWidgetStyle?
 
     /// Configures the styling for all purchase confirmation widgets
     var purchaseConfirmationStyle: ActionWidgetStyle?
@@ -46,9 +46,9 @@ public struct CatchStyling {
                 benefitTextStyle: BenefitTextStyle? = nil,
                 infoButtonStyle: TextStyle? = nil,
                 actionButtonStyle: ActionButtonStyle? = nil,
-                calloutStyle: LabelWidgetStyle? = nil,
-                expressCheckoutCalloutStyle: LabelWidgetStyle? = nil,
-                paymentMethodStyle: LabelWidgetStyle? = nil,
+                calloutStyle: InfoWidgetStyle? = nil,
+                expressCheckoutCalloutStyle: InfoWidgetStyle? = nil,
+                paymentMethodStyle: InfoWidgetStyle? = nil,
                 purchaseConfirmationStyle: ActionWidgetStyle? = nil,
                 campaignLinkStyle: ActionWidgetStyle? = nil) {
         self.textStyle = textStyle

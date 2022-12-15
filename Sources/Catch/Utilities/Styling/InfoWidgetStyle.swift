@@ -1,5 +1,5 @@
 //
-//  LabelWidgetStyle.swift
+//  InfoWidgetStyle.swift
 //  Catch
 //
 //  Created by Lucille Benoit on 12/4/22.
@@ -14,14 +14,14 @@ import Foundation
  - Express Checkout Callout
  - Payment Method
  */
-public struct LabelWidgetStyle {
+public struct InfoWidgetStyle {
     /// Configures the styling of text components within the widget.
     var widgetTextStyle: WidgetTextStyle?
 
     /// Configures the styling of the info button within the widget.
     var infoButtonStyle: TextStyle?
 
-    /// Initializes a LabelWidgetStyle configuration.
+    /// Initializes a InfoWidgetStyle configuration.
     public init(widgetTextStyle: WidgetTextStyle? = nil, infoButtonStyle: TextStyle? = nil) {
         self.widgetTextStyle = widgetTextStyle
         self.infoButtonStyle = infoButtonStyle
