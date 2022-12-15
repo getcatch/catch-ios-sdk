@@ -10,7 +10,16 @@ import UIKit
 public class BaseCardWidget: BaseWidget {
 
     // MARK: - Subviews
-    internal lazy var merchantCard = MerchantRewardCard()
+    internal lazy var merchantCard: MerchantRewardCard = {
+        let card = MerchantRewardCard()
+        if let merchant = Catch.merchantRepository.getCurrentMerchant() {
+            card.updateCardData(merchant: merchant,
+                                earnedAmount: 0,
+                                expiration: merchant.expirationDate)
+        }
+        return card
+    }()
+
     internal var externalLinkButton: ExternalLinkButton
     private var flexButton: UIButton {
         return externalLinkButton

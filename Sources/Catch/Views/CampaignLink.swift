@@ -31,7 +31,10 @@ public class CampaignLink: BaseCardWidget {
                 theme: Theme? = nil,
                 styleOverrides: ActionWidgetStyle? = nil) {
         self.campaignName = campaignName
-        super.init(theme: theme, styleOverrides: styleOverrides, borderStyle: borderStyle)
+        super.init(buttonTitle: LocalizedString.claimYourCredit.localized,
+                   theme: theme,
+                   styleOverrides: styleOverrides,
+                   borderStyle: borderStyle)
         configureClaimNowLabel()
     }
 

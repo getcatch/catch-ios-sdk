@@ -30,12 +30,6 @@ public class PurchaseConfirmation: BaseCardWidget {
                    theme: theme,
                    styleOverrides: styleOverrides,
                    borderStyle: borderStyle)
-
-        if let merchant = Catch.merchantRepository.getCurrentMerchant() {
-            merchantCard.updateCardData(merchant: merchant,
-                                        earnedAmount: 0,
-                                        expiration: merchant.expirationDate)
-        }
     }
 
     required init?(coder: NSCoder) {
