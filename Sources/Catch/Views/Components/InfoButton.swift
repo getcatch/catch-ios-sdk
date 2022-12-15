@@ -20,6 +20,11 @@ class InfoButton: UIButton {
     private let infoText = "ⓘ"
     private var style: TextStyle
 
+    /// Prevents default button padding in iOS versions below 15
+    override var intrinsicContentSize: CGSize {
+        return titleLabel?.intrinsicContentSize ?? super.intrinsicContentSize
+    }
+
     // MARK: - Initializers
     init(style: TextStyle = TextStyle()) {
         self.style = style
