@@ -15,6 +15,7 @@ public struct CatchOptions {
     var theme: Theme
     let environment: Environment
     let useCatchFonts: Bool
+    let globalStyleOverrides: CatchStyleConfig?
 
     /**
      Initializes Catch Options to specify the optional configuration settings which
@@ -26,9 +27,13 @@ public struct CatchOptions {
      - Parameter useCatchFonts: Specifies if custom Catch fonts should be loaded into your application.
      Defaults to true.
      */
-    public init(theme: Theme = .lightColor, environment: Environment = .sandbox, useCatchFonts: Bool = true) {
+    public init(theme: Theme = .lightColor,
+                environment: Environment = .sandbox,
+                useCatchFonts: Bool = true,
+                globalStyleOverrides: CatchStyleConfig? = nil) {
         self.theme = theme
         self.environment = environment
         self.useCatchFonts = useCatchFonts
+        self.globalStyleOverrides = globalStyleOverrides
     }
 }

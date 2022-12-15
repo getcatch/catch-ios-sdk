@@ -38,6 +38,8 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
         return [topStack, bottomStack]
     }
 
+    override var widgetType: StyleResolver.WidgetType { return .expressCheckoutCallout }
+
     override public var intrinsicContentSize: CGSize {
         return CGSize(width: UIScreen.main.bounds.width, height: frame.height)
     }
@@ -50,6 +52,7 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
      - Parameter price: The cost in cents that a consumer would pay for the item(s) without redeeming Catch credit.
      - Parameter borderStyle: The style of border the widget renders. Defaults to a slightly rounded rectangular border.
      - Parameter theme: The Catch color theme. If no theme is set, the default "light-color" theme will be used.
+     - Parameter styleOverrides: Overrides for the widget's styling.
      - Parameter items: A list of all items included in the order. Used to calculate item-based rewards.
      - Parameter userCohorts: A list of user cohorts that the signed in user qualifies for.
      Used to calculate cohort-based rewards.
@@ -57,6 +60,7 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
     public init(price: Int? = nil,
                 borderStyle: BorderStyle = .roundedRect,
                 theme: Theme? = nil,
+                styleOverrides: InfoWidgetStyle? = nil,
                 items: [Item]? = nil,
                 userCohorts: [String]? = nil) {
         let earnRedeemLabelConfig: EarnRedeemLabelType = .expressCheckoutCallout
@@ -64,6 +68,7 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
         let borderConfig = BorderConfig(insets: insets, style: borderStyle)
         let config = BaseWidgetConfig(price: price,
                                       theme: theme,
+                                      styleOverrides: styleOverrides,
                                       borderConfig: borderConfig,
                                       items: items,
                                       userCohorts: userCohorts,
@@ -85,7 +90,7 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
     }
 
     override func createBenefitTextStyle() -> WidgetTextStyle {
-        theme.widgetTextStyle(size: .regular)
+        return resolvedStyling?.widgetTextStyle ?? theme.widgetTextStyle(size: .regular)
     }
 
     // MARK: - Autolayout
@@ -99,8 +104,11 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
     }
 
     override public func layoutSubviews() {
-        // Split the stack into two lines if content width is larger than available width
-        needsMultiLineLayout = (contentWidth() > bounds.size.width)
+        if let superviewSize = superview?.bounds.size, superviewSize != .zero {
+            // Split the stack into two lines if content width is larger than available width
+            needsMultiLineLayout = (contentWidth() > superviewSize.width)
+        }
+
         if needsMultiLineLayout {
             configureTwoLineLayout()
         } else {
@@ -122,11 +130,10 @@ private extension ExpressCheckoutCallout {
     }
 
     func paymentStepString() -> NSMutableAttributedString {
-        let style = TextStyle(font: CatchFont.bodyRegular,
-                              textColor: theme.foregroundColor)
-
-        let boldStyle = TextStyle(font: CatchFont.linkRegular,
-                                  textColor: theme.foregroundColor)
+        let textStyling = createBenefitTextStyle()
+        let style = textStyling.textStyle
+        var boldStyle = style
+        boldStyle?.font = textStyling.benefitTextStyle?.font
 
         let mutableString = NSMutableAttributedString()
 

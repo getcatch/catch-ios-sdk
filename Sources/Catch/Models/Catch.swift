@@ -69,6 +69,14 @@ public class _Catch {
         notificationCenter.post(name: NotificationName.globalThemeUpdate, object: theme)
     }
 
+    internal func getTheme() -> Theme {
+        return options.theme
+    }
+
+    public func getGlobalStyleOverrides() -> CatchStyleConfig? {
+        return options.globalStyleOverrides
+    }
+
     internal var environmentHost: String {
         options.environment.host
     }

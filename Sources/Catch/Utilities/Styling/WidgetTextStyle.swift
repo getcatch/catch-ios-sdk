@@ -49,4 +49,11 @@ public struct WidgetTextStyle {
         }
         return nil
     }
+
+    internal static func resolved(_ style: WidgetTextStyle?,
+                                  withOverrides overrides: WidgetTextStyle?) -> WidgetTextStyle {
+        WidgetTextStyle(textStyle: TextStyle.resolved(style?.textStyle, withOverrides: overrides?.textStyle),
+                        benefitTextStyle: BenefitTextStyle.resolved(style?.benefitTextStyle,
+                                                                    withOverrides: overrides?.benefitTextStyle))
+    }
 }

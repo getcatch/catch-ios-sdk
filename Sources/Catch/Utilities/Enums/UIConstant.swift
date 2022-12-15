@@ -29,8 +29,8 @@ enum UIConstant {
     /// 24 point spacing
     static let extraLargeSpacing: CGFloat = 24
 
-    /// 1.5 point default text line spacing
-    static let defaultLineSpacing: CGFloat = 1.5
+    /// 4 point default text line spacing
+    static let defaultLineSpacing: CGFloat = 4
 
     /// 24 point larger text line height
     static let largeLineHeight: CGFloat = 24

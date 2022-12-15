@@ -29,10 +29,6 @@ public struct TextStyle {
     /// Configures the text to appear underlined.
     internal var isUnderlined: Bool?
 
-    static var `default`: TextStyle {
-        return TextStyle()
-    }
-
     /// Initializes a TextStyle configuration.
     public init(font: UIFont? = nil,
                 textColor: UIColor? = nil,
@@ -61,21 +57,26 @@ public struct TextStyle {
         self.isUnderlined = isUnderlined
     }
 
-    internal static func infoButtonStyle(theme: Theme) -> TextStyle {
-        return TextStyle(font: CatchFont.infoButton,
-                         textColor: theme.foregroundColor,
-                         lineSpacing: 0)
-    }
-
     /**
      Scales the font size for the attributed string.
      */
-    internal func withScaledFont(multiplier: Double) -> TextStyle {
-        guard let font = font else { return self }
+    internal func withScaledFont(multiplier: Double) -> TextStyle? {
+        guard let font = font else { return nil }
         let scaledPointSize = font.pointSize * multiplier
         let scaledFont = font.withSize(scaledPointSize)
         var style = self
         style.font = scaledFont
         return style
+    }
+
+    internal static func resolved(_ textStyle: TextStyle?,
+                                  withOverrides overrides: TextStyle?) -> TextStyle? {
+        TextStyle(font: overrides?.font ?? textStyle?.font,
+                  textColor: overrides?.textColor ?? textStyle?.textColor,
+                  textTransform: overrides?.textTransform ?? textStyle?.textTransform,
+                  lineSpacing: overrides?.lineSpacing ?? textStyle?.lineSpacing,
+                  letterSpacing: overrides?.letterSpacing ?? textStyle?.letterSpacing,
+                  isUnderlined: overrides?.isUnderlined ?? textStyle?.isUnderlined)
+
     }
 }

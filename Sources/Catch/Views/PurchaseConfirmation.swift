@@ -15,16 +15,20 @@ public class PurchaseConfirmation: BaseCardWidget {
         return [logo, label, merchantCard, externalLinkButton]
     }
 
+    override var widgetType: StyleResolver.WidgetType { return .purchaseConfirmation }
+
     // MARK: - Initializers
 
     public init(earned: Int,
                 borderStyle: BorderStyle = .roundedRect,
                 theme: Theme? = nil,
+                styleOverrides: ActionWidgetStyle? = nil,
                 donation: Int? = nil) {
         super.init(initialAmount: earned,
                    buttonTitle: LocalizedString.viewYourCredit.localized,
                    buttonURL: URL(string: CatchURL.signIn),
                    theme: theme,
+                   styleOverrides: styleOverrides,
                    borderStyle: borderStyle)
 
         if let merchant = Catch.merchantRepository.getCurrentMerchant() {
