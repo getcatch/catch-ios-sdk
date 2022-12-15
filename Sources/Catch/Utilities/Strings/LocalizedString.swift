@@ -39,6 +39,7 @@ enum LocalizedString: String {
     case toSpendAtNextTimeYouPayWithCatch = "to_spend_at_next_time_you_pay_with_catch"
     case claimNowAndStartEarning = "claim_now_and_start_earning"
     case claimStoreCredit = "claim_store_credit"
+    case claimYourCredit = "claim_your_credit"
 
     var localized: String {
         return NSLocalizedString(self.rawValue, bundle: CatchResources.resourceBundle, comment: "\(self)_comment")

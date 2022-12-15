@@ -31,7 +31,10 @@ public class CampaignLink: BaseCardWidget {
                 theme: Theme? = nil,
                 styleOverrides: ActionWidgetStyle? = nil) {
         self.campaignName = campaignName
-        super.init(theme: theme, styleOverrides: styleOverrides, borderStyle: borderStyle)
+        super.init(buttonTitle: LocalizedString.claimYourCredit.localized,
+                   theme: theme,
+                   styleOverrides: styleOverrides,
+                   borderStyle: borderStyle)
         configureClaimNowLabel()
     }
 
@@ -74,6 +77,12 @@ extension CampaignLink: CampaignLinkDelegate {
     func updateButtonConfiguration(buttonTitle: String, url: URL?) {
         DispatchQueue.main.async { [weak self] in
             self?.externalLinkButton.updateConfiguration(text: buttonTitle, url: url)
+        }
+    }
+
+    func hideWidget() {
+        DispatchQueue.main.async { [weak self] in
+            self?.isHidden = true
         }
     }
 }

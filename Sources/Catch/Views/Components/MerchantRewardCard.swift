@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MerchantRewardCard: UIView, Skeletonizable {
+class MerchantRewardCard: UIView {
     // MARK: - Subviews
     var backgroundImageView: RemoteImageView = RemoteImageView(frame: .zero)
     var merchantLogoView: RemoteImageView = RemoteImageView(frame: .zero)
@@ -39,16 +39,6 @@ class MerchantRewardCard: UIView, Skeletonizable {
         padding * UIConstant.merchantLogoWidthMultiplier
     }
 
-    internal var isLoading: Bool = false {
-        didSet {
-            if isLoading {
-                showSkeleton()
-            } else {
-                hideSkeleton()
-            }
-        }
-    }
-
     // MARK: - Initializer
     init() {
         super.init(frame: .zero)
@@ -74,12 +64,10 @@ class MerchantRewardCard: UIView, Skeletonizable {
             self.cardFontColor = merchant.cardFontColor
             self.cardBackgroundImageUrl = merchant.cardBackgroundImageUrl
             self.cardBackgroundColor = merchant.cardBackgroundColor
-            // only hides the loading view once merchant data has loaded
-            isLoading = false
         }
 
         // Hide the amount if it is a negative value
-        self.amountString = earnedAmount < 0 ? String() : StringFormat.priceString(from: earnedAmount)
+        self.amountString = earnedAmount <= 0 ? String() : StringFormat.priceString(from: earnedAmount)
 
         var expirationString = String()
         if let expiration = expiration {
@@ -103,7 +91,6 @@ class MerchantRewardCard: UIView, Skeletonizable {
             addSubview($0)
         }
         setConstraints()
-        isLoading = true
     }
 
     private func configureSubviews() {
