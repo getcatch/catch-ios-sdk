@@ -8,21 +8,24 @@
 import UIKit
 
 extension NSAttributedString {
-    convenience init(string: String, style: NSAttributedStringStyle = .default) {
+    convenience init(string: String, style: TextStyle? = .default) {
+        let style = style ?? .default
         var attributes: [NSAttributedString.Key: Any] = [:]
 
         attributes[.font] = style.font
         attributes[.foregroundColor] = style.textColor
 
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = style.lineSpacing
-        attributes[.paragraphStyle] = paragraphStyle
+        if let lineSpacing = style.lineSpacing {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = lineSpacing
+            attributes[.paragraphStyle] = paragraphStyle
+        }
 
-        if style.isTappable {
+        if style.isUnderlined ?? false {
             attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
         }
 
-        let transformedString = style.textTransform.transform(string)
+        let transformedString = style.textTransform?.transform(string) ?? string
 
         self.init(string: transformedString, attributes: attributes)
     }

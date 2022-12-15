@@ -65,7 +65,7 @@ internal class CampaignLinkViewModel: BaseCardViewModel {
     private func fetchCampaignWithExternalName(_ name: String) {
         guard let publicKey = merchantPublicKey else {
             let error = NetworkError.requestError(.invalidPublicKey(String()))
-            Logger().log(error: error)
+            Logger.log(error: error)
             return
         }
         rewardCampaignService.fetchRewardCampaign(named: name, publicKey: publicKey) { [weak self] result in
@@ -75,7 +75,7 @@ internal class CampaignLinkViewModel: BaseCardViewModel {
                 self.rewardCampaign = campaign
                 self.configureCampaignURL(from: campaign)
             case .failure(let error):
-                Logger().log(error: error)
+                Logger.log(error: error)
             }
         }
     }

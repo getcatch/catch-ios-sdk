@@ -84,16 +84,8 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
         paymentStepLabel.attributedText = paymentStepString()
     }
 
-    override func createBenefitTextStyle() -> EarnRedeemLabel.Style {
-        let earnStyle = NSAttributedStringStyle(font: CatchFont.linkRegular,
-                                                textColor: theme.accentColor,
-                                                isTappable: true)
-        let redeemStyle = NSAttributedStringStyle(font: CatchFont.linkRegular,
-                                                  textColor: theme.secondaryAccentColor,
-                                                  isTappable: true)
-        let fillerTextStyle = NSAttributedStringStyle(font: CatchFont.bodyRegular,
-                                                      textColor: theme.foregroundColor)
-        return EarnRedeemLabel.Style(filler: fillerTextStyle, earn: earnStyle, redeem: redeemStyle)
+    override func createBenefitTextStyle() -> WidgetTextStyle {
+        theme.widgetTextStyle(size: .regular)
     }
 
     // MARK: - Autolayout
@@ -130,11 +122,11 @@ private extension ExpressCheckoutCallout {
     }
 
     func paymentStepString() -> NSMutableAttributedString {
-        let style = NSAttributedStringStyle(font: CatchFont.bodyRegular,
-                                            textColor: theme.foregroundColor)
+        let style = TextStyle(font: CatchFont.bodyRegular,
+                              textColor: theme.foregroundColor)
 
-        let boldStyle = NSAttributedStringStyle(font: CatchFont.linkRegular,
-                                                textColor: theme.foregroundColor)
+        let boldStyle = TextStyle(font: CatchFont.linkRegular,
+                                  textColor: theme.foregroundColor)
 
         let mutableString = NSMutableAttributedString()
 

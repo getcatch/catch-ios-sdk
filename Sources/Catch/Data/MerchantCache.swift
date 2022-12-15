@@ -37,7 +37,7 @@ struct MerchantCache: MerchantCacheInterface {
                 completion(.success(merchant))
             } catch {
                 completion(.failure(error))
-                Logger().log(error: error)
+                Logger.log(error: error)
             }
         } else {
             completion(.success(nil))
@@ -55,7 +55,7 @@ struct MerchantCache: MerchantCacheInterface {
             cache.setValue(data, forKey: publicKey)
             cache.setValue(expirationDate, forKey: expirationKey(for: publicKey))
         } catch {
-            Logger().log(error: error)
+            Logger.log(error: error)
         }
     }
 

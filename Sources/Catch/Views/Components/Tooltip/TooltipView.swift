@@ -20,13 +20,12 @@ protocol TooltipDelegate: AnyObject {
 class TooltipView: UIView {
     weak var delegate: TooltipDelegate?
     let theme: Theme
-    lazy var textStyle = NSAttributedStringStyle(font: CatchFont.bodySmall,
-                                                 textColor: theme.foregroundColor,
-                                                 backgroundColor: theme.accentColor,
-                                                 lineSpacing: UIConstant.smallSpacing)
-    lazy var highlightStyle = NSAttributedStringStyle(font: CatchFont.linkSmall,
-                                                      textColor: theme.foregroundColor,
-                                                      isTappable: true)
+    lazy var textStyle = TextStyle(font: CatchFont.bodySmall,
+                                   textColor: theme.foregroundColor,
+                                   lineSpacing: UIConstant.smallSpacing)
+    lazy var highlightStyle = TextStyle(font: CatchFont.linkSmall,
+                                        textColor: theme.foregroundColor,
+                                        isUnderlined: true)
 
     private var linkRange = NSRange(location: 0, length: 0)
 

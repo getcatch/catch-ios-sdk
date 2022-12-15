@@ -14,16 +14,17 @@ class ExternalLinkButton: UIButton {
 
     private var url: URL?
     private var title: String
-    private var style: NSAttributedStringStyle
+    private var style: ActionButtonStyle
 
     // MARK: - Initializers
 
-    init(title: String, url: URL?, style: NSAttributedStringStyle = .default) {
+    init(title: String, url: URL?, style: ActionButtonStyle) {
         self.title = title
         self.url = url
         self.style = style
         super.init(frame: .zero)
 
+        layer.masksToBounds = true
         configureButton()
         setColors()
         configureClickAction()
@@ -35,16 +36,19 @@ class ExternalLinkButton: UIButton {
 
     // MARK: - Functions
 
-    func setStyle(_ style: NSAttributedStringStyle) {
+    func setStyle(style: ActionButtonStyle) {
         self.style = style
+        setAttributedString(title: title)
         setColors()
-        setFormattedTitle(text: title, font: style.font)
+        layer.cornerRadius = style.cornerRadius ?? UIConstant.defaultCornerRadius
     }
 
     func updateConfiguration(text: String, url: URL? = nil) {
         self.title = text
         self.url = url
-        setFormattedTitle(text: text, font: style.font)
+
+        setAttributedString(title: title)
+        setColors()
     }
 }
 
@@ -52,11 +56,13 @@ class ExternalLinkButton: UIButton {
 
 private extension ExternalLinkButton {
     func configureButton() {
-        layer.cornerRadius = UIConstant.defaultCornerRadius
-        layer.masksToBounds = true
-
         if #available(iOS 15.0, *) {
             configuration = UIButton.Configuration.filled()
+
+            /// Set the background corner radius to 0 so that the background respects
+            /// the corner radius that's set on the button's layer.
+            configuration?.background.cornerRadius = 0
+            configuration?.cornerStyle = .fixed
         }
 
         let linkIconImage = CatchAssetProvider.image(.linkIcon)?.withRenderingMode(.alwaysTemplate)
@@ -67,8 +73,15 @@ private extension ExternalLinkButton {
     }
 
     func setColors() {
-        tintColor = style.backgroundColor
-        setTextColor(color: style.textColor)
+        setBackgroundColor(color: style.backgroundColor ?? .clear)
+        if let color = style.textStyle?.textColor {
+            setTextColor(color: color)
+            setTintColor(color: color)
+        }
+    }
+
+    func setAttributedString(title: String) {
+        setFormattedTitle(attributedString: NSAttributedString(string: title, style: style.textStyle))
     }
 
     func configureClickAction() {

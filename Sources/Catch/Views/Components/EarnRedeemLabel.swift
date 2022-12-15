@@ -11,11 +11,6 @@ import UIKit
  A UILabel displaying tappable earn/redeem reward messaging with a skeleton loading view.
  */
 class EarnRedeemLabel: UILabel, Skeletonizable {
-    struct Style {
-        var filler: NSAttributedStringStyle = .default
-        var earn: NSAttributedStringStyle = .default
-        var redeem: NSAttributedStringStyle = .default
-    }
 
     // MARK: - Properties
     internal var isLoading: Bool = false {
@@ -29,7 +24,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
     }
     private var type: EarnRedeemLabelType
 
-    internal var style: Style {
+    internal var style: WidgetTextStyle {
         didSet {
             updateAttributedString()
         }
@@ -47,12 +42,12 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
         let prefixString = type == .callout(hasOrPrefix: true)
         ? LocalizedString.or.localized + " "
         : ""
-        return NSAttributedString(string: prefixString, style: style.filler)
+        return NSAttributedString(string: prefixString, style: style.textStyle ?? .default)
     }
 
     private var fillerString: NSAttributedString {
         let text = StringFormat.getEarnRedeemFillerText(type: type)
-        return NSAttributedString(string: text, style: style.filler)
+        return NSAttributedString(string: text, style: style.textStyle ?? .default)
     }
 
     // MARK: - Initializers
@@ -65,7 +60,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
      - Parameter tapHandler: The callback function to be called when the link is tapped.
      */
     init(type: EarnRedeemLabelType,
-         style: Style,
+         style: WidgetTextStyle,
          tapHandler: @escaping () -> Void) {
         self.type = type
         self.style = style
@@ -112,7 +107,9 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
 
     private func updateAttributedString() {
         let mutableString = NSMutableAttributedString()
-        let highlightStyle = reward.hasRedeemableCredits ? style.redeem : style.earn
+        let highlightStyle = reward.hasRedeemableCredits
+        ? style.redeemTextStyle
+        : style.earnTextStyle(isUnderlined: type.benefitTextIsUnderlined)
         let earnRedeemText = StringFormat.getEarnRedeemText(
             type: type,
             reward: reward

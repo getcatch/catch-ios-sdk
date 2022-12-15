@@ -25,4 +25,13 @@ enum EarnRedeemLabelType: Equatable {
     var hideFillerString: Bool {
         return self == .paymentMethod(isCompact: true)
     }
+
+    var benefitTextIsUnderlined: Bool {
+        switch self {
+        case .callout, .expressCheckoutCallout, .paymentMethod:
+            return true
+        default:
+            return false
+        }
+    }
 }

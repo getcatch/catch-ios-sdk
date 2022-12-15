@@ -70,7 +70,7 @@ class BaseEarnRedeemWidgetViewModel: BaseWidgetViewModelInterface {
                 self.rewardsResult = rewardsCalculatorResult
                 self.delegate?.updateEarnRedeemMessage(reward: reward, type: self.earnRedeemLabelType)
             case .failure(let error):
-                Logger().log(error: error)
+                Logger.log(error: error)
             }
         }
 
