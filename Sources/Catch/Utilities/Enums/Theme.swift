@@ -112,8 +112,8 @@ public enum Theme {
                                  cornerRadius: UIConstant.defaultCornerRadius)
     }
 
-    internal func labelWidgetStyle(textSize: CatchFont.Size) -> LabelWidgetStyle {
-        LabelWidgetStyle(widgetTextStyle: widgetTextStyle(size: textSize), infoButtonStyle: infoButtonStyle)
+    internal func labelWidgetStyle(textSize: CatchFont.Size) -> InfoWidgetStyle {
+        InfoWidgetStyle(widgetTextStyle: widgetTextStyle(size: textSize), infoButtonStyle: infoButtonStyle)
     }
 
     internal var actionWidgetStyle: ActionWidgetStyle {

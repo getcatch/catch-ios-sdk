@@ -39,11 +39,26 @@ public struct TextStyle {
                 textTransform: TextTransform? = nil,
                 lineSpacing: CGFloat? = nil,
                 letterSpacing: CGFloat? = nil) {
+        self.init(font: font,
+                  textColor: textColor,
+                  textTransform: textTransform,
+                  lineSpacing: lineSpacing,
+                  letterSpacing: letterSpacing,
+                  isUnderlined: nil)
+    }
+
+    internal init(font: UIFont? = nil,
+                  textColor: UIColor? = nil,
+                  textTransform: TextTransform? = nil,
+                  lineSpacing: CGFloat? = nil,
+                  letterSpacing: CGFloat? = nil,
+                  isUnderlined: Bool? = nil) {
         self.font = font
         self.textColor = textColor
         self.textTransform = textTransform
         self.lineSpacing = lineSpacing
         self.letterSpacing = letterSpacing
+        self.isUnderlined = isUnderlined
     }
 
     internal static func infoButtonStyle(theme: Theme) -> TextStyle {
