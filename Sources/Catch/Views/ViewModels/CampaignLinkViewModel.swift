@@ -12,6 +12,7 @@ protocol CampaignLinkDelegate: AnyObject {
     func updateEarnRedeemMessage(reward: Reward, type: EarnRedeemLabelType)
     func updateClaimNowMessage(rewardsRateString: String)
     func updateButtonConfiguration(buttonTitle: String, url: URL?)
+    func hideWidget()
 }
 
 internal class CampaignLinkViewModel: BaseCardViewModel {
@@ -66,6 +67,7 @@ internal class CampaignLinkViewModel: BaseCardViewModel {
         guard let publicKey = merchantPublicKey else {
             let error = NetworkError.requestError(.invalidPublicKey(String()))
             Logger.log(error: error)
+            delegate?.hideWidget()
             return
         }
         rewardCampaignService.fetchRewardCampaign(named: name, publicKey: publicKey) { [weak self] result in
@@ -76,6 +78,7 @@ internal class CampaignLinkViewModel: BaseCardViewModel {
                 self.configureCampaignURL(from: campaign)
             case .failure(let error):
                 Logger.log(error: error)
+                self.delegate?.hideWidget()
             }
         }
     }

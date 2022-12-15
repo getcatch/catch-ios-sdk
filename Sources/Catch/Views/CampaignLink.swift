@@ -79,4 +79,10 @@ extension CampaignLink: CampaignLinkDelegate {
             self?.externalLinkButton.updateConfiguration(text: buttonTitle, url: url)
         }
     }
+
+    func hideWidget() {
+        DispatchQueue.main.async { [weak self] in
+            self?.isHidden = true
+        }
+    }
 }
