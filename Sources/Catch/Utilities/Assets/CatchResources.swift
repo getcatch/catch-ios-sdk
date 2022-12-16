@@ -7,8 +7,8 @@
 
 import Foundation
 
-public final class CatchResources {
-    public static let resourceBundle: Bundle = {
+final class CatchResources {
+    static let resourceBundle: Bundle = {
         let candidates = [
             // Bundle should be present here when the package is linked into an App.
             Bundle.main.resourceURL,

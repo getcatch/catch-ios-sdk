@@ -7,6 +7,11 @@
 
 import UIKit
 
+/**
+ The preset color themes used to render the Catch widgets.
+
+ Widgets will default to the ``lightColor`` theme if no theme is set.
+ */
 public enum Theme {
     /// Intended for widgets which are displayed over a light background, and features Catch's branding color scheme.
     case lightColor

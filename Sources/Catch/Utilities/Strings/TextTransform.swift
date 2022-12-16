@@ -11,9 +11,16 @@ import Foundation
  Text transformation used to capitalize, lowercase or uppercase a string.
  */
 public enum TextTransform {
+    /// Capitalizes every first character in the string (ex. "Test String").
     case capitalize
+
+    /// Lowercases the entire string (ex. "test string").
     case lowercase
+
+    /// Uppercases the entrie string (ex. "TEST STRING").
     case uppercase
+
+    /// Leaves the string in its original form.
     case none
 
     internal func transform(_ text: String) -> String {

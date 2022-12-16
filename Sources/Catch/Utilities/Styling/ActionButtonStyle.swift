@@ -11,8 +11,8 @@ import UIKit
  The styling for action buttons found in Catch widgets.
 
  The following widgets contain action buttons:
- - Purchase Confirmation
- - Campaign Link
+ - ``PurchaseConfirmation``
+ - ``CampaignLink``
  */
 public struct ActionButtonStyle {
     /// Configures the text styling for the button's title label
@@ -30,7 +30,14 @@ public struct ActionButtonStyle {
     /// Configures the button's shadow
     var shadowStyle: ShadowStyle?
 
-    /// Initializes an ActionButtonStyle configuration
+    /**
+     Initializes an ``ActionButtonStyle`` configuration.
+     - Parameter textStyle: The text styling for the button's title label (see ``TextStyle``).
+     - Parameter backgroundColor: The button's background color.
+     - Parameter height: The button's height.
+     - Parameter cornerRadius: The corner radius of the button's corners.
+     - Parameter shadowStyle: The drop shadow styling for the button (see ``ShadowStyle``).
+     */
     public init(textStyle: TextStyle? = nil,
                 backgroundColor: UIColor? = nil,
                 height: CGFloat? = nil,

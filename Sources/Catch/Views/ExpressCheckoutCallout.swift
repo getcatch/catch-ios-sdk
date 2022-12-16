@@ -7,6 +7,18 @@
 
 import UIKit
 
+/**
+ The Express Checkout Callout widget displays similar informational content as the Callout with additional
+ messaging on where to find Catch in the checkout flow. It is intended to be displayed in merchant checkout
+ flows in which an express checkout option is present--since Catch can only be selected on the final step of
+ checkout, this messaging is meant to reduce confusion if the consumer intends to pay with Catch but does
+ not see it displayed as an express checkout option. The widget also includes a button to open an
+ informational modal with more detailed literature about paying with Catch and with links to visit
+ Catch's marketing website.
+
+ The Express Checkout Callout widget also makes use of its price, items, and userCohorts attributes to
+ calculate rewards the user will earn on the current purchase.
+ */
 public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
 
     // MARK: - Subviews
@@ -47,12 +59,14 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
     // MARK: - Initializers
 
     /**
-     Initializes a new express checkout callout widget which is designed to be displayed in
-     merchant checkout flows in which an express checkout option is present.
+     Initializes an ``ExpressCheckoutCallout`` widget.
      - Parameter price: The cost in cents that a consumer would pay for the item(s) without redeeming Catch credit.
      - Parameter borderStyle: The style of border the widget renders. Defaults to a slightly rounded rectangular border.
+     See ``BorderStyle`` for all border style options.
      - Parameter theme: The Catch color theme. If no theme is set, the default "light-color" theme will be used.
-     - Parameter styleOverrides: Overrides for the widget's styling.
+     See ``Theme`` for all theme options.
+     - Parameter styleOverrides: Style overrides which can be used to override the theme's default
+     appearance (ex. fonts and colors).
      - Parameter items: A list of all items included in the order. Used to calculate item-based rewards.
      - Parameter userCohorts: A list of user cohorts that the signed in user qualifies for.
      Used to calculate cohort-based rewards.
