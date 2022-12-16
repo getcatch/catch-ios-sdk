@@ -21,9 +21,6 @@ public class BaseCardWidget: BaseWidget {
     }()
 
     internal var externalLinkButton: ExternalLinkButton
-    private var flexButton: UIButton {
-        return externalLinkButton
-    }
 
     // MARK: - View Configuration Properties
 
@@ -41,7 +38,11 @@ public class BaseCardWidget: BaseWidget {
     }
 
     override var additionalConstraints: [NSLayoutConstraint] {
-        return [logo.heightAnchor.constraint(equalToConstant: UIConstant.largeLogoHeight)]
+        var constraints = [logo.heightAnchor.constraint(equalToConstant: UIConstant.largeLogoHeight)]
+        if let height = resolvedActionWidgetStyling?.actionButtonStyle?.height {
+            constraints += [externalLinkButton.heightAnchor.constraint(equalToConstant: height)]
+        }
+        return constraints
     }
 
     internal var viewModel: AnyObject?
