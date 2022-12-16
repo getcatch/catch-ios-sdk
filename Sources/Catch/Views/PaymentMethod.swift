@@ -36,6 +36,8 @@ public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
         stack.setCustomSpacing(0, after: infoButton)
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
+        infoButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        label.numberOfLines = 2
         return stack
     }()
 

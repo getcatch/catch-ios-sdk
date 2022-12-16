@@ -104,14 +104,16 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
     }
 
     override public func layoutSubviews() {
-        if let superviewSize = superview?.bounds.size, superviewSize != .zero {
-            // Split the stack into two lines if content width is larger than available width
-            needsMultiLineLayout = (contentWidth() > superviewSize.width)
+        // Split the stack into two lines if content width is larger than available width
+        needsMultiLineLayout = (contentWidth() > frame.width)
+
+        // Configure two line layout if stack is not yet vertical
+        if needsMultiLineLayout && stack.axis != .vertical {
+            configureTwoLineLayout()
         }
 
-        if needsMultiLineLayout {
-            configureTwoLineLayout()
-        } else {
+        // Configure one line layout if stack is not yet horizontal
+        if !needsMultiLineLayout && stack.axis != .horizontal {
             configureOneLineLayout()
         }
 
