@@ -22,7 +22,7 @@ class TofuController: CatchWebViewController, PostMessageHandler {
         self.earnedRewardsSummary = rewardSummary
         self.merchantRepository = merchantRepository
         guard let url = CatchURL.tofu(merchantRepository) else { return nil }
-        super.init(url: url)
+        super.init(url: url, isTransparent: true)
         postMessageHandler = self
     }
 

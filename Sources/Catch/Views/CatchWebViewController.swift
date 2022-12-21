@@ -9,9 +9,9 @@ import Foundation
 import WebKit
 
 class CatchWebViewController: UIViewController {
-    lazy var webView: TransparentWebView = {
+    lazy var webView: CatchWebView = {
         let configuration = WebViewConfiguration(scriptMessageHandler: self, name: listenerName)
-        let webView = TransparentWebView(configuration: configuration)
+        let webView = CatchWebView(configuration: configuration, isTransparent: isWebViewTransparent)
         webView.navigationDelegate = self
         return webView
     }()
@@ -20,12 +20,14 @@ class CatchWebViewController: UIViewController {
     let listenerName = "iOSListener"
     let url: URL
     let userRepository: UserRepositoryInterface
+    let isWebViewTransparent: Bool
 
     // MARK: - Initializers
 
-    init(url: URL, userRepository: UserRepositoryInterface = Catch.userRepository) {
+    init(url: URL, isTransparent: Bool = false, userRepository: UserRepositoryInterface = Catch.userRepository) {
         self.url = url
         self.userRepository = userRepository
+        self.isWebViewTransparent = isTransparent
         super.init(nibName: nil, bundle: nil)
     }
 

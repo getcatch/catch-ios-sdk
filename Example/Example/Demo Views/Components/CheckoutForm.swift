@@ -34,10 +34,29 @@ class CheckoutForm: UIView {
     init() {
         super.init(frame: .zero)
         addConstrainedSubviewToView(stack)
+        button.addTarget(self, action: #selector(openCheckout), for: .touchUpInside)
     }
 
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    @objc
+    private func openCheckout() {
+        let prefill = CheckoutPrefill(
+            userPhone: userPhoneField.text,
+            userName: userNameField.text,
+            userEmail: userEmailField.text
+        )
+        let options = CheckoutOptions(prefill: prefill) {
+            print("Checkout was canceled")
+        } onConfirm: {
+            print("Checkout was confirmed")
+        }
+
+        CatchCheckout.openCheckout(
+            checkoutId: checkoutIDField.text,
+            options: options
+        )
+    }
 }

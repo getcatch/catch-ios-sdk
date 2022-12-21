@@ -11,4 +11,6 @@ enum PostMessageAction: String {
     case tofuReady = "CATCH_TOFU_READY"
     case tofuOpen = "CATCH_TOFU_OPEN"
     case tofuBack = "CATCH_TOFU_BACK"
+    case checkoutSuccess = "CATCH_CHECKOUT_SUCCESS"
+    case checkoutBack = "CATCH_CHECKOUT_BACK"
 }
