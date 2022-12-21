@@ -10,7 +10,9 @@ import UIKit
 /**
  The Callout widget shows consumers how much Catch credit they could earn or redeem
  based on the price of the item(s) they're considering (e.g. when viewing a product detail
- page or their cart). The widget also includes a trigger that, when clicked, opens a modal
+ page or their cart).
+
+ The widget also includes a trigger that, when clicked, opens a modal
  which displays more detailed informational content about paying with Catch and earning
  rewards on the merchant's site. The widget automatically recognizes consumers who are
  currently signed in to Catch, and tailors the messaging to them if they have rewards that

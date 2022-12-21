@@ -8,7 +8,9 @@
 import UIKit
 
 /**
- A view which displays Catch's logo. Can be displayed in one of four color themes.
+ A view which displays Catch's logo.
+
+ Can be displayed in one of four color themes.
  */
 public class CatchLogo: UIView, NotificationResponding {
 

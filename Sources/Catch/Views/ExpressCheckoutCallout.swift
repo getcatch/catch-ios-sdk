@@ -9,12 +9,13 @@ import UIKit
 
 /**
  The Express Checkout Callout widget displays similar informational content as the Callout with additional
- messaging on where to find Catch in the checkout flow. It is intended to be displayed in merchant checkout
- flows in which an express checkout option is present--since Catch can only be selected on the final step of
- checkout, this messaging is meant to reduce confusion if the consumer intends to pay with Catch but does
- not see it displayed as an express checkout option. The widget also includes a button to open an
- informational modal with more detailed literature about paying with Catch and with links to visit
- Catch's marketing website.
+ messaging on where to find Catch in the checkout flow.
+
+ It is intended to be displayed in merchant checkout flows in which an express checkout option is present
+ --since Catch can only be selected on the final step of checkout, this messaging is meant to reduce
+ confusion if the consumer intends to pay with Catch but does not see it displayed as an express checkout
+ option. The widget also includes a button to open an informational modal with more detailed literature about
+ paying with Catch and with links to visit Catch's marketing website.
 
  The Express Checkout Callout widget also makes use of its price, items, and userCohorts attributes to
  calculate rewards the user will earn on the current purchase.

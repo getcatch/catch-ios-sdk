@@ -9,9 +9,11 @@ import UIKit
 
 /**
  The PurchaseConfirmation widget is designed to be used on the merchant's order
- confirmation page if Catch was used as a payment method. The widget includes information
- about how much credit the consumer just earned through their purchase and contains a link
- which directs the consumer to their account page on Catch's website.
+ confirmation page if Catch was used as a payment method.
+
+ The widget includes information about how much credit the consumer just earned
+ through their purchase and contains a link which directs the consumer to their account
+ page on Catch's website.
  */
 public class PurchaseConfirmation: BaseCardWidget {
 

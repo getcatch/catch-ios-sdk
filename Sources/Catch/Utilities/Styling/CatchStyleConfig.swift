@@ -10,6 +10,7 @@ import UIKit
 
 /**
  The global styles that can be used to customize components within Catch widgets.
+
  Any styling defined at the widget-level (ex. calloutStyle) will override styling defined globally (ex. textStyle).
  Additionally, any themes or overrides set on an individual widget will override the gloobal configurations set here.
  All styling parameters are optional and only non-nil values will override those at a higher level.

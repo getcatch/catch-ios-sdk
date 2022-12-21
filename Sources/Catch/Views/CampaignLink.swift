@@ -10,7 +10,9 @@ import UIKit
 /**
  The CampaignLink widget is designed to be displayed on your order confirmation page
  if Catch was not used as a payment method in order to offer credits to the consumer the next time they
- pay with Catch. The widget displays information about the amount of credits the consumer can claim
+ pay with Catch.
+
+ The widget displays information about the amount of credits the consumer can claim
  based on the reward campaign’s name. The widget also acts as a hyperlink, directing consumers to a page
  on which they can claim their credits.
  */

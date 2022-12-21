@@ -9,6 +9,7 @@ import Foundation
 
 /**
  Styling for Catch widgets which contain a benefit text label and info button.
+
  This includes the following widgets:
  - ``Callout``
  - ``ExpressCheckoutCallout``
