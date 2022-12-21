@@ -87,12 +87,12 @@ public class _Catch {
     }
 
     /**
-     Opens the checkout flow.
+     Opens the checkout flow given a checkout id.
      - Parameter checkoutId: The unique identifier for the checkout
      - Parameter options: Prefill values and callback functions for checkout confirmed or canceled.
      */
-    public static func openCheckout(checkoutId: String,
-                                    options: CheckoutOptions) {
+    public func openCheckout(checkoutId: String,
+                             options: CheckoutOptions) {
         guard let webController = CheckoutController(checkoutId: checkoutId, options: options) else { return }
         webController.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(webController, animated: true)
