@@ -1,0 +1,72 @@
+name: Bug Report
+description: Report an issue that you're running into
+labels: bug,needs-triage
+body:
+- type: checkboxes
+  attributes:
+    label: Checklist before submitting a bug report
+    options:
+    - label: "I've updated to the latest released version of the SDK"
+      required: false
+    - label: "I've searched for existing [GitHub issues](https://github.com/getcatch/catch-ios-sdk/issues)"
+      required: true
+- type: input
+  id: xcode-version
+  attributes:
+    label: Xcode version
+    description: "Which Xcode version are you using?"
+    placeholder: "X.X.X"
+  validations:
+    required: true
+- type: input
+  id: catch-sdk-version
+  attributes:
+    label: Catch iOS SDK version
+    description: "Which version of the Catch iOS SDK were you using when you found the bug?"
+    placeholder: "X.X.X"
+  validations:
+    required: true
+- type: dropdown
+  id: dependency-manager
+  attributes:
+    label: Dependency Manager
+    description: "Which installation method are you using to include the SDK?"
+    options:
+      - SPM
+      - CocoaPods
+      - Carthage
+      - Manual
+      - Other / I don't know
+  validations:
+    required: true
+- type: textarea
+  id: expected
+  attributes:
+    label: Expected results
+    description: "What do you expect to happen?"
+  validations:
+    required: true
+- type: textarea
+  id: actual
+  attributes:
+    label: Actual results
+    description: "What actually happened? Can you provide a stack trace?"
+  validations:
+    required: true
+- type: textarea
+  id: steps-to-reproduce
+  attributes:
+    label: Steps to reproduce
+    description: "What are the steps necessary to reproduce the bug?"
+- type: textarea
+  id: code-samples
+  attributes:
+    label: Code samples & details
+    description: "Please provide a code sample, as well as any additional details, to help us track down the issue. If you can provide a link to a test project that allows us to reproduce the issue, this helps us immensely in both the speed and quality of the fix.
+    **Note:** Remember to format your code for readability.
+    "
+    value: "// INSERT YOUR CODE HERE
+
+    var example = \"Example code\"
+    "
+    render: swift
