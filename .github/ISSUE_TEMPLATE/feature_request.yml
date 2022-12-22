@@ -1,0 +1,32 @@
+name: Feature Request
+description: Tell us something you want to see in this project
+labels: enhancement,needs-triage
+title: "Feature Request: "
+body:
+- type: checkboxes
+  attributes:
+    label: Checklist before submitting a feature request
+    options:
+    - label: "I've updated to the latest released version of the SDK"
+      required: true
+    - label: "I've searched for existing [Github issues](https://github.com/getcatch/catch-ios-sdk/issues)"
+      required: true
+- type: textarea
+  id: goals
+  attributes:
+    label: Goals
+    description: "What do you want to achieve?"
+  validations:
+    required: true
+- type: textarea
+  id: code-samples
+  attributes:
+    label: Code samples & details
+    description: "Please provide a code sample and any additional details to describe the feature request.
+    **Note:** Remember to format your code for readability.
+    "
+    value: "// INSERT YOUR CODE HERE
+
+    var example = \"Example code\"
+    "
+    render: swift
