@@ -19,9 +19,10 @@ enum WidgetStyleType {
 
 /**
  Styling for Catch widgets which contain an action button.
+
  This includes the following widgets:
- - Purchase Confirmation
- - Campaign Link
+ - ``PurchaseConfirmation``
+ - ``CampaignLink``
  */
 public struct ActionWidgetStyle: WidgetStyle {
     internal var type: WidgetStyleType = .actionWidget
@@ -32,7 +33,11 @@ public struct ActionWidgetStyle: WidgetStyle {
     /// Configures the styling of the action button within the widget.
     var actionButtonStyle: ActionButtonStyle?
 
-    /// Initializes an ActionWidgetStyle configuration.
+    /**
+     Initializes an ``ActionWidgetStyle`` configuration.
+     - Parameter widgetTextStyle: the styling of text components within the widget (see ``WidgetTextStyle``).
+     - Parameter actionButtonStyle: the styling of the action button within the widget (see ``ActionButtonStyle``).
+     */
     public init(widgetTextStyle: WidgetTextStyle? = nil, actionButtonStyle: ActionButtonStyle? = nil) {
         self.widgetTextStyle = widgetTextStyle
         self.actionButtonStyle = actionButtonStyle

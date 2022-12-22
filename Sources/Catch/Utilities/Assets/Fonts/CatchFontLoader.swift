@@ -8,11 +8,11 @@
 import Foundation
 import CoreText
 
-public struct CatchFontLoader {
+struct CatchFontLoader {
     static let fontPath = "Fonts/"
     static let fontExtension = "ttf"
 
-    public static func registerFonts() {
+    static func registerFonts() {
         CatchFont.allFontNames.forEach {
             registerFont(fontName: $0)
         }

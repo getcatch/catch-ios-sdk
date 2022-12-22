@@ -8,8 +8,10 @@
 import UIKit
 
 /**
- The text style set for Catch widgets. This includes the general text styling (see ``TextStyle``)
- as well as configurations specific to the benefit text components (see ``BenefitTextStyle``)
+ The text style set for Catch widgets.
+
+ This includes the general text styling (see ``TextStyle``) as well as
+ configurations specific to the benefit text components (see ``BenefitTextStyle``).
  */
 public struct WidgetTextStyle {
     /// Configures text attributes for all elements within a Catch widget

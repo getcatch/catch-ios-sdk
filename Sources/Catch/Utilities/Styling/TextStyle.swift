@@ -29,7 +29,14 @@ public struct TextStyle {
     /// Configures the text to appear underlined.
     internal var isUnderlined: Bool?
 
-    /// Initializes a TextStyle configuration.
+    /**
+     Initializes a ``TextStyle`` configuration.
+     - Parameter font: The font of the text.
+     - Parameter textColor: The color of the text.
+     - Parameter textTransform: Transforms the text to capitalized, uppercased or lowercased (see ``TextTransform``).
+     - Parameter lineSpacing: The spacing between lines in a string.
+     - Parameter letterSpacing: The spacing between characters in a string.
+     */
     public init(font: UIFont? = nil,
                 textColor: UIColor? = nil,
                 textTransform: TextTransform? = nil,

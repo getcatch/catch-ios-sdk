@@ -7,7 +7,11 @@
 
 import UIKit
 
-/// The CatchLogo view displays Catch's logo.
+/**
+ A view which displays Catch's logo.
+
+ Can be displayed in one of four color themes.
+ */
 public class CatchLogo: UIView, NotificationResponding {
 
     internal var theme: Theme {
@@ -22,9 +26,9 @@ public class CatchLogo: UIView, NotificationResponding {
     // MARK: - Initializers
 
     /**
-     Initializes a new catch logo view with one of Catch's supported color themes.
-     If no theme is provided, the default will be used.
-     - Parameter theme: The Catch color theme.
+     Initializes a ``CatchLogo`` view with one of Catch's supported color themes.
+     If no theme is provided, the default light color theme will be used.
+     - Parameter theme: The Catch color theme. See ``Theme`` for all theme options.
      */
     public init(theme: Theme? = nil) {
         self.theme = theme ?? Catch.getTheme()

@@ -10,7 +10,10 @@ import UIKit
 
 /**
  The global styles that can be used to customize components within Catch widgets.
- Any configurations set locally will override the global configurations.
+
+ Any styling defined at the widget-level (ex. calloutStyle) will override styling defined globally (ex. textStyle).
+ Additionally, any themes or overrides set on an individual widget will override the gloobal configurations set here.
+ All styling parameters are optional and only non-nil values will override those at a higher level.
  */
 public struct CatchStyleConfig {
 
@@ -45,7 +48,19 @@ public struct CatchStyleConfig {
         return WidgetTextStyle(textStyle: textStyle, benefitTextStyle: benefitTextStyle)
     }
 
-    /// Initializes a Catch style coniguration.
+    /**
+     Initializes a global style config for the Catch widgets.
+     - Parameter textStyle: The styling for all text components globally (see ``TextStyle``).
+     - Parameter benefitTextStyle: The styling for all benefit text components globally (see ``BenefitTextStyle``).
+     - Parameter infoButtonStyle: The info button styling for all widgets which contain them (see ``TextStyle``).
+     - Parameter actionButtonStyle: The action button styling for all widgets which contain them
+     (see ``ActionButtonStyle``).
+     - Parameter calloutStyle: The styling for all ``Callout`` widgets.
+     - Parameter expressCheckoutCalloutStyle: The styling for all ``ExpressCheckoutCallout`` widgets.
+     - Parameter paymentMethodStyle: The styling for all ``PaymentMethod`` widgets.
+     - Parameter purchaseConfirmationStyle: The styling for all ``PurchaseConfirmation`` widgets.
+     - Parameter campaignLinkStyle: The styling for all ``CampaignLink`` widgets.
+     */
     public init(textStyle: TextStyle? = nil,
                 benefitTextStyle: BenefitTextStyle? = nil,
                 infoButtonStyle: TextStyle? = nil,

@@ -50,7 +50,7 @@ class CatchWebViewController: UIViewController {
         super.viewDidAppear(animated)
         webView.alpha = 0
         UIView.animate(withDuration: UIConstant.modalAnimationDuration,
-                       delay: 0,
+                       delay: 0.22,
                        options: .curveEaseOut, animations: {
             self.webView.alpha = 1
             self.view.backgroundColor = UIConstant.modalBackgroundColor

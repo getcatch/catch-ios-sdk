@@ -7,6 +7,18 @@
 
 import UIKit
 
+/**
+ The Payment Method widget displays similar messaging and informational content as the Callout,
+ but is designed specifically to be displayed in merchant checkout UI's where a consumer may
+ select Catch as their payment method (typically choosing between Catch and other payment options).
+
+ The widget may be placed in a "selected" state when Catch is selected as a payment method. The widget
+ may also be placed in a "disabled" state, when the application wants to disable Catch as a payment
+ method while still showing the widget greyed-out.
+
+ The Payment Method widget also makes use of its price, items, and userCohorts attributes to calculate
+ rewards the user will earn on the current purchase.
+ */
 public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
     /**
      Whether or not the widget is in a disabled state.
@@ -55,12 +67,14 @@ public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
 
     // MARK: - Initializers
     /**
-     Initializes a new payment method widget which is designed specifically to be displayed in
-     merchant checkout UI's where a consumer may select Catch as their payment method.
+     Initializes a new ``PaymentMethod`` widget.
      - Parameter price: The cost in cents that a consumer would pay for the item(s) without redeeming Catch credit.
      - Parameter selected: Whether or not the widget is in a selected state.
      - Parameter disabled: Whether or not the widget is in a disabled state.
      - Parameter theme: The Catch color theme. If no theme is set, the default will be used.
+     See ``Theme`` for all theme options.
+     - Parameter styleOverrides: Style overrides which can be used to override the theme's default
+     appearance (ex. fonts and colors).
      - Parameter variant: The "compact" variant of the payment method will not render the Catch logo.
      The "logo-compact" variant will render the Catch logo and reward text.
      - Parameter items: A list of all items included in the order. Used to calculate item-based rewards.

@@ -7,6 +7,9 @@
 
 import UIKit
 
+/**
+ The style of border the widgets render. Generally widgets with a border default to the rounded rect style.
+ */
 public enum BorderStyle {
     /// Renders a border with slightly rounded rect corners.
     case roundedRect

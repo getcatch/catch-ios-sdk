@@ -28,7 +28,12 @@ public struct BenefitTextStyle {
     /// Configures the font to highlight the benefit text.
     var font: UIFont?
 
-    /// Initializes a BenefitTextStyle configuration.
+    /**
+     Initializes a ``BenefitTextStyle`` configuration.
+     - Parameter earnTextColor: The text color of the benefit text when a user is earning credits.
+     - Parameter redeemTextColor: The text color of the benefit text when a user is redeeming credits.
+     - Parameter font: The font of the benefit text.
+     */
     public init(earnTextColor: UIColor? = nil, redeemTextColor: UIColor? = nil, font: UIFont? = nil) {
         self.earnTextColor = earnTextColor
         self.redeemTextColor = redeemTextColor

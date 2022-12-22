@@ -9,10 +9,11 @@ import Foundation
 
 /**
  Styling for Catch widgets which contain a benefit text label and info button.
+
  This includes the following widgets:
- - Callout
- - Express Checkout Callout
- - Payment Method
+ - ``Callout``
+ - ``ExpressCheckoutCallout``
+ - ``PaymentMethod``
  */
 public struct InfoWidgetStyle: WidgetStyle {
     internal var type: WidgetStyleType = .labelWidget
@@ -23,7 +24,11 @@ public struct InfoWidgetStyle: WidgetStyle {
     /// Configures the styling of the info button within the widget.
     var infoButtonStyle: TextStyle?
 
-    /// Initializes a InfoWidgetStyle configuration.
+    /**
+     Initializes a ``InfoWidgetStyle`` configuration.
+     - Parameter widgetTextStyle: the styling of text components within the widget.
+     - Parameter infoButtonStyle: the styling of the info button within the widget.
+     */
     public init(widgetTextStyle: WidgetTextStyle? = nil, infoButtonStyle: TextStyle? = nil) {
         self.widgetTextStyle = widgetTextStyle
         self.infoButtonStyle = infoButtonStyle

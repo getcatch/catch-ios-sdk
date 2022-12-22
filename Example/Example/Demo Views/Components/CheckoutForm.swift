@@ -54,7 +54,7 @@ class CheckoutForm: UIView {
             print("Checkout was confirmed")
         }
 
-        CatchCheckout.openCheckout(
+        Catch.openCheckout(
             checkoutId: checkoutIDField.text,
             options: options
         )

@@ -18,7 +18,7 @@ public struct CatchOptions {
     let globalStyleOverrides: CatchStyleConfig?
 
     /**
-     Initializes Catch Options to specify the optional configuration settings which
+     Initializes ``CatchOptions`` to specify the optional configuration settings which
      control the global behavior of the Catch SDK.
      - Parameter theme: Specifies the default theme which determines the look and feel of widgets,
      from a set of available predesigned options. Defaults to the "light color" theme.

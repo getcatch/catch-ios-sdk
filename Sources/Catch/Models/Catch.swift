@@ -64,6 +64,11 @@ public class _Catch {
         }
     }
 
+    /**
+     Changes the current value of the default theme. The theme parameter accepts the same
+     enumeration of values that can be used for the theme option when initializing the SDK.
+     - Parameter theme: The Catch preset color theme.
+     */
     public func setTheme(_ theme: Theme) {
         options.theme = theme
         notificationCenter.post(name: NotificationName.globalThemeUpdate, object: theme)
@@ -73,7 +78,7 @@ public class _Catch {
         return options.theme
     }
 
-    public func getGlobalStyleOverrides() -> CatchStyleConfig? {
+    internal func getGlobalStyleOverrides() -> CatchStyleConfig? {
         return options.globalStyleOverrides
     }
 
@@ -82,12 +87,12 @@ public class _Catch {
     }
 
     /**
-     Opens the checkout flow.
+     Opens the checkout flow given a checkout id.
      - Parameter checkoutId: The unique identifier for the checkout
      - Parameter options: Prefill values and callback functions for checkout confirmed or canceled.
      */
-    public static func openCheckout(checkoutId: String,
-                                    options: CheckoutOptions) {
+    public func openCheckout(checkoutId: String,
+                             options: CheckoutOptions) {
         guard let webController = CheckoutController(checkoutId: checkoutId, options: options) else { return }
         webController.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(webController, animated: true)
