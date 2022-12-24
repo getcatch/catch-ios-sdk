@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct EarnedRewardRuleDetail: Codable {
-    let rewardRuleId: String
-    let earnedRewardAmount: Int
-    let userFacingName: String?
-    let rewardAmountType: String?
-    let ruleEngineType: String?
-    let flatRewardAmount: Int?
-    let percentageRewardRate: Double?
-    let rewardType: String?
-    let detailsLink: String?
-    let sortOrder: Int?
+struct EarnedRewardRuleDetail: Codable, Equatable {
+    var rewardRuleId: String
+    var earnedRewardAmount: Int
+    var userFacingName: String?
+    var rewardAmountType: String?
+    var ruleEngineType: String?
+    var flatRewardAmount: Int?
+    var percentageRewardRate: Double?
+    var rewardType: String?
+    var detailsLink: String?
+    var sortOrder: Int?
 }

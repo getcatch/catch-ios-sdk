@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DonationRecipient: Codable {
+struct DonationRecipient: Codable, Equatable {
     let name: String
     let url: String
 }
