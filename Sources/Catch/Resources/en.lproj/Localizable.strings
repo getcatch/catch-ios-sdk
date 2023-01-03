@@ -22,6 +22,11 @@
 "view_your_credit" = "View your credit";
 "expiration" = "Exp. %@";
 
+/* Donation Campaign Strings */
+"you_donated" = "You've donated %@";
+"merchant_has_matched_your_contribution" = "%@ has matched your contribution to";
+"thanks_for_pitching_in" = "Thanks for pitching in.";
+
 /* Campaign Link Strings */
 "you_earned" = "You earned";
 "credit" = "%@ credit";
