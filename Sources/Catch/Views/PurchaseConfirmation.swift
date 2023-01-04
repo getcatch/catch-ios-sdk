@@ -18,9 +18,23 @@ import UIKit
 public class PurchaseConfirmation: BaseCardWidget {
 
     // MARK: - Properties
+    var donation: Int
+
+    private lazy var donationView: DonationView? = {
+        guard donation > 0,
+            let purchaseConfirmationViewModel = viewModel as? PurchaseConfirmationViewModel,
+            let recipient = purchaseConfirmationViewModel.merchant?.donationRecipient else { return nil }
+        return DonationView(amount: donation,
+                            merchantName: purchaseConfirmationViewModel.merchantName,
+                            recipient: recipient)
+    }()
 
     override var orderedSubviews: [UIView] {
-        return [logo, label, merchantCard, externalLinkButton]
+        var views = [logo, label, merchantCard, externalLinkButton]
+        if let donationView = donationView {
+            views.append(donationView)
+        }
+        return views
     }
 
     override var widgetType: StyleResolver.WidgetType { return .purchaseConfirmation }
@@ -44,6 +58,7 @@ public class PurchaseConfirmation: BaseCardWidget {
                 theme: Theme? = nil,
                 styleOverrides: ActionWidgetStyle? = nil,
                 donation: Int? = nil) {
+        self.donation = donation ?? 0
         super.init(initialAmount: earned,
                    buttonTitle: LocalizedString.viewYourCredit.localized,
                    buttonURL: URL(string: CatchURL.signIn),

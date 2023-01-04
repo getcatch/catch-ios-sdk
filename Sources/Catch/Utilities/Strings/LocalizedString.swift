@@ -33,6 +33,11 @@ enum LocalizedString: String {
     case viewYourCredit = "view_your_credit"
     case expiration = "expiration"
 
+    // Donation Campaign Strings
+    case youDonated = "you_donated"
+    case merchantMatchedYourContribution = "merchant_has_matched_your_contribution"
+    case thanksForPitchingIn = "thanks_for_pitching_in"
+
     // Campaign Link Strings
     case youEarned = "you_earned"
     case credit = "credit"

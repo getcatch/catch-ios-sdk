@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 internal enum CatchColor: String {
     case pinkName = "catch-pink"
@@ -27,4 +28,7 @@ extension CatchColor {
     static let gray1 = CatchAssetProvider.color(.gray1Name) ?? .white
     static let gray2 = CatchAssetProvider.color(.gray2Name) ?? .lightGray
     static let gray3 = CatchAssetProvider.color(.gray3Name) ?? .lightGray
+    static let gray6 = UIColor.init(hexString: "#45485E", alpha: 1)
+    static let purple = UIColor.init(hexString: "#f9f6fe", alpha: 1)
+    static let purple2 = UIColor.init(hexString: "#6b27dd", alpha: 1)
 }
