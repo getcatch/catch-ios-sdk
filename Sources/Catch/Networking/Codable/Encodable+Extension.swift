@@ -23,7 +23,7 @@ extension Encodable {
         let data = try self.encoded(encodingStrategy: encodingStrategy)
         guard let dictionary = try JSONSerialization.jsonObject(with: data,
                                                                 options: .allowFragments) as? [String: Any] else {
-            throw NSError.init()
+            throw NSError.init(domain: NSCocoaErrorDomain, code: NSCoderInvalidValueError)
         }
 
         return dictionary
