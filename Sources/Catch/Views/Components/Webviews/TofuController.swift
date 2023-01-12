@@ -26,7 +26,7 @@ class TofuController: CatchWebViewController, PostMessageHandler {
         postMessageHandler = self
     }
 
-    func handlePostMessage(_ postMessage: PostMessageAction) {
+    func handlePostMessage(_ postMessage: PostMessageAction, data: Any? = nil) {
         switch postMessage {
         case .tofuReady:
             let sendTofuData: JSScript = .postMessage(action: .tofuOpen, dataObject: tofuOpenData)

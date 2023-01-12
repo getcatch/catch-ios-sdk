@@ -89,6 +89,12 @@ public class _Catch {
         presentCheckoutController(webController)
     }
 
+    public func createAndOpenVirtualCardCheckout(orderId: String,
+                                                 options: CheckoutOptions) {
+        guard let webController = CheckoutController(orderId: orderId, options: options) else { return }
+        presentCheckoutController(webController)
+    }
+
     internal func getTheme() -> Theme {
         return options.theme
     }

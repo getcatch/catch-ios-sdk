@@ -1,31 +1,27 @@
 //
-//  CheckoutURLQuery.swift
+//  VirtualCardCheckoutURLQuery.swift
 //  Catch
 //
-//  Created by Lucille Benoit on 11/10/22.
+//  Created by Lucille Benoit on 12/13/22.
 //
 
 import Foundation
 
-/**
- Struct used to create checkout url query params.
- */
-struct CheckoutURLQuery: Encodable {
-    let checkoutId: String
+struct VirtualCardCheckoutURLQuery: Encodable {
+    let orderId: String
     let prefillUserPhone: String
     let prefillUserName: String
     let prefillUserEmail: String
     let hideHeader: String = "false"
-    let flow: String = "iframe"
     let referer: String? = URLComponents.init(path: String()).string
     let publicKey: String
     let loadTheme: String
 
-    init(checkoutId: String,
+    init(orderId: String,
          prefill: CheckoutPrefill?,
          themeConfig: MerchantThemeConfig?,
          publicKey: String) {
-        self.checkoutId = checkoutId
+        self.orderId = orderId
         prefillUserPhone = prefill?.userPhone ?? String()
         prefillUserName = prefill?.userName ?? String()
         prefillUserEmail = prefill?.userEmail ?? String()

@@ -16,14 +16,26 @@ class CheckoutController: CatchWebViewController, PostMessageHandler {
           merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
         self.merchantRepository = merchantRepository
         self.options = options
-        guard let url = CatchURL.checkout(checkoutId: checkoutId,
+        guard let url = CatchURL.directCheckout(checkoutId: checkoutId,
                                           prefillFields: options?.prefill,
                                           merchantRepository: merchantRepository) else { return nil }
         super.init(url: url, isTransparent: false)
         postMessageHandler = self
     }
 
-    func handlePostMessage(_ postMessage: PostMessageAction) {
+    init?(orderId: String,
+          options: CheckoutOptions?,
+          merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
+        self.merchantRepository = merchantRepository
+        self.options = options
+        guard let url = CatchURL.virtualCardCheckout(orderId: orderId,
+                                                     prefillFields: options?.prefill,
+                                                     merchantRepository: merchantRepository) else { return nil }
+        super.init(url: url, isTransparent: false)
+        postMessageHandler = self
+    }
+
+    func handlePostMessage(_ postMessage: PostMessageAction, data: Any? = nil) {
         switch postMessage {
         case .checkoutBack:
             dismiss(animated: true) { [weak self] in

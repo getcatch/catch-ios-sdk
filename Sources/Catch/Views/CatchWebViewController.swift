@@ -115,6 +115,7 @@ extension CatchWebViewController: WKScriptMessageHandler {
               let body = message.body as? [String: Any],
               let actionString = body[JSScript.actionKey] as? String,
               let action = PostMessageAction(rawValue: actionString) else { return }
-        postMessageHandler?.handlePostMessage(action)
+        let data = body[JSScript.dataKey]
+        postMessageHandler?.handlePostMessage(action, data: data)
     }
 }

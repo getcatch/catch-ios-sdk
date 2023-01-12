@@ -8,5 +8,5 @@
 import WebKit
 
 protocol PostMessageHandler: AnyObject {
-    func handlePostMessage(_ postMessage: PostMessageAction)
+    func handlePostMessage(_ postMessage: PostMessageAction, data: Any?)
 }

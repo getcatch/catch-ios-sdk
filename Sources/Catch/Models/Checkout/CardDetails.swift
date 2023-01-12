@@ -1,5 +1,5 @@
 //
-//  VirtualCardDetails.swift
+//  CardDetails.swift
 //  Catch
 //
 //  Created by Lucille Benoit on 12/14/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VirtualCardDetails {
+public struct CardDetails {
     let cardNumber: String
     let expirationYear: String
     let expirationMonth: String
