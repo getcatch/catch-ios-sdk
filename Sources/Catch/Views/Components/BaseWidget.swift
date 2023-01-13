@@ -1,3 +1,4 @@
+// swiftlint:disable type_name
 //
 //  BaseWidget.swift
 //  Catch
@@ -7,7 +8,7 @@
 
 import UIKit
 
-public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, BaseWidgetDelegate {
+public class _BaseWidget: UIView, NotificationResponding, BorderConfiguring, BaseWidgetDelegate {
 
     // MARK: - Subviews
     internal let stack: UIStackView = UIStackView()
@@ -145,7 +146,7 @@ public class BaseWidget: UIView, NotificationResponding, BorderConfiguring, Base
 
 // MARK: - Private Helpers
 
-private extension BaseWidget {
+private extension _BaseWidget {
 
     func configureEarnRedeemLabel() {
         label = EarnRedeemLabel(type: earnRedeemLabelType,

@@ -16,7 +16,7 @@ import UIKit
  based on the reward campaign’s name. The widget also acts as a hyperlink, directing consumers to a page
  on which they can claim their credits.
  */
-public class CampaignLink: BaseCardWidget {
+public class CampaignLink: _BaseCardWidget {
 
     // MARK: - Subviews
     private lazy var claimNowLabel: UILabel = {
@@ -37,10 +37,10 @@ public class CampaignLink: BaseCardWidget {
     /**
      Initializes a ``CampaignLink`` widget.
      - Parameter campaignName: The name of a valid and active Catch campaign.
-     - Parameter borderStyle: The style of border the widget renders. Defaults to the rounded rect border style.
-     See ``BorderStyle`` for all border style options.
-     - Parameter theme: The Catch color theme. If no theme is set, the default "light-color" theme will be used.
-     See ``Theme`` for all theme options.
+     - Parameter borderStyle: The ``BorderStyle`` that the widget renders.
+     Defaults to the ``BorderStyle/roundedRect`` style.
+     - Parameter theme: The Catch color ``Theme``. If no theme is set, the default
+     ``Theme/lightColor`` theme will be used.
      - Parameter styleOverrides: Style overrides which can be used to override the theme's default
      appearance (ex. fonts and colors).
      */

@@ -20,7 +20,7 @@ import UIKit
  The Express Checkout Callout widget also makes use of its price, items, and userCohorts attributes to
  calculate rewards the user will earn on the current purchase.
  */
-public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
+public class ExpressCheckoutCallout: _BaseEarnRedeemWidget {
 
     // MARK: - Subviews
     private var paymentStepLabel = UILabel(frame: .zero)
@@ -62,10 +62,10 @@ public class ExpressCheckoutCallout: BaseEarnRedeemWidget {
     /**
      Initializes an ``ExpressCheckoutCallout`` widget.
      - Parameter price: The cost in cents that a consumer would pay for the item(s) without redeeming Catch credit.
-     - Parameter borderStyle: The style of border the widget renders. Defaults to a slightly rounded rectangular border.
-     See ``BorderStyle`` for all border style options.
-     - Parameter theme: The Catch color theme. If no theme is set, the default "light-color" theme will be used.
-     See ``Theme`` for all theme options.
+     - Parameter borderStyle: The ``BorderStyle`` that the widget renders.
+     Defaults to the ``BorderStyle/roundedRect`` style.
+     - Parameter theme: The Catch color ``Theme``. If no theme is set, the default
+     ``Theme/lightColor`` theme will be used.
      - Parameter styleOverrides: Style overrides which can be used to override the theme's default
      appearance (ex. fonts and colors).
      - Parameter items: A list of all items included in the order. Used to calculate item-based rewards.

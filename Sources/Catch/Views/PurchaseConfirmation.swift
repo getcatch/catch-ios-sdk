@@ -15,7 +15,7 @@ import UIKit
  through their purchase and contains a link which directs the consumer to their account
  page on Catch's website.
  */
-public class PurchaseConfirmation: BaseCardWidget {
+public class PurchaseConfirmation: _BaseCardWidget {
 
     // MARK: - Properties
     var donation: Int
@@ -44,10 +44,10 @@ public class PurchaseConfirmation: BaseCardWidget {
     /**
      Initializes a ``PurchaseConfirmation`` widget.
      - Parameter earned: The amount in cents that that the consumer earned in credit based on their purchase.
-     - Parameter borderStyle: The style of border the widget renders. Defaults to the rounded rect border style.
-     See ``BorderStyle`` for all border style options.
-     - Parameter theme: The Catch color theme. If no theme is set, the default "light-color" theme will be used.
-     See ``Theme`` for all theme options.
+     - Parameter borderStyle: The ``BorderStyle`` that the widget renders.
+     Defaults to the ``BorderStyle/roundedRect`` style.
+     - Parameter theme: The Catch color ``Theme``. If no theme is set, the default
+     ``Theme/lightColor`` theme will be used.
      - Parameter styleOverrides: Style overrides which can be used to override the theme's default
      appearance (ex. fonts and colors).
      - Parameter donation: The amount of cents that the consumer is donating. Not used if the merchant

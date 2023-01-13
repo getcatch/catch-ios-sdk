@@ -19,7 +19,7 @@ import UIKit
  The Payment Method widget also makes use of its price, items, and userCohorts attributes to calculate
  rewards the user will earn on the current purchase.
  */
-public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
+public class PaymentMethod: _BaseEarnRedeemWidget, TooltipPresenting {
     /**
      Whether or not the widget is in a disabled state.
      Disabled payment method widgets are displayed slightly greyed out with interaction disabled.
@@ -71,8 +71,8 @@ public class PaymentMethod: BaseEarnRedeemWidget, TooltipPresenting {
      - Parameter price: The cost in cents that a consumer would pay for the item(s) without redeeming Catch credit.
      - Parameter selected: Whether or not the widget is in a selected state.
      - Parameter disabled: Whether or not the widget is in a disabled state.
-     - Parameter theme: The Catch color theme. If no theme is set, the default will be used.
-     See ``Theme`` for all theme options.
+     - Parameter theme: The Catch color ``Theme``. If no theme is set, the default
+     ``Theme/lightColor`` theme will be used.
      - Parameter styleOverrides: Style overrides which can be used to override the theme's default
      appearance (ex. fonts and colors).
      - Parameter variant: The "compact" variant of the payment method will not render the Catch logo.
