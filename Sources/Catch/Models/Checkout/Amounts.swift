@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ Contains details of the order total.
+ */
 public struct Amounts: Codable {
     /// The total amount (in cents) to charge the consumer after all promotions, discounts and fees are appliced.
     var total: Int

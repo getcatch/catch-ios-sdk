@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ Contains the name and version of the platform in use.
+ */
 public struct Platform: Codable {
     /// Name of the platform the merchant is on.
     let platformType: String?

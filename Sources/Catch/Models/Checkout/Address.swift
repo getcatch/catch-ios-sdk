@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ Contains address details for the shipping or billing contact.
+ */
 public struct Address: Codable {
     /// The name of the contact.
     var name: String

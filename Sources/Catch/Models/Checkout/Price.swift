@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ The price of an item (includes the amount and currency).
+ */
 public struct Price: Codable {
     /// The unit price of the item (in cents).
     var amount: Int
