@@ -19,6 +19,7 @@ class MockDataProvider {
                         name: "Test Merchant",
                         url: "www.google.com",
                         defaultEarnedRewardsRate: 0.1,
+                        enableConfigurableRewards: true,
                         rewardsLifetimeInDays: 180,
                         cardBackgroundImageUrl: imageURL,
                         cardBackgroundColor: "#C779D0",
@@ -26,6 +27,8 @@ class MockDataProvider {
                         donationRecipient: nil,
                         defaultSignUpBonus: 1000,
                         defaultSignUpDiscount: 0,
+                        unrestrictedRewardRuleId: "unrestrictedId",
+                        newCatchUserRewardRuleId: "newCatchUserId",
                         theme: nil)
     }
 

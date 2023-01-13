@@ -59,24 +59,53 @@ class RewardsCalculator: RewardsCalculatorInterface {
             return
         }
 
+        fetchEarnedRewardsSummary(price: price,
+                                  items: items,
+                                  userCohorts: userCohorts) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let rewardSummary):
+                self.earnedRewardsSummary = rewardSummary
+                let displayableResult = self.calculateRewardResult(rewardSummary: rewardSummary,
+                                                                   price: price,
+                                                                   publicUserData: publicUserData,
+                                                                   merchant: merchant)
+                completion(.success(displayableResult))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    private func fetchEarnedRewardsSummary(price: Int,
+                                           items: [Item]?,
+                                           userCohorts: [String]?,
+                                           completion: @escaping (Result<EarnedRewardsSummary, Error>) -> Void) {
+        guard let merchant = merchantRepository.getCurrentMerchant(),
+              let publicUserData = userRepository.getCurrentUser() else {
+            completion(.failure(NetworkError.requestError(.noPublicUserData)))
+            return
+        }
+
+        guard merchant.enableConfigurableRewards else {
+            // If merchant doesn't use configurable rewards, generate the default EarnedRewardsSummary locally.
+            let locallyGeneratedRewards = merchant.generateCalculatedRewards(
+                price: price,
+                userRewardAmount: publicUserData.rewardAmount,
+                firstPurchaseBonusEligibility: publicUserData.firstPurchaseBonusEligibility)
+            completion(.success(locallyGeneratedRewards))
+            return
+        }
+
+        // Hit the calculate earned rewards endpoint if configurable rewards are used.
         let queryItems = generateQueryParams(price: price, items: items, userCohorts: userCohorts)
 
         rewardsNetworkService.getCalculateEarnedRewards(merchantId: merchant.merchantId,
-                                                        queryItems: queryItems) { [weak self] result in
+                                                        queryItems: queryItems) { result in
             switch result {
             case .success(let rewardSummary):
-                self?.earnedRewardsSummary = rewardSummary
-                if let rewardToDisplay = self?.getPrioritizedReward(
-                    rewardSummary: rewardSummary,
-                    purchasePrice: price,
-                    existingUserRewardAmount: publicUserData.rewardAmount,
-                    defaultMerchantRewardRate: merchant.defaultEarnedRewardsRate
-                ) {
-                    let prioritizedRewardSummary = RewardsCalculatorResult(price: price,
-                                                                           prioritizedReward: rewardToDisplay,
-                                                                           summary: rewardSummary)
-                    completion(.success(prioritizedRewardSummary))
-                }
+                completion(.success(rewardSummary))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -84,6 +113,19 @@ class RewardsCalculator: RewardsCalculatorInterface {
     }
 
     // MARK: - Private Helpers
+    private func calculateRewardResult(rewardSummary: EarnedRewardsSummary,
+                                       price: Int,
+                                       publicUserData: PublicUserData,
+                                       merchant: Merchant) -> RewardsCalculatorResult {
+        let rewardToDisplay = getPrioritizedReward(
+            rewardSummary: rewardSummary,
+            purchasePrice: price,
+            existingUserRewardAmount: publicUserData.rewardAmount,
+            defaultMerchantRewardRate: merchant.defaultEarnedRewardsRate
+        )
+
+        return RewardsCalculatorResult(price: price, prioritizedReward: rewardToDisplay, summary: rewardSummary)
+    }
 
     private func getPrioritizedReward(rewardSummary: EarnedRewardsSummary,
                                       purchasePrice: Int,

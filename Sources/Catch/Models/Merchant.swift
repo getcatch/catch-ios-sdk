@@ -21,6 +21,9 @@ struct Merchant: Codable, Equatable {
     /// Between 0 and 1, the fraction of amount paid that a user gets back at this merchant.
     let defaultEarnedRewardsRate: Double
 
+    /// Flag determining if merchant uses configurable rewards.
+    let enableConfigurableRewards: Bool
+
     /// Number of days after earning that the rewards expire.
     let rewardsLifetimeInDays: Int
 
@@ -42,16 +45,14 @@ struct Merchant: Codable, Equatable {
     /// Flat amount that a new Catch user will receive as a discount at this merchant
     let defaultSignUpDiscount: Int
 
+    /// ID corresponding to the currently active unrestricted reward rule with the highest percentage
+    let unrestrictedRewardRuleId: String
+
+    /// ID corresponding to the currently active new catch user reward rule with the highest amount
+    let newCatchUserRewardRuleId: String
+
     /// Theme for web views
     let theme: MerchantThemeConfig?
-
-    static func == (lhs: Merchant, rhs: Merchant) -> Bool {
-        return lhs.merchantId == rhs.merchantId
-        && lhs.name == rhs.name
-        && lhs.url == rhs.url
-        && lhs.defaultEarnedRewardsRate == rhs.defaultEarnedRewardsRate
-        && lhs.rewardsLifetimeInDays == rhs.rewardsLifetimeInDays
-    }
 
     /// The expiration date as calculated by using the current date and the merchant's rewards lifetime.
     var expirationDate: Date? {
@@ -59,6 +60,6 @@ struct Merchant: Codable, Equatable {
     }
 }
 
-struct MerchantThemeConfig: Codable {
+struct MerchantThemeConfig: Codable, Equatable {
     let name: String
 }
