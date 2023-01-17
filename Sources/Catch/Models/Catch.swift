@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// The Catch SDK shared instance.
 public let Catch = _Catch.sharedInstance
 
 public class _Catch {
@@ -22,6 +23,9 @@ public class _Catch {
     internal var userRepository: UserRepositoryInterface
     internal var rewardsCalculator: RewardsCalculatorInterface {
         return RewardsCalculator(userRepository: userRepository, merchantRepository: merchantRepository)
+    }
+    internal var environmentHost: String {
+        options.environment.host
     }
 
     private let notificationCenter: NotificationCenter = NotificationCenter.default
@@ -74,18 +78,6 @@ public class _Catch {
         notificationCenter.post(name: NotificationName.globalThemeUpdate, object: theme)
     }
 
-    internal func getTheme() -> Theme {
-        return options.theme
-    }
-
-    internal func getGlobalStyleOverrides() -> CatchStyleConfig? {
-        return options.globalStyleOverrides
-    }
-
-    internal var environmentHost: String {
-        options.environment.host
-    }
-
     /**
      Opens the checkout flow given a checkout id.
      - Parameter checkoutId: The unique identifier for the checkout
@@ -94,7 +86,19 @@ public class _Catch {
     public func openCheckout(checkoutId: String,
                              options: CheckoutOptions) {
         guard let webController = CheckoutController(checkoutId: checkoutId, options: options) else { return }
-        webController.modalPresentationStyle = .overFullScreen
-        UIApplication.topViewController()?.present(webController, animated: true)
+        presentCheckoutController(webController)
+    }
+
+    internal func getTheme() -> Theme {
+        return options.theme
+    }
+
+    internal func getGlobalStyleOverrides() -> CatchStyleConfig? {
+        return options.globalStyleOverrides
+    }
+
+    private func presentCheckoutController(_ controller: CheckoutController) {
+        controller.modalPresentationStyle = .overFullScreen
+        UIApplication.topViewController()?.present(controller, animated: true)
     }
 }

@@ -1,3 +1,4 @@
+// swiftlint:disable type_name
 //
 //  BaseEarnRedeemWidget.swift
 //  Catch
@@ -7,7 +8,7 @@
 
 import Foundation
 
-public class BaseEarnRedeemWidget: BaseWidget, InfoButtonDelegate, TofuPresenting {
+public class _BaseEarnRedeemWidget: _BaseWidget, InfoButtonDelegate, TofuPresenting {
     // MARK: - Info Button Properties
 
     lazy internal var infoButton = InfoButton(style: infoButtonStyle)

@@ -1,3 +1,4 @@
+// swiftlint:disable type_name
 //
 //  BaseCardWidget.swift
 //  Catch
@@ -7,7 +8,7 @@
 
 import UIKit
 
-public class BaseCardWidget: BaseWidget {
+public class _BaseCardWidget: _BaseWidget {
 
     // MARK: - Subviews
     internal lazy var merchantCard: MerchantRewardCard = {

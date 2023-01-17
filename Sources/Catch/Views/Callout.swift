@@ -12,7 +12,7 @@ import UIKit
  based on the price of the item(s) they're considering (e.g. when viewing a product detail
  page or their cart).
 
- The widget also includes a trigger that, when clicked, opens a modal
+ The widget includes a trigger that, when clicked, opens a modal
  which displays more detailed informational content about paying with Catch and earning
  rewards on the merchant's site. The widget automatically recognizes consumers who are
  currently signed in to Catch, and tailors the messaging to them if they have rewards that
@@ -22,7 +22,7 @@ import UIKit
  rewards the user will earn on the current item (if implemented on product detail page) or
  on the current order (if implemented in the cart or during the checkout flow).
  */
-public class Callout: BaseEarnRedeemWidget {
+public class Callout: _BaseEarnRedeemWidget {
     // MARK: - Properties
     private var orPrefix = false
     private var needsMultiLineLayout: Bool = false
@@ -57,12 +57,12 @@ public class Callout: BaseEarnRedeemWidget {
      redeeming Catch credit. If not set, the widgets will display the rewards rate (e.g. “Earn 10% credit”)
      rather than a specific rewards value (e.g., "Earn $24.00 credit"). If provided, the price must be a
      positive number. A negative price will be treated as if the price is not set at all.
-     - Parameter borderStyle: The style of border the widget renders. Defaults to the rounded rect border style.
-     See ``BorderStyle`` for all border style options.
+     - Parameter borderStyle: The ``BorderStyle`` that the widget renders.
+     Defaults to the ``BorderStyle/roundedRect`` style.
      - Parameter orPrefix: If or-prefix is set, the word "or" is prepended into the displayed messaging
      (e.g. "or earn $23.00 credit" instead of "Earn $23.00 credit".
-     - Parameter theme: The Catch color theme. If no theme is set, the default "light-color" theme will be used.
-     See ``Theme`` for all theme options.
+     - Parameter theme: The Catch color ``Theme``. If no theme is set, the default
+     ``Theme/lightColor`` theme will be used.
      - Parameter styleOverrides: Style overrides which can be used to override the theme's default
      appearance (ex. fonts and colors).
      - Parameter items: A list of items included in the order (i.e. on PDP, this would be the single item

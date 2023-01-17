@@ -74,7 +74,7 @@ class WidgetDemo: UIView {
 
     func setPrice(price: Int) {
         self.price = price
-        if let earnRedeemWidget = widget as? BaseEarnRedeemWidget {
+        if let earnRedeemWidget = widget as? _BaseEarnRedeemWidget {
             earnRedeemWidget.setPrice(price)
         } else if let purchaseConfirmation = widget as? PurchaseConfirmation {
             purchaseConfirmation.setEarnedAmount(price)
@@ -83,7 +83,7 @@ class WidgetDemo: UIView {
 
     func setTheme(theme: Theme) {
         self.theme = theme
-        if let baseWidget = widget as? BaseWidget {
+        if let baseWidget = widget as? _BaseWidget {
             baseWidget.setTheme(theme)
         } else if let logo = widget as? CatchLogo {
             logo.setTheme(theme)
