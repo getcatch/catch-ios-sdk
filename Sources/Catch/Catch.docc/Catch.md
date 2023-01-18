@@ -246,5 +246,5 @@ After (2), the SDK will close the checkout flow and call the `onCancel` callback
 - ``Price``
 - ``Item``
 - ``Platform``
-- ``CardDetails``
+- ``VirtualCardDetails``
 - ``CreateVirtualCardCheckoutBody``
