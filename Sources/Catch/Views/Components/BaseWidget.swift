@@ -14,7 +14,7 @@ public class _BaseWidget: UIView, NotificationResponding, BorderConfiguring, Bas
     internal let stack: UIStackView = UIStackView()
     internal var logo: CatchLogo
     lazy internal var label: EarnRedeemLabel = EarnRedeemLabel(type: earnRedeemLabelType,
-                                                               style: theme.widgetTextStyle(size: .small),
+                                                               style: theme.earnRedeemLabelStyle(size: .small),
                                                                tapHandler: didTapEarnRedeemLabel)
     internal var earnRedeemLabelType: EarnRedeemLabelType
 
@@ -104,8 +104,8 @@ public class _BaseWidget: UIView, NotificationResponding, BorderConfiguring, Bas
         logo.setTheme(theme)
     }
 
-    internal func createBenefitTextStyle() -> WidgetTextStyle {
-        return resolvedStyling?.widgetTextStyle ?? theme.widgetTextStyle(size: .small)
+    internal func createBenefitTextStyle() -> EarnRedeemLabelStyle {
+        return resolvedStyling?.earnRedeemLabelStyle() ?? theme.earnRedeemLabelStyle(size: .small)
     }
 
     // MARK: - AutoLayout

@@ -104,8 +104,8 @@ public class ExpressCheckoutCallout: _BaseEarnRedeemWidget {
         paymentStepLabel.attributedText = paymentStepString()
     }
 
-    override func createBenefitTextStyle() -> WidgetTextStyle {
-        return resolvedStyling?.widgetTextStyle ?? theme.widgetTextStyle(size: .regular)
+    override func createBenefitTextStyle() -> EarnRedeemLabelStyle {
+        return resolvedStyling?.earnRedeemLabelStyle() ?? theme.earnRedeemLabelStyle(size: .regular)
     }
 
     // MARK: - Autolayout
@@ -115,7 +115,7 @@ public class ExpressCheckoutCallout: _BaseEarnRedeemWidget {
         stack.axis = .vertical
         stack.alignment = .leading
         stack.distribution = .equalCentering
-        stack.spacing = UIConstant.smallSpacing
+        stack.spacing = resolvedStyling?.textStyle?.lineSpacing ?? UIConstant.smallSpacing
     }
 
     override public func layoutSubviews() {
