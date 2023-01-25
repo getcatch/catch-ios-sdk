@@ -44,10 +44,6 @@ public struct CatchStyleConfig {
     /// Configures the styling for all campaign link widgets
     var campaignLinkStyle: ActionWidgetStyle?
 
-    internal var widgetTextStyles: WidgetTextStyle {
-        return WidgetTextStyle(textStyle: textStyle, benefitTextStyle: benefitTextStyle)
-    }
-
     /**
      Initializes a global style config for the Catch widgets.
      - Parameter textStyle: The styling for all text components globally (see ``TextStyle``).
@@ -111,9 +107,13 @@ public struct CatchStyleConfig {
     internal func universalConfigForWidget(_ type: StyleResolver.WidgetType) -> WidgetStyle {
         switch type {
         case .callout, .expressCheckoutCallout, .paymentMethod:
-            return InfoWidgetStyle(widgetTextStyle: widgetTextStyles, infoButtonStyle: infoButtonStyle)
+            return InfoWidgetStyle(textStyle: textStyle,
+                                   benefitTextStyle: benefitTextStyle,
+                                   infoButtonStyle: infoButtonStyle)
         case .purchaseConfirmation, .campaignLink:
-            return ActionWidgetStyle(widgetTextStyle: widgetTextStyles, actionButtonStyle: actionButtonStyle)
+            return ActionWidgetStyle(textStyle: textStyle,
+                                     benefitTextStyle: benefitTextStyle,
+                                     actionButtonStyle: actionButtonStyle)
         }
     }
 }
