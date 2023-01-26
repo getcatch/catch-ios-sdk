@@ -25,7 +25,7 @@ class MockStyles {
     // Widget styles
     static let localCalloutOverrides = InfoWidgetStyle(textStyle: overrideTextStyle,
                                                        benefitTextStyle: nil,
-                                                        infoButtonStyle: overrideTextStyle)
+                                                       infoButtonStyle: overrideTextStyle)
     static let localPurchaseConfirmationOverrides = ActionWidgetStyle(textStyle: overrideTextStyle,
                                                                       benefitTextStyle: nil,
                                                                       actionButtonStyle: overrideButtonStyle)

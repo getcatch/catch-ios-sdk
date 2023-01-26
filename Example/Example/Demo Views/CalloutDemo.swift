@@ -17,7 +17,7 @@ class CalloutDemo: WidgetDemo {
         return [label, widgetStack, configurationStack]
     }
 
-    var calloutView = Callout(price: 0, borderStyle: .pill, styleOverrides: <#T##InfoWidgetStyle?#>)
+    var calloutView = Callout(price: 0, borderStyle: .pill)
 
     init() {
         super.init(title: Strings.calloutName, widget: calloutView)
