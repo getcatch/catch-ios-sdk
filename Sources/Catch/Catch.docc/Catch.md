@@ -227,7 +227,6 @@ After (2), the SDK will close the checkout flow and call the `onCancel` callback
 - ``InfoWidgetStyle``
 - ``TextStyle``
 - ``BenefitTextStyle``
-- ``WidgetTextStyle``
 - ``TextTransform``
 - ``ActionButtonStyle``
 - ``BorderStyle``
