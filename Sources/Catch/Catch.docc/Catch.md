@@ -7,7 +7,7 @@ The Catch iOS SDK allows you to integrate Catch as a payment option in your nati
 > ##### 👍 Interested In Integrating With Catch?
 > 
 > To make use of the tools described in this documentation, you will need a merchant account with Catch. Please reach 
-out to Jack Stewart ([jack@getcatch.com](mailto:jack@getcatch.com)) for inquiries.
+out to Jack Stewart ([sales@getcatch.com](mailto:sales@getcatch.com)) for inquiries.
 
 The Catch iOS SDK provides components for developing applications that integrate with [Catch](https://www.getcatch.com) 
 on merchant native apps. It's designed to be used in tandem with Catch's [Transaction APIs](https://catch.readme.io/reference/transactions-integration-overview) to implement the frontend portion of 
@@ -108,7 +108,7 @@ Defaults to `true`. If you intend to use your own custom fonts for all widgets, 
 
 #### Overview
 The Catch SDK offers a set of preconfigured UI Widgets which can be easily dropped into your applications.
-For more information on each of the avilable UI widgets and their use cases, view the Widgets topic below.
+For more information on each of the available UI widgets and their use cases, view the Widgets topic below.
 
 #### Styling Widgets
 
