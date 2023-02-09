@@ -50,7 +50,9 @@ public struct ActionWidgetStyle: WidgetStyle {
      - Parameter benefitTextStyle: the styling for the benefit text within Catch widgets. ( see ``BenefitTextStyle``).
      - Parameter actionButtonStyle: the styling of the action button within the widget (see ``ActionButtonStyle``).
      */
-    public init(textStyle: TextStyle? = nil, benefitTextStyle: BenefitTextStyle? = nil, actionButtonStyle: ActionButtonStyle? = nil) {
+    public init(textStyle: TextStyle? = nil,
+                benefitTextStyle: BenefitTextStyle? = nil,
+                actionButtonStyle: ActionButtonStyle? = nil) {
         self.textStyle = textStyle
         self.benefitTextStyle = benefitTextStyle
         self.actionButtonStyle = actionButtonStyle

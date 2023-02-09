@@ -34,7 +34,9 @@ public struct InfoWidgetStyle: WidgetStyle {
      - Parameter benefitTextStyle: the styling for the benefit text within Catch widgets. ( see ``BenefitTextStyle``).
      - Parameter infoButtonStyle: the styling of the info button within the widget.
      */
-    public init(textStyle: TextStyle? = nil, benefitTextStyle: BenefitTextStyle? = nil, infoButtonStyle: TextStyle? = nil) {
+    public init(textStyle: TextStyle? = nil,
+                benefitTextStyle: BenefitTextStyle? = nil,
+                infoButtonStyle: TextStyle? = nil) {
         self.textStyle = textStyle
         self.benefitTextStyle = benefitTextStyle
         self.infoButtonStyle = infoButtonStyle
