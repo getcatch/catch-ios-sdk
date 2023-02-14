@@ -11,7 +11,8 @@ import Foundation
  You may set prefill values for the checkout form fields or pass in callback
  functions to respond when a checkout is confirmed or canceled.
  */
-public struct CheckoutOptions {
+public struct CheckoutOptions: CheckoutOptionsInterface {
+
     /// Prefill values for consumer data: name, phone, and email.
     let prefill: CheckoutPrefill?
 
@@ -20,6 +21,10 @@ public struct CheckoutOptions {
 
     /// Callback which will be called if the checkout is confimed.
     let onConfirm: (() -> Void)?
+
+    internal var onConfirmCallback: (() -> Void)? {
+        get { return onConfirm }
+    }
 
     /**
      Initializes ``CheckoutOptions`` to configure the checkout flow.

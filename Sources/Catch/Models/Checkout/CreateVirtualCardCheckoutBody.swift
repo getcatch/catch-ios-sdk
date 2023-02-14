@@ -26,10 +26,6 @@ public struct CreateVirtualCardCheckoutBody: Codable {
     /// Contains details of the order's items.
     let items: [Item]
 
-    /// The ID of this order in the merchant's system which Catch will store for shared identification purposes.
-    /// This ID should be unique per order.
-    let merchantOrderId: String
-
     /// The ID of the consumer in the merchant's system which Catch will store for shared identification purposes.
     /// (While this field is required, the value null may be explicitly passed if the consumer is anonymous and
     /// doesn't have an ID. However, it is recommended to provide an ID wherever possible).
@@ -48,7 +44,6 @@ public struct CreateVirtualCardCheckoutBody: Codable {
                 shipping: Address,
                 shippingMethod: String?,
                 items: [Item],
-                merchantOrderId: String,
                 merchantUserId: String,
                 platform: Platform?,
                 userCohorts: [String]) {
@@ -58,7 +53,6 @@ public struct CreateVirtualCardCheckoutBody: Codable {
         self.shipping = shipping
         self.shippingMethod = shippingMethod
         self.items = items
-        self.merchantOrderId = merchantOrderId
         self.merchantUserId = merchantUserId
         self.platform = platform
         self.userCohorts = userCohorts

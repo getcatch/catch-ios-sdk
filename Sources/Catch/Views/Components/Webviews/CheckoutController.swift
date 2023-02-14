@@ -7,15 +7,24 @@
 
 import Foundation
 
+
 class CheckoutController: CatchWebViewController, PostMessageHandler {
     let merchantRepository: MerchantRepositoryInterface
-    let options: CheckoutOptions?
+    let integrationType: IntegrationType
+    let options: CheckoutOptionsInterface?
+    var virtualCardCheckoutData: CreateVirtualCardCheckoutBody? = nil
+
+    enum IntegrationType {
+        case direct
+        case virtualCard
+    }
 
     init?(checkoutId: String,
           options: CheckoutOptions?,
           merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
         self.merchantRepository = merchantRepository
         self.options = options
+        self.integrationType = .direct
         guard let url = CatchURL.directCheckout(checkoutId: checkoutId,
                                           prefillFields: options?.prefill,
                                           merchantRepository: merchantRepository) else { return nil }
@@ -24,10 +33,13 @@ class CheckoutController: CatchWebViewController, PostMessageHandler {
     }
 
     init?(orderId: String,
-          options: CheckoutOptions?,
+          checkoutData: CreateVirtualCardCheckoutBody,
+          options: VirtualCardCheckoutOptions?,
           merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
         self.merchantRepository = merchantRepository
         self.options = options
+        self.integrationType = .virtualCard
+        self.virtualCardCheckoutData = checkoutData
         guard let url = CatchURL.virtualCardCheckout(orderId: orderId,
                                                      prefillFields: options?.prefill,
                                                      merchantRepository: merchantRepository) else { return nil }
@@ -37,13 +49,26 @@ class CheckoutController: CatchWebViewController, PostMessageHandler {
 
     func handlePostMessage(_ postMessage: PostMessageAction, data: Any? = nil) {
         switch postMessage {
+        case .checkoutReady:
+            if integrationType == .virtualCard,
+                let checkoutData = try? virtualCardCheckoutData?.asDictionary(encodingStrategy: .convertToSnakeCase) {
+                let sendVCNCheckoutData: JSScript = .postMessage(action: .virtualCardCheckoutData,
+                                                                 dataObject: checkoutData)
+                webView.evaluateScript(sendVCNCheckoutData)
+            }
         case .checkoutBack:
             dismiss(animated: true) { [weak self] in
                 self?.options?.onCancel?()
             }
         case .checkoutSuccess:
             dismiss(animated: true) { [weak self] in
-                self?.options?.onConfirm?()
+                guard let self = self else { return }
+                if self.integrationType == .direct  {
+                    self.options?.onConfirmCallback?()
+                } else {
+                    let cardDetails = data as? CardDetails
+                    self.options?.virtualCardOnConfirmCallback?(cardDetails)
+                }
             }
         default: ()
         }

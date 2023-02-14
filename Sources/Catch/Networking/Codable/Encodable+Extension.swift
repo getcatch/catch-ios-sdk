@@ -19,7 +19,7 @@ extension Encodable {
         return try asDictionary(encodingStrategy: encodingStrategy).map { URLQueryItem(name: $0, value: "\($1)") }
     }
 
-    private func asDictionary(encodingStrategy: JSONEncoder.KeyEncodingStrategy) throws -> [String: Any] {
+    func asDictionary(encodingStrategy: JSONEncoder.KeyEncodingStrategy) throws -> [String: Any] {
         let data = try self.encoded(encodingStrategy: encodingStrategy)
         guard let dictionary = try JSONSerialization.jsonObject(with: data,
                                                                 options: .allowFragments) as? [String: Any] else {
