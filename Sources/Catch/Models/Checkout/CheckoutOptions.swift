@@ -23,7 +23,7 @@ public struct CheckoutOptions: CheckoutOptionsInterface {
     let onConfirm: (() -> Void)?
 
     internal var onConfirmCallback: (() -> Void)? {
-        get { return onConfirm }
+        return onConfirm
     }
 
     /**

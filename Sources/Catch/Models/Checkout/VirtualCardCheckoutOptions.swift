@@ -18,7 +18,7 @@ public struct VirtualCardCheckoutOptions: CheckoutOptionsInterface {
     let onConfirm: ((CardDetails?) -> Void)?
 
     internal var virtualCardOnConfirmCallback: ((CardDetails?) -> Void)? {
-        get { return onConfirm }
+        return onConfirm
     }
 
     /**

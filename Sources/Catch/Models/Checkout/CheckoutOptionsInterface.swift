@@ -10,17 +10,17 @@ import Foundation
 protocol CheckoutOptionsInterface {
     var prefill: CheckoutPrefill? { get }
     var onCancel: (() -> Void)? { get }
-    var onConfirmCallback: (() -> Void)? { get set }
-    var virtualCardOnConfirmCallback: ((CardDetails?) -> Void)? { get set }
+    var onConfirmCallback: (() -> Void)? { get }
+    var virtualCardOnConfirmCallback: ((CardDetails?) -> Void)? { get }
 }
 
 extension CheckoutOptionsInterface {
     /// Provide default implementations so that structs conforming to this protocol
     /// can implement either onConfirmCallback or virtualCardOnConfirmCallback
     var onConfirmCallback: (() -> Void)? {
-        get { return nil } set {}
+        return nil
     }
     var virtualCardOnConfirmCallback: ((CardDetails?) -> Void)? {
-        get { return nil } set {}
+        return nil
     }
 }

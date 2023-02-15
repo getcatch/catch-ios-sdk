@@ -10,7 +10,7 @@ import Foundation
 /**
  Contains payment card details.
  */
-public struct CardDetails {
+public struct CardDetails: Decodable {
     /// The card number.
     let cardNumber: String
 

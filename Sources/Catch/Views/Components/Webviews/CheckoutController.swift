@@ -7,12 +7,11 @@
 
 import Foundation
 
-
 class CheckoutController: CatchWebViewController, PostMessageHandler {
     let merchantRepository: MerchantRepositoryInterface
     let integrationType: IntegrationType
     let options: CheckoutOptionsInterface?
-    var virtualCardCheckoutData: CreateVirtualCardCheckoutBody? = nil
+    var virtualCardCheckoutData: CreateVirtualCardCheckoutBody?
 
     enum IntegrationType {
         case direct
@@ -63,11 +62,12 @@ class CheckoutController: CatchWebViewController, PostMessageHandler {
         case .checkoutSuccess:
             dismiss(animated: true) { [weak self] in
                 guard let self = self else { return }
-                if self.integrationType == .direct  {
+                if self.integrationType == .direct {
                     self.options?.onConfirmCallback?()
-                } else {
-                    let cardDetails = data as? CardDetails
-                    self.options?.virtualCardOnConfirmCallback?(cardDetails)
+                } else if let data = data,
+                          let jsonData = try? JSONSerialization.data(withJSONObject: data, options: []) {
+                    let virtualCardCheckoutResult: VirtualCardCheckoutResult? = try? jsonData.decoded()
+                    self.options?.virtualCardOnConfirmCallback?(virtualCardCheckoutResult?.cardDetails)
                 }
             }
         default: ()
