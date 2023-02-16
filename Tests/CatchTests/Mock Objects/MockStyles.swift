@@ -23,15 +23,14 @@ class MockStyles {
     static let generalTextTransform: TextTransform = .uppercase
 
     // Widget styles
-    static let localCalloutOverrides = InfoWidgetStyle(widgetTextStyle: overrideTextStyles,
-                                                        infoButtonStyle: overrideTextStyle)
-    static let localPurchaseConfirmationOverrides = ActionWidgetStyle(widgetTextStyle: overrideTextStyles,
+    static let localCalloutOverrides = InfoWidgetStyle(textStyle: overrideTextStyle,
+                                                       benefitTextStyle: nil,
+                                                       infoButtonStyle: overrideTextStyle)
+    static let localPurchaseConfirmationOverrides = ActionWidgetStyle(textStyle: overrideTextStyle,
+                                                                      benefitTextStyle: nil,
                                                                       actionButtonStyle: overrideButtonStyle)
 
     // Text styles
-    static let overrideTextStyles = WidgetTextStyle(textStyle: overrideTextStyle,
-                                                    benefitTextStyle: nil)
-
     static let generalTextStyle = TextStyle(font: generalFont,
                                             textColor: generalTextColor,
                                             textTransform: generalTextTransform,

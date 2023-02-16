@@ -22,9 +22,9 @@ final class StyleResolverTests: XCTestCase {
                                                    globalOverrides: nil) as? InfoWidgetStyle
 
         XCTAssertNotNil(resolvedStyle, "The resolved style should be of type InfoWidgetStyle")
-        let textStyle = resolvedStyle?.widgetTextStyle?.textStyle
-        let overrideTextStyle = localOverrides.widgetTextStyle?.textStyle
-        let themeTextStyle = localTheme.styleDefaultForWidgetType(widgetType)?.widgetTextStyle?.textStyle
+        let textStyle = resolvedStyle?.textStyle
+        let overrideTextStyle = localOverrides.textStyle
+        let themeTextStyle = localTheme.styleDefaultForWidgetType(widgetType)?.textStyle
 
         let infoButtonStyle = resolvedStyle?.infoButtonStyle
         let overrideInfoButtonStyle = localOverrides.infoButtonStyle
@@ -84,9 +84,9 @@ final class StyleResolverTests: XCTestCase {
                                                    globalOverrides: globalCatchConfig) as? InfoWidgetStyle
 
         XCTAssertNotNil(resolvedStyle, "The resolved style should be of type InfoWidgetStyle")
-        let textStyle = resolvedStyle?.widgetTextStyle?.textStyle
-        let globalWidgetSpecificTextStyle = globalWidgetSpecificOverrides?.widgetTextStyle?.textStyle
-        let themeTextStyle = globalTheme.styleDefaultForWidgetType(widgetType)?.widgetTextStyle?.textStyle
+        let textStyle = resolvedStyle?.textStyle
+        let globalWidgetSpecificTextStyle = globalWidgetSpecificOverrides?.textStyle
+        let themeTextStyle = globalTheme.styleDefaultForWidgetType(widgetType)?.textStyle
 
         // Attributes which were defined in the widget-specific global overrides should exist in the resolved style
         XCTAssertEqual(textStyle?.font, globalWidgetSpecificTextStyle?.font)

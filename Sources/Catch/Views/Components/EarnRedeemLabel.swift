@@ -24,7 +24,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
     }
     private var type: EarnRedeemLabelType
 
-    internal var style: WidgetTextStyle {
+    internal var style: EarnRedeemLabelStyle {
         didSet {
             updateAttributedString()
         }
@@ -60,7 +60,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
      - Parameter tapHandler: The callback function to be called when the link is tapped.
      */
     init(type: EarnRedeemLabelType,
-         style: WidgetTextStyle,
+         style: EarnRedeemLabelStyle,
          tapHandler: @escaping () -> Void) {
         self.type = type
         self.style = style

@@ -1,5 +1,5 @@
 //
-//  WidgetTextStyle.swift
+//  EarnRedeemLabelStyle.swift
 //  Catch
 //
 //  Created by Lucille Benoit on 12/4/22.
@@ -8,12 +8,12 @@
 import UIKit
 
 /**
- The text style set for Catch widgets.
+ The text style set for Earn Redeem Labels.
 
  This includes the general text styling (see ``TextStyle``) as well as
  configurations specific to the benefit text components (see ``BenefitTextStyle``).
  */
-public struct WidgetTextStyle {
+struct EarnRedeemLabelStyle {
     /// Configures text attributes for all elements within a Catch widget
     var textStyle: TextStyle?
 
@@ -21,7 +21,7 @@ public struct WidgetTextStyle {
     /// All other text attributes will be inherited from the textStyle.
     var benefitTextStyle: BenefitTextStyle?
 
-    /// Initializes a WidgetTextStyle configuration.
+    /// Initializes an EarnRedeemLabelStyle configuration.
     public init(textStyle: TextStyle? = nil, benefitTextStyle: BenefitTextStyle? = nil) {
         self.textStyle = textStyle
         self.benefitTextStyle = benefitTextStyle
@@ -50,12 +50,5 @@ public struct WidgetTextStyle {
             return benefitStyle
         }
         return nil
-    }
-
-    internal static func resolved(_ style: WidgetTextStyle?,
-                                  withOverrides overrides: WidgetTextStyle?) -> WidgetTextStyle {
-        WidgetTextStyle(textStyle: TextStyle.resolved(style?.textStyle, withOverrides: overrides?.textStyle),
-                        benefitTextStyle: BenefitTextStyle.resolved(style?.benefitTextStyle,
-                                                                    withOverrides: overrides?.benefitTextStyle))
     }
 }

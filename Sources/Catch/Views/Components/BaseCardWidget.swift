@@ -106,8 +106,8 @@ public class _BaseCardWidget: _BaseWidget {
         externalLinkButton.setStyle(style: buttonStyle)
     }
 
-    override internal func createBenefitTextStyle() -> WidgetTextStyle {
-        resolvedActionWidgetStyling?.widgetTextStyle ?? theme.widgetTextStyle(size: .large)
+    override internal func createBenefitTextStyle() -> EarnRedeemLabelStyle {
+        resolvedActionWidgetStyling?.earnRedeemLabelStyle() ?? theme.earnRedeemLabelStyle(size: .large)
     }
 
     /**

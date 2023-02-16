@@ -109,7 +109,7 @@ public class Callout: _BaseEarnRedeemWidget {
 
     override public func layoutSubviews() {
         // Split the stack into two lines if content width is larger than available width
-        needsMultiLineLayout = (contentWidth() > frame.width)
+        needsMultiLineLayout = (contentWidth() > frame.width + 1)
 
         // Configure two line layout if stack is not yet vertical
         if needsMultiLineLayout && stack.axis != .vertical {

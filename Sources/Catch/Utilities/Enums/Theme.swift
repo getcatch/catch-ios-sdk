@@ -100,9 +100,9 @@ public enum Theme {
                          font: CatchFont.link(size: size))
     }
 
-    internal func widgetTextStyle(size: CatchFont.Size) -> WidgetTextStyle {
-        return WidgetTextStyle(textStyle: textStyle(size: size),
-                               benefitTextStyle: benefitTextStyle(size: size))
+    internal func earnRedeemLabelStyle(size: CatchFont.Size) -> EarnRedeemLabelStyle {
+        return EarnRedeemLabelStyle(textStyle: textStyle(size: size),
+                                    benefitTextStyle: benefitTextStyle(size: size))
     }
 
     internal var infoButtonStyle: TextStyle {
@@ -120,11 +120,15 @@ public enum Theme {
     }
 
     internal func infoWidgetStyle(textSize: CatchFont.Size) -> InfoWidgetStyle {
-        InfoWidgetStyle(widgetTextStyle: widgetTextStyle(size: textSize), infoButtonStyle: infoButtonStyle)
+        InfoWidgetStyle(textStyle: textStyle(size: textSize),
+                        benefitTextStyle: benefitTextStyle(size: textSize),
+                        infoButtonStyle: infoButtonStyle)
     }
 
     internal var actionWidgetStyle: ActionWidgetStyle {
-        ActionWidgetStyle(widgetTextStyle: widgetTextStyle(size: .large), actionButtonStyle: actionButtonStyle)
+        ActionWidgetStyle(textStyle: textStyle(size: .large),
+                          benefitTextStyle: benefitTextStyle(size: .large),
+                          actionButtonStyle: actionButtonStyle)
     }
 
     internal func styleDefaultForWidgetType(_ type: StyleResolver.WidgetType) -> WidgetStyle? {
