@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VirtualCardCheckoutOptions: CheckoutOptionsInterface {
+public struct VirtualCardCheckoutOptions: OpenCheckoutOptions {
     /// Prefill values for consumer data: name, phone, and email.
     let prefill: CheckoutPrefill?
 
@@ -16,10 +16,6 @@ public struct VirtualCardCheckoutOptions: CheckoutOptionsInterface {
 
     /// Callback which will be called if the checkout is confimed. The card details are passed into the callback.
     let onConfirm: ((CardDetails?) -> Void)?
-
-    internal var virtualCardOnConfirmCallback: ((CardDetails?) -> Void)? {
-        return onConfirm
-    }
 
     /**
      Initializes ``VirtualCardCheckoutOptions`` to configure the virtual card checkout flow.
