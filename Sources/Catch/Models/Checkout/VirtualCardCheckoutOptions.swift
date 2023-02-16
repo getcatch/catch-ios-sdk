@@ -22,7 +22,7 @@ public struct VirtualCardCheckoutOptions: CheckoutOptionsInterface {
     }
 
     /**
-     Initializes ``VirtualCardCheckoutOptionsCheckoutOptions`` to configure the virutal card checkout flow.
+     Initializes ``VirtualCardCheckoutOptions`` to configure the virtual card checkout flow.
      - Parameter prefill: Specifies pre-fill values to use in the virtual card checkout flow (ex. phone, email, name).
      See ``CheckoutPrefill`` for more information.
      - Parameter onCancel: If provided, this function is called when the consumer cancels a checkout flow.
