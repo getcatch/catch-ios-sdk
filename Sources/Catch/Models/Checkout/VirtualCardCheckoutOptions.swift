@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VirtualCardCheckoutOptions: OpenCheckoutOptions {
+public struct VirtualCardCheckoutOptions: OpenCheckoutOptionsInterface {
     /// Prefill values for consumer data: name, phone, and email.
     let prefill: CheckoutPrefill?
 

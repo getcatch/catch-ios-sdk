@@ -8,10 +8,10 @@
 import Foundation
 
 class DirectCheckoutController: CheckoutController {
-    var options: DirectCheckoutOptions?
+    var options: OpenCheckoutOptions?
 
     init?(checkoutId: String,
-          options: DirectCheckoutOptions?,
+          options: OpenCheckoutOptions?,
           merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
         self.options = options
         guard let url = CatchURL.directCheckout(checkoutId: checkoutId,

@@ -84,7 +84,7 @@ public class _Catch {
      - Parameter options: Prefill values and callback functions for checkout confirmed or canceled.
      */
     public func openCheckout(checkoutId: String,
-                             options: DirectCheckoutOptions) {
+                             options: OpenCheckoutOptions) {
         guard let webController = DirectCheckoutController(checkoutId: checkoutId, options: options) else { return }
         presentCheckoutController(webController)
     }
