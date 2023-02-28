@@ -2,34 +2,25 @@
 //  CheckoutURLQuery.swift
 //  Catch
 //
-//  Created by Lucille Benoit on 11/10/22.
+//  Created by Lucille Benoit on 2/16/23.
 //
 
 import Foundation
 
-/**
- Struct used to create checkout url query params.
- */
-struct CheckoutURLQuery: Encodable {
-    let checkoutId: String
+class CheckoutURLQuery: Encodable {
     let prefillUserPhone: String
     let prefillUserName: String
     let prefillUserEmail: String
     let hideHeader: String = "false"
-    let flow: String = "iframe"
     let referer: String? = URLComponents.init(path: String()).string
     let publicKey: String
     let loadTheme: String
 
-    init(checkoutId: String,
-         prefill: CheckoutPrefill?,
-         themeConfig: MerchantThemeConfig?,
-         publicKey: String) {
-        self.checkoutId = checkoutId
-        prefillUserPhone = prefill?.userPhone ?? String()
-        prefillUserName = prefill?.userName ?? String()
-        prefillUserEmail = prefill?.userEmail ?? String()
+    init(publicKey: String, prefill: CheckoutPrefill?, themeConfig: MerchantThemeConfig?) {
         self.publicKey = publicKey
+        self.prefillUserPhone = prefill?.userPhone ?? String()
+        self.prefillUserName = prefill?.userPhone ?? String()
+        self.prefillUserEmail = prefill?.userEmail ?? String()
         self.loadTheme = themeConfig == nil ? "false" : "true"
     }
 }

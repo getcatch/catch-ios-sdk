@@ -84,8 +84,25 @@ public class _Catch {
      - Parameter options: Prefill values and callback functions for checkout confirmed or canceled.
      */
     public func openCheckout(checkoutId: String,
-                             options: CheckoutOptions) {
-        guard let webController = CheckoutController(checkoutId: checkoutId, options: options) else { return }
+                             options: OpenCheckoutOptions) {
+        guard let webController = DirectCheckoutController(checkoutId: checkoutId, options: options) else { return }
+        presentCheckoutController(webController)
+    }
+
+    /**
+     Opens the virtual card checkout flow for a given order id.
+     - Parameter orderId: The ID of this order in the merchant's system which Catch will store
+     for shared identification purposes. This ID should be unique per order.
+     - Parameter checkoutData: The order data for the checkout.
+     - Parameter options: Prefill values and callback functions for checkout confirmed or canceled.
+     */
+    public func createAndOpenVirtualCardCheckout(orderId: String,
+                                                 checkoutData: CreateVirtualCardCheckoutBody,
+                                                 options: VirtualCardCheckoutOptions) {
+        guard let webController = VirtualCardCheckoutController(
+            orderId: orderId,
+            checkoutData: checkoutData,
+            options: options) else { return }
         presentCheckoutController(webController)
     }
 

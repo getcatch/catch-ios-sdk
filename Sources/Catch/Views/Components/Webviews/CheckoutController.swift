@@ -9,29 +9,22 @@ import Foundation
 
 class CheckoutController: CatchWebViewController, PostMessageHandler {
     let merchantRepository: MerchantRepositoryInterface
-    let options: CheckoutOptions?
+    let onCancel: (() -> Void)?
 
-    init?(checkoutId: String,
-          options: CheckoutOptions?,
-          merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
+    init(url: URL,
+         onCancel: (() -> Void)?,
+         merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
         self.merchantRepository = merchantRepository
-        self.options = options
-        guard let url = CatchURL.checkout(checkoutId: checkoutId,
-                                          prefillFields: options?.prefill,
-                                          merchantRepository: merchantRepository) else { return nil }
+        self.onCancel = onCancel
         super.init(url: url, isTransparent: false)
         postMessageHandler = self
     }
 
-    func handlePostMessage(_ postMessage: PostMessageAction) {
+    func handlePostMessage(_ postMessage: PostMessageAction, data: Any? = nil) {
         switch postMessage {
         case .checkoutBack:
             dismiss(animated: true) { [weak self] in
-                self?.options?.onCancel?()
-            }
-        case .checkoutSuccess:
-            dismiss(animated: true) { [weak self] in
-                self?.options?.onConfirm?()
+                self?.onCancel?()
             }
         default: ()
         }

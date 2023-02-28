@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ Contains address details for the shipping or billing contact.
+ */
 public struct Address: Codable {
     /// The name of the contact.
     var name: String
@@ -54,5 +57,19 @@ public struct Address: Codable {
         self.countryCode = countryCode
         self.postalCode = postalCode
         self.phoneNumber = phoneNumber
+    }
+
+    /// We need to define coding keys for address1 and address2 because the default convertToSnakeCase encoding strategy
+    /// does not add underscores before numbers.
+    enum CodingKeys: String, CodingKey {
+        case name
+        case address1 = "address_1"
+        case address2 = "address_2"
+        case city
+        case area
+        case zoneCode
+        case countryCode
+        case postalCode
+        case phoneNumber
     }
 }

@@ -28,16 +28,33 @@ enum CatchURL {
         return URLComponents(path: CatchURL.tofuPath, queryItems: queryItems).url
     }
 
-    static func checkout(checkoutId: String,
-                         prefillFields: CheckoutPrefill?,
-                         merchantRepository: MerchantRepositoryInterface) -> URL? {
+    static func directCheckout(checkoutId: String,
+                               prefillFields: CheckoutPrefill?,
+                               merchantRepository: MerchantRepositoryInterface) -> URL? {
         guard let merchant = merchantRepository.getCurrentMerchant(),
               let publicKey = merchantRepository.merchantPublicKey else { return nil }
-        let queryItems = try? CheckoutURLQuery(checkoutId: checkoutId,
-                                               prefill: prefillFields,
-                                               themeConfig: merchant.theme,
-                                               publicKey: publicKey
-        ).toQueryItems(encodingStrategy: .useDefaultKeys)
+        let directCheckoutQuery = DirectCheckoutURLQuery(checkoutId: checkoutId,
+                                                         prefill: prefillFields,
+                                                         themeConfig: merchant.theme,
+                                                         publicKey: publicKey)
+        return checkoutURL(fromEncodableObject: directCheckoutQuery)
+    }
+
+    static func virtualCardCheckout(orderId: String,
+                                    prefillFields: CheckoutPrefill?,
+                                    merchantRepository: MerchantRepositoryInterface) -> URL? {
+        guard let merchant = merchantRepository.getCurrentMerchant(),
+              let publicKey = merchantRepository.merchantPublicKey else { return nil }
+        let virtualCardCheckoutQuery = VirtualCardCheckoutURLQuery(orderId: orderId,
+                                                                   prefill: prefillFields,
+                                                                   themeConfig: merchant.theme,
+                                                                   publicKey: publicKey)
+        return checkoutURL(fromEncodableObject: virtualCardCheckoutQuery)
+    }
+
+    private static func checkoutURL(fromEncodableObject object: Encodable) -> URL? {
+        let queryItems = try? object.toQueryItems(encodingStrategy: .useDefaultKeys)
         return URLComponents(path: CatchURL.checkoutPath, queryItems: queryItems).url
+
     }
 }

@@ -42,4 +42,5 @@ enum JSScript {
 
     static let deviceTokenKey = "device_token"
     static let actionKey = "action"
+    static let dataKey = "data"
 }
