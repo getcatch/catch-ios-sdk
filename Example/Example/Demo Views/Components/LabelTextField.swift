@@ -10,7 +10,7 @@ import UIKit
 /**
 A horizontally stacked label and text field.
 */
-class LabelTextField: UIView {
+class LabelTextField: UIView, UITextFieldDelegate {
     var text: String {
         return textField.text ?? String()
     }
@@ -38,6 +38,7 @@ class LabelTextField: UIView {
         configureLabel(with: title)
         textField.setContentHuggingPriority(UILayoutPriority(249), for: .horizontal)
         addConstrainedSubviewToView(stack)
+        textField.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -58,5 +59,10 @@ class LabelTextField: UIView {
         textView.textColor = .placeholderText
         textView.font = Constant.bodyFont
         return textView
+    }
+
+    internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
