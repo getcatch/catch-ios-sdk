@@ -48,7 +48,7 @@ class CheckoutForm: UIView {
             userName: userNameField.text,
             userEmail: userEmailField.text
         )
-        let options = CheckoutOptions(prefill: prefill) {
+        let options = OpenCheckoutOptions(prefill: prefill) {
             print("Checkout was canceled")
         } onConfirm: {
             print("Checkout was confirmed")
