@@ -39,8 +39,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.setCustomSpacing(Layout.verticalItemSpacing, after: purchaseConfirmation)
         stack.setCustomSpacing(Layout.verticalItemSpacing, after: campaignLink)
-        stack.isLayoutMarginsRelativeArrangement = true
-        stack.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: stack.spacing, right: 0)
         return stack
     }()
 
@@ -88,7 +86,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, PriceSliderDelegat
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             stack.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
+            stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            stack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -stack.spacing)
         ])
     }
 
