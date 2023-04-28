@@ -15,10 +15,20 @@ extension BorderConfiguring {
     func configureBorder(viewHeight: CGFloat, theme: Theme) {
         if let cornerRadius = borderStyle.cornerRadius(for: viewHeight) {
             layer.borderWidth = UIConstant.defaultBorderWidth
-            layer.borderColor = theme.borderColor
             layer.cornerRadius = cornerRadius
+            setBorderColor(for: theme)
         } else {
             layer.borderWidth = 0
         }
+    }
+
+    private func setBorderColor(for theme: Theme) {
+        var borderColor = theme.borderColor
+        // If custom border color was passed in, override theme border color.
+        if case let .custom(_, color) = borderStyle, let color = color {
+            borderColor = color.cgColor
+        }
+        // Set layer's border color
+        layer.borderColor = borderColor
     }
 }

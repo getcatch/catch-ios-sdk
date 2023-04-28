@@ -19,6 +19,8 @@ public enum BorderStyle {
     case square
     /// Renders widgets with no borders and no padding around the internal content.
     case none
+    /// Renders widgets with border with a custom corner radius and color
+    case custom(cornerRadius: CGFloat = 0, color: UIColor? = nil)
 
     /**
      Calculates the cornerRadius for the border style based on the view height
@@ -40,6 +42,8 @@ public enum BorderStyle {
             return 0
         case .none:
             return nil
+        case .custom(let radius, _):
+            return radius
         }
     }
 }

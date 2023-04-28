@@ -64,7 +64,11 @@ public class _BaseCardWidget: _BaseWidget { // swiftlint:disable:this type_name
                                                      url: buttonURL,
                                                      style: buttonStyle)
         // pill borders will be treated like rounded rect borders for the card based widgets
-        let border: BorderStyle = borderStyle == .pill ? .roundedRect : borderStyle
+        var border = borderStyle
+        if case .pill = borderStyle {
+            border = .roundedRect
+        }
+
         let config = BaseWidgetConfig(price: initialAmount,
                                       theme: theme,
                                       styleOverrides: styleOverrides,

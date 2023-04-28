@@ -36,7 +36,7 @@ class PurchaseConfirmationViewModel: BaseCardViewModel {
         self.amount = amountEarned
         self.delegate = delegate
         super.init()
-        self.merchantUpdatingDelegate = self
+        merchantUpdatingDelegate = self
         updateMerchantViews()
     }
 
