@@ -11,14 +11,12 @@ class VirtualCardCheckoutController: CheckoutController {
     var virtualCardCheckoutData: CreateVirtualCardCheckoutBody
     var options: VirtualCardCheckoutOptions?
 
-    init?(orderId: String,
-          checkoutData: CreateVirtualCardCheckoutBody,
+    init?(checkoutData: CreateVirtualCardCheckoutBody,
           options: VirtualCardCheckoutOptions?,
           merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
         self.virtualCardCheckoutData = checkoutData
         self.options = options
-        guard let url = CatchURL.virtualCardCheckout(orderId: orderId,
-                                                     prefillFields: options?.prefill,
+        guard let url = CatchURL.virtualCardCheckout(prefillFields: options?.prefill,
                                                      merchantRepository: merchantRepository) else { return nil }
         super.init(url: url, onCancel: options?.onCancel)
     }

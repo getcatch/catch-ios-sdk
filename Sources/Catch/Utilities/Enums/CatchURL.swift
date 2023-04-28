@@ -40,13 +40,11 @@ enum CatchURL {
         return checkoutURL(fromEncodableObject: directCheckoutQuery)
     }
 
-    static func virtualCardCheckout(orderId: String,
-                                    prefillFields: CheckoutPrefill?,
+    static func virtualCardCheckout(prefillFields: CheckoutPrefill?,
                                     merchantRepository: MerchantRepositoryInterface) -> URL? {
         guard let merchant = merchantRepository.getCurrentMerchant(),
               let publicKey = merchantRepository.merchantPublicKey else { return nil }
-        let virtualCardCheckoutQuery = VirtualCardCheckoutURLQuery(orderId: orderId,
-                                                                   prefill: prefillFields,
+        let virtualCardCheckoutQuery = VirtualCardCheckoutURLQuery(prefill: prefillFields,
                                                                    themeConfig: merchant.theme,
                                                                    publicKey: publicKey)
         return checkoutURL(fromEncodableObject: virtualCardCheckoutQuery)

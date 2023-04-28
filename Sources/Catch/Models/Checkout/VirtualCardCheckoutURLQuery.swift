@@ -8,13 +8,12 @@
 import Foundation
 
 class VirtualCardCheckoutURLQuery: CheckoutURLQuery {
-    let orderId: String
+    /// Required query param to indicate this is a virtual card checkout
+    let integation: String = "vcn"
 
-    init(orderId: String,
-         prefill: CheckoutPrefill?,
+    init(prefill: CheckoutPrefill?,
          themeConfig: MerchantThemeConfig?,
          publicKey: String) {
-        self.orderId = orderId
         super.init(publicKey: publicKey, prefill: prefill, themeConfig: themeConfig)
     }
 }

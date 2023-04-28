@@ -8,6 +8,10 @@
 import Foundation
 
 public struct CreateVirtualCardCheckoutBody: Codable {
+    /// The ID of this order in the merchant's system which Catch will store
+    ///for shared identification purposes. This ID should be unique per order.
+    let merchantOrderId: String
+
     /// The merchant's public API key.
     let merchantPublicKey: String
 
@@ -38,7 +42,8 @@ public struct CreateVirtualCardCheckoutBody: Codable {
     let userCohorts: [String]
 
     /// Initializes the data object which houses all parameters needed to create a virtual card checkout.
-    public init(merchantPublicKey: String,
+    public init(merchantOrderId: String,
+                merchantPublicKey: String,
                 amounts: Amounts,
                 billing: Address,
                 shipping: Address,
@@ -47,6 +52,7 @@ public struct CreateVirtualCardCheckoutBody: Codable {
                 merchantUserId: String,
                 platform: Platform?,
                 userCohorts: [String]) {
+        self.merchantOrderId = merchantOrderId
         self.merchantPublicKey = merchantPublicKey
         self.amounts = amounts
         self.billing = billing
