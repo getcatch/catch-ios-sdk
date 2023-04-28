@@ -35,6 +35,10 @@ extension NotificationResponding {
         subscribeToNotifications(notifications: [NotificationName.merchantUpdate])
     }
 
+    func subscribeToApplicationDidBecomeActiveNotification() {
+        subscribeToNotifications(notifications: [NotificationName.applicationDidBecomeActive])
+    }
+
     func subscribeToNotifications(notifications: [Notification.Name]) {
         for notification in notifications {
             let token = NotificationCenter.default.addObserver(forName: notification,

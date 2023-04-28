@@ -15,7 +15,7 @@ protocol UserRepositoryInterface {
     func fetchUserData(merchantId: String, completion: @escaping (Result<PublicUserData, Error>) -> Void)
 }
 
-class UserRepository: UserRepositoryInterface {
+class UserRepository: UserRepositoryInterface, NotificationResponding {
 
     private let userNetworkService: UserNetworkServiceInterface
     private let keyChain: KeyChainInterface
@@ -29,6 +29,7 @@ class UserRepository: UserRepositoryInterface {
     }
 
     internal var didFetchUserData: Bool = false
+    internal var merchantId: String?
 
     // MARK: - Initializers
 
@@ -38,6 +39,7 @@ class UserRepository: UserRepositoryInterface {
         self.userNetworkService = networkService
         self.keyChain = keyChain
         self.notificationCenter = notificationCenter
+        subscribeToApplicationDidBecomeActiveNotification()
     }
 
     // MARK: - Repository Operations
@@ -60,6 +62,7 @@ class UserRepository: UserRepositoryInterface {
     }
 
     func fetchUserData(merchantId: String, completion: @escaping (Result<PublicUserData, Error>) -> Void = {_ in }) {
+        self.merchantId = merchantId
         if let token = getDeviceToken() {
             userNetworkService.fetchUserData(deviceToken: token, merchantId: merchantId) { [weak self] result in
                 if case let .success(publicUserData) = result {
@@ -75,5 +78,20 @@ class UserRepository: UserRepositoryInterface {
             user = PublicUserData.noData
             completion(.failure(NetworkError.requestError(.invalidDeviceToken(nil))))
         }
+    }
+
+    internal func didReceiveNotification(_ notification: Notification) {
+        guard notification.name == NotificationName.applicationDidBecomeActive else {
+            Logger.log("UserRepository received unknown notification named: \(notification.name)")
+            return
+        }
+        refreshUser()
+    }
+
+    private func refreshUser() {
+        guard let merchantId = merchantId else {
+            return
+        }
+        fetchUserData(merchantId: merchantId)
     }
 }
