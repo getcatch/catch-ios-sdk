@@ -94,4 +94,8 @@ class UserRepository: UserRepositoryInterface, NotificationResponding {
         }
         fetchUserData(merchantId: merchantId)
     }
+
+    deinit {
+        unsubscribeFromNotifications()
+    }
 }

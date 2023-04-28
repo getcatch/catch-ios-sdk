@@ -78,4 +78,8 @@ class MerchantRepository: MerchantRepositoryInterface, NotificationResponding {
         guard let publicKey = merchantPublicKey else { return }
         fetchMerchant(from: publicKey, completion: {_ in })
     }
+
+    deinit {
+        unsubscribeFromNotifications()
+    }
 }
