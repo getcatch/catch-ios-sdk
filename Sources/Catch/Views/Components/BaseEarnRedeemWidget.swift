@@ -72,3 +72,4 @@ public class _BaseEarnRedeemWidget: _BaseWidget, InfoButtonDelegate, TofuPresent
         }
     }
 }
+// swiftlint:enable type_name

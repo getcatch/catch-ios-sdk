@@ -177,3 +177,4 @@ private extension _BaseWidget {
                                                  localOverrides: styleOverrides)
     }
 }
+// swiftlint:enable type_name

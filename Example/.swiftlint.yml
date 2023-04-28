@@ -1,8 +1,10 @@
 disabled_rules:
+  - blanket_disable_command
   - file_length
   - function_body_length
   - function_parameter_count
   - identifier_name
+  - switch_case_alignment
 
 opt_in_rules: # some rules are only opt-in
   - array_init
@@ -15,18 +17,23 @@ opt_in_rules: # some rules are only opt-in
   - contains_over_first_not_nil
   - contains_over_range_nil_comparison
   - comma_inheritance
-  - empty_count
+  - discarded_notification_center_observer
   - empty_collection_literal
+  - empty_count
   - empty_string
+  - enum_case_associated_values_count
+  - fallthrough
+  - fatal_error_message
   - file_header
+  - file_name
   - first_where
   - flatmap_over_map_reduce
   - force_unwrapping
   - function_default_parameter_at_end
   - implicitly_unwrapped_optional
-  - indentation_width
   - last_where
   - literal_expression_end_indentation
+  - multiline_parameters
   - object_literal
   - operator_usage_whitespace
   - raw_value_for_camel_cased_codable_enum
@@ -36,12 +43,16 @@ opt_in_rules: # some rules are only opt-in
   - sorted_imports
   - toggle_bool
   - trailing_closure
-  - typesafe_array_init
+  - unneeded_parentheses_in_closure_argument
   - unowned_variable_capture
-  - unused_declaration
-  - unused_import
+  - vertical_parameter_alignment_on_call
   - weak_delegate
   - yoda_condition
+
+analyzer_rules:
+  - typesafe_array_init
+  - unused_declaration
+  - unused_import
 
 line_length:
   ignores_comments: true

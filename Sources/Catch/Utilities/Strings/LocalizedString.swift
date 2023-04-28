@@ -54,3 +54,4 @@ enum LocalizedString: String {
       return String(format: localized, args)
     }
 }
+// swiftlint:enable identifier_name
