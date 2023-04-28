@@ -1,4 +1,3 @@
-// swiftlint:disable identifier_name type_name
 //
 //  Catch.swift
 //
@@ -9,9 +8,9 @@
 import UIKit
 
 /// The Catch SDK shared instance.
-public let Catch = _Catch.sharedInstance
+public let Catch = _Catch.sharedInstance // swiftlint:disable:this identifier_name
 
-public class _Catch {
+public class _Catch { // swiftlint:disable:this type_name
 
     static let sharedInstance = _Catch()
 
