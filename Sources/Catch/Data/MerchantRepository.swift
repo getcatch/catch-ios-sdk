@@ -13,7 +13,7 @@ protocol MerchantRepositoryInterface {
     func fetchMerchant(from merchantPublicKey: String, completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
-class MerchantRepository: MerchantRepositoryInterface {
+class MerchantRepository: MerchantRepositoryInterface, NotificationResponding {
 
     internal var merchantPublicKey: String?
     private var merchant: Merchant? {
@@ -34,6 +34,7 @@ class MerchantRepository: MerchantRepositoryInterface {
         self.networkService = networkService
         self.cache = cache
         self.notificationCenter = notificationCenter
+        subscribeToApplicationDidBecomeActiveNotification()
     }
 
     func getCurrentMerchant() -> Merchant? {
@@ -63,5 +64,22 @@ class MerchantRepository: MerchantRepositoryInterface {
                 }
             }
         }
+    }
+
+    internal func didReceiveNotification(_ notification: Notification) {
+        guard notification.name == NotificationName.applicationDidBecomeActive else {
+            Logger.log("MerchantRepository received unknown notification named: \(notification.name)")
+            return
+        }
+        refreshMerchant()
+    }
+
+    private func refreshMerchant() {
+        guard let publicKey = merchantPublicKey else { return }
+        fetchMerchant(from: publicKey, completion: {_ in })
+    }
+
+    deinit {
+        unsubscribeFromNotifications()
     }
 }
