@@ -9,7 +9,7 @@ import Foundation
 
 public struct CreateVirtualCardCheckoutBody: Codable {
     /// The ID of this order in the merchant's system which Catch will store
-    ///for shared identification purposes. This ID should be unique per order.
+    /// for shared identification purposes. This ID should be unique per order.
     let merchantOrderId: String
 
     /// The merchant's public API key.
