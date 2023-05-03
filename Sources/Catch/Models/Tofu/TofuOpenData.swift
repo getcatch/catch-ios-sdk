@@ -14,22 +14,30 @@ struct TofuOpenData: Encodable {
     let earnedRewardsBreakdown: EarnedRewardsSummary
     let price: Int
     let merchantDefaults: MerchantDefaults
+    let donationRecipient: DonationRecipient?
     let path: String
     let publicUserData: WidgetContentPublicUserData
 
-    var availableRewardsBreakdownDict: Any? {
-        if let encodedData = try? generateAvailableRewardsBreakdown().encoded(encodingStrategy: .useDefaultKeys) {
-            let dict = try? JSONSerialization.jsonObject(with: encodedData)
-            return dict
-        }
-        return nil
+    // Because the Tofu post message requires mixed snake case and camel case params,
+    // the different fields must be encoded separately.
+    private var availableRewardsBreakdownDict: [String: Any]? {
+        return try? generateAvailableRewardsBreakdown().asDictionary(encodingStrategy: .useDefaultKeys)
     }
 
-    var publicUserDataDict: Any? {
-        if let encodedData = try? publicUserData.encoded(encodingStrategy: .convertToSnakeCase) {
-            return try? JSONSerialization.jsonObject(with: encodedData)
-        }
-        return nil
+    private var earnedRewardsBreakdownDict: [String: Any]? {
+        return try? earnedRewardsBreakdown.asDictionary(encodingStrategy: .convertToSnakeCase)
+    }
+
+    private var merchantDefaultsDict: [String: Any]? {
+        return try? merchantDefaults.asDictionary(encodingStrategy: .useDefaultKeys)
+    }
+
+    private var publicUserDataDict: [String: Any]? {
+        return try? publicUserData.asDictionary(encodingStrategy: .convertToSnakeCase)
+    }
+
+    private var donationRecipientDict: [String: Any]? {
+        return try? donationRecipient?.asDictionary(encodingStrategy: .convertToSnakeCase)
     }
 
     var isUserRedeeming: Bool {
@@ -47,24 +55,18 @@ struct TofuOpenData: Encodable {
         self.earnedRewardsBreakdown = earnedRewards
         self.price = price
         self.merchantDefaults = MerchantDefaults(merchant: merchant)
+        self.donationRecipient = merchant.donationRecipient
         self.publicUserData = publicUserData
         self.path = path.rawValue
     }
 
-    func toDict() -> [String: Any] {
-        // Because the Tofu post message requires mixed snake case and camel case params,
-        // earned rewards breakdown and merchant defaults must be encoded separately.
-        guard let breakdown = try? earnedRewardsBreakdown.encoded(encodingStrategy: .convertToSnakeCase),
-              let defaults = try? merchantDefaults.encoded(encodingStrategy: .useDefaultKeys),
-              let availableRewardsDict = availableRewardsBreakdownDict,
-              let publicUserDataDict = publicUserDataDict,
-              let breakdownDict = try? JSONSerialization.jsonObject(with: breakdown),
-                let defaultsDict = try? JSONSerialization.jsonObject(with: defaults) else { return [:] }
+    func toDict() -> [String: Any?] {
         return [
-            "earnedRewardsBreakdown": breakdownDict,
+            "earnedRewardsBreakdown": earnedRewardsBreakdownDict,
             "price": String(price),
-            "merchantDefaults": defaultsDict,
-            "availableRewardsBreakdown": availableRewardsDict,
+            "merchantDefaults": merchantDefaultsDict,
+            "donationRecipient": donationRecipientDict,
+            "availableRewardsBreakdown": availableRewardsBreakdownDict,
             "publicUserData": publicUserDataDict,
             "userIsRedeeming": isUserRedeeming,
             "path": path
