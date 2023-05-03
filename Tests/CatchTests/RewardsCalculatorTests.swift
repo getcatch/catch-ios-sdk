@@ -34,7 +34,7 @@ final class RewardsCalculatorTests: XCTestCase {
     func testCalculateRewardWithSignUpBonus() {
         let userData = MockDataProvider.publicUserDataNew
         let earnedRewards = MockDataProvider.newUserEarnedRewardsSummary
-        let calculator = createRewardsCalculator(publicUserData: userData, targetEarnedReward: earnedRewards)
+        let calculator = createRewardsCalculator(existingUserData: userData, targetEarnedReward: earnedRewards)
 
         let savedAmount = earnedRewards.signUpDiscountAmount + (userData.rewardAmount ?? 0)
         let expectedCreditAmount = min(savedAmount, purchasePrice)
@@ -60,7 +60,7 @@ final class RewardsCalculatorTests: XCTestCase {
     func testCalculateRewardWithRedeemableCredits() {
         let userData = MockDataProvider.publicUserDataReturning
         let earnedRewards = MockDataProvider.defaultEarnedRewardsSummary
-        let calculator = createRewardsCalculator(publicUserData: userData, targetEarnedReward: earnedRewards)
+        let calculator = createRewardsCalculator(existingUserData: userData, targetEarnedReward: earnedRewards)
 
         let expectedCreditAmount = min(userData.rewardAmount ?? 0, purchasePrice)
         calculator.fetchCalculatedEarnedReward(price: purchasePrice,
@@ -84,7 +84,7 @@ final class RewardsCalculatorTests: XCTestCase {
     func testCalculateRewardWithEarnedRewards() {
         let userData = MockDataProvider.publicUserDataNoCredits
         let earnedRewards = MockDataProvider.defaultEarnedRewardsSummary
-        let calculator = createRewardsCalculator(publicUserData: userData, targetEarnedReward: earnedRewards)
+        let calculator = createRewardsCalculator(existingUserData: userData, targetEarnedReward: earnedRewards)
 
         let expectedCreditAmount = earnedRewards.earnedRewardsTotal
         calculator.fetchCalculatedEarnedReward(price: purchasePrice,
@@ -109,7 +109,7 @@ final class RewardsCalculatorTests: XCTestCase {
         let merchant = MockDataProvider.defaultMerchant
         let userData = MockDataProvider.publicUserDataNoCredits
         let earnedRewards = MockDataProvider.earnedRewardsSummaryNoRewards
-        let calculator = createRewardsCalculator(publicUserData: userData, targetEarnedReward: earnedRewards)
+        let calculator = createRewardsCalculator(existingUserData: userData, targetEarnedReward: earnedRewards)
 
         let expectedRate = max(merchant.defaultEarnedRewardsRate, earnedRewards.percentageRewardRate)
         calculator.fetchCalculatedEarnedReward(price: purchasePrice,
@@ -126,14 +126,79 @@ final class RewardsCalculatorTests: XCTestCase {
         }
     }
 
+    // Test rewards calculator when there is no user data previously loaded (going through /widget_content)
+    // In this case the fetched user has redeemable credits
+    func testCalculateWidgetContentRedeemableCredits() {
+        let earnedRewards = MockDataProvider.defaultEarnedRewardsSummary
+        let targetUserData = MockDataProvider.publicUserDataReturning
+        let calculator = createRewardsCalculator(existingUserData: nil,
+                                                 targetEarnedReward: earnedRewards,
+                                                 targetUserData: targetUserData)
+        var userData = calculator.getWidgetContentPublicUserData()
+        XCTAssertNil(userData, "There should be no user data cached prior to widget content call.")
+        let expectedCredits = targetUserData.rewardAmount
+        calculator.fetchCalculatedEarnedReward(price: 50000,
+                                               items: nil,
+                                               userCohorts: nil) { result in
+            if case let .success(rewardResult) = result,
+                case let Reward.redeemableCredits(credits) = rewardResult.prioritizedReward {
+                // Validate redeemable credit amount matches expected amount
+                XCTAssertEqual(credits, expectedCredits)
+                XCTAssertNotNil(calculator.getEarnedRewardsSummary)
+                // Validate that user data was cached after /widget_content call
+                userData = calculator.getWidgetContentPublicUserData()
+                XCTAssertEqual(userData, targetUserData)
+            } else {
+                XCTFail("Widget content should have returned the redeemable credits from the fetched user")
+            }
+        }
+    }
+
+    // Test rewards calculator when there is no user data previously loaded (going through /widget_content)
+    // In this case the fetched user is a new user
+    func testCalculateWidgetContentNewUser() {
+        let earnedRewards = MockDataProvider.newUserEarnedRewardsSummary
+        let targetUserData = MockDataProvider.publicUserDataNew
+        let calculator = createRewardsCalculator(existingUserData: nil,
+                                                 targetEarnedReward: earnedRewards,
+                                                 targetUserData: targetUserData)
+        var userData = calculator.getWidgetContentPublicUserData()
+        XCTAssertNil(userData, "There should be no user data cached prior to widget content call.")
+        calculator.fetchCalculatedEarnedReward(price: 50000,
+                                               items: nil,
+                                               userCohorts: nil) { result in
+            if case let .success(rewardResult) = result,
+                case let Reward.earnedCredits(credits) = rewardResult.prioritizedReward {
+                // Validate earned reward amount matches expected amount
+                XCTAssertEqual(credits, earnedRewards.signUpDiscountAmount)
+                XCTAssertNotNil(calculator.getEarnedRewardsSummary)
+                // Validate that user data was cached after /widget_content call
+                userData = calculator.getWidgetContentPublicUserData()
+                XCTAssertEqual(userData, targetUserData)
+            } else {
+                XCTFail("Widget content should have returned the earned credits from the new user")
+            }
+        }
+    }
+
+    /**
+        Creates a reward calculator
+     - Parameter existingUserData: Public user data that is already cached at the time of the network call
+     - Parameter targetEarnedReward: The earned rewards summary that will be returned by the network service.
+     - Parameter targetUserData: Public user data that will be returned by the /widget_content network call.
+     */
     private func createRewardsCalculator(
-        publicUserData: WidgetContentPublicUserData = MockDataProvider.publicUserDataReturning,
-        targetEarnedReward: EarnedRewardsSummary = MockDataProvider.defaultEarnedRewardsSummary
+        existingUserData: WidgetContentPublicUserData? = MockDataProvider.publicUserDataReturning,
+        targetEarnedReward: EarnedRewardsSummary = MockDataProvider.defaultEarnedRewardsSummary,
+        targetUserData: WidgetContentPublicUserData? = nil
     ) -> RewardsCalculator {
 
         let merchantRepository = MockMerchantRepository()
-        let userRepository = MockUserRepository(userOverride: publicUserData)
-        let rewardsNetworkService = MockRewardsCalculatorNetworkService(targetRewardSummary: targetEarnedReward)
+        let userRepository = MockUserRepository(userOverride: existingUserData)
+        let rewardsNetworkService = MockRewardsCalculatorNetworkService(
+            targetRewardSummary: targetEarnedReward,
+            targetUserData: targetUserData
+        )
         return RewardsCalculator(userRepository: userRepository,
                                  merchantRepository: merchantRepository,
                                  rewardsNetworkService: rewardsNetworkService)

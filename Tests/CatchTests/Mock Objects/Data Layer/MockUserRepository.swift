@@ -12,9 +12,9 @@ class MockUserRepository: UserRepositoryInterface {
 
     var didFetchUserData: Bool = false
 
-    private var userData: WidgetContentPublicUserData
+    private var userData: WidgetContentPublicUserData?
 
-    init(userOverride: WidgetContentPublicUserData = MockDataProvider.publicUserDataReturning) {
+    init(userOverride: WidgetContentPublicUserData? = MockDataProvider.publicUserDataReturning) {
         self.userData = userOverride
     }
 
