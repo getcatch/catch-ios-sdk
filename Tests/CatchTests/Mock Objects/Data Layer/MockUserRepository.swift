@@ -9,16 +9,21 @@ import XCTest
 @testable import Catch
 
 class MockUserRepository: UserRepositoryInterface {
+
     var didFetchUserData: Bool = false
 
-    private let userData: PublicUserData
+    private var userData: WidgetContentPublicUserData
 
-    init(userOverride: PublicUserData = MockDataProvider.publicUserDataReturning) {
+    init(userOverride: WidgetContentPublicUserData = MockDataProvider.publicUserDataReturning) {
         self.userData = userOverride
     }
 
-    func getCurrentUser() -> PublicUserData? {
+    func getCurrentUser() -> WidgetContentPublicUserData? {
         return userData
+    }
+
+    func saveUserData(_ widgetUserData: Catch.WidgetContentPublicUserData) {
+        userData = widgetUserData
     }
 
     func getDeviceToken() -> String? {
@@ -26,10 +31,5 @@ class MockUserRepository: UserRepositoryInterface {
     }
 
     func saveDeviceToken(_ token: String) { }
-
-    func fetchUserData(merchantId: String, completion: @escaping (Result<PublicUserData, Error>) -> Void) {
-        didFetchUserData = true
-        completion(.success(userData))
-    }
 
 }

@@ -36,7 +36,7 @@ final class RewardsCalculatorTests: XCTestCase {
         let earnedRewards = MockDataProvider.newUserEarnedRewardsSummary
         let calculator = createRewardsCalculator(publicUserData: userData, targetEarnedReward: earnedRewards)
 
-        let savedAmount = earnedRewards.signUpDiscountAmount + userData.rewardAmount
+        let savedAmount = earnedRewards.signUpDiscountAmount + (userData.rewardAmount ?? 0)
         let expectedCreditAmount = min(savedAmount, purchasePrice)
         calculator.fetchCalculatedEarnedReward(price: purchasePrice,
                                                items: nil,
@@ -62,7 +62,7 @@ final class RewardsCalculatorTests: XCTestCase {
         let earnedRewards = MockDataProvider.defaultEarnedRewardsSummary
         let calculator = createRewardsCalculator(publicUserData: userData, targetEarnedReward: earnedRewards)
 
-        let expectedCreditAmount = min(userData.rewardAmount, purchasePrice)
+        let expectedCreditAmount = min(userData.rewardAmount ?? 0, purchasePrice)
         calculator.fetchCalculatedEarnedReward(price: purchasePrice,
                                                items: nil,
                                                userCohorts: nil) { result in
@@ -127,7 +127,7 @@ final class RewardsCalculatorTests: XCTestCase {
     }
 
     private func createRewardsCalculator(
-        publicUserData: PublicUserData = MockDataProvider.publicUserDataReturning,
+        publicUserData: WidgetContentPublicUserData = MockDataProvider.publicUserDataReturning,
         targetEarnedReward: EarnedRewardsSummary = MockDataProvider.defaultEarnedRewardsSummary
     ) -> RewardsCalculator {
 
