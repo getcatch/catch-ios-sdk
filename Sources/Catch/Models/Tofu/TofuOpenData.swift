@@ -40,7 +40,7 @@ struct TofuOpenData: Encodable {
         return try? donationRecipient?.asDictionary(encodingStrategy: .convertToSnakeCase)
     }
 
-    var isUserRedeeming: Bool {
+    private var isUserRedeeming: Bool {
         guard let rewardAmount = publicUserData.rewardAmount,
               rewardAmount > 0 else { return false }
         return true

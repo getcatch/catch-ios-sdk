@@ -40,7 +40,7 @@ class TofuController: CatchWebViewController, PostMessageHandler {
         }
     }
 
-    private var tofuOpenData: [String: Any] {
+    private var tofuOpenData: [String: Any?] {
         guard let merchant = merchantRepository.getCurrentMerchant() else { return [:] }
 
         return TofuOpenData(earnedRewards: earnedRewardsSummary,

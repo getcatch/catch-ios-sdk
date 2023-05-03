@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct WidgetContentPublicUserData: Codable {
-    let availableRewardBreakdown: [AvailableRewardDetail]?
+struct WidgetContentPublicUserData: Codable, Equatable {
+    var availableRewardBreakdown: [AvailableRewardDetail]?
     let firstPurchaseBonusEligibility: Bool
     var userFirstName: String? = nil
     let rewardAmount: Int?
