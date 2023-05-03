@@ -13,9 +13,12 @@ import UIKit
 protocol TofuPresenting: UIView {}
 
 extension TofuPresenting {
-    func presentTofuModal(rewards: RewardsCalculatorResult, path: TofuPath = .howItWorks) {
+    func presentTofuModal(rewards: RewardsCalculatorResult,
+                          publicUserData: WidgetContentPublicUserData,
+                          path: TofuPath = .howItWorks) {
         guard let webController = TofuController(price: rewards.price,
                                                  rewardSummary: rewards.summary,
+                                                 publicUserData: publicUserData,
                                                  path: path) else { return }
         webController.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(webController, animated: true)
