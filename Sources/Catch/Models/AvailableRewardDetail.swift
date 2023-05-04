@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AvailableRewardDetail: Codable {
+struct AvailableRewardDetail: Codable, Equatable {
     let rewardIds: [String]
     var amount: Int
     let rewardAmounts: [Int]

@@ -76,7 +76,7 @@ struct TofuOpenData: Encodable {
     private func generateAvailableRewardsBreakdown() -> TofuAvailableRewardsBreakdown {
         // For rewards restricted by percentage order total max,
         // limit the available rewards to the max percentage of the order total.
-        let availableRewards = publicUserData.availableRewardBreakdown?.map  {
+        let availableRewards = publicUserData.availableRewardBreakdown?.map {
             if let redeemablePercentageOrderTotalMax = $0.redeemablePercentageOrderTotalMax {
                 var reward = $0
                 reward.amount = Int(min(Double($0.amount), Double(price) * redeemablePercentageOrderTotalMax))

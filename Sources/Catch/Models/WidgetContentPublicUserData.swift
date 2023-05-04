@@ -10,7 +10,7 @@ import Foundation
 struct WidgetContentPublicUserData: Codable, Equatable {
     var availableRewardBreakdown: [AvailableRewardDetail]?
     let firstPurchaseBonusEligibility: Bool
-    var userFirstName: String? = nil
+    var userFirstName: String?
     let rewardAmount: Int?
     var wasReferred: Bool = false
     var isCatchEmployee: Bool = false
