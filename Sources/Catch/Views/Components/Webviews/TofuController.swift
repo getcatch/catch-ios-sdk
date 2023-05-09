@@ -11,15 +11,18 @@ class TofuController: CatchWebViewController, PostMessageHandler {
     let path: TofuPath
     let price: Int
     let earnedRewardsSummary: EarnedRewardsSummary
+    let publicUserData: WidgetContentPublicUserData
     let merchantRepository: MerchantRepositoryInterface
 
     init?(price: Int,
           rewardSummary: EarnedRewardsSummary,
+          publicUserData: WidgetContentPublicUserData,
           path: TofuPath = .howItWorks,
           merchantRepository: MerchantRepositoryInterface = Catch.merchantRepository) {
         self.path = path
         self.price = price
         self.earnedRewardsSummary = rewardSummary
+        self.publicUserData = publicUserData
         self.merchantRepository = merchantRepository
         guard let url = CatchURL.tofu(merchantRepository) else { return nil }
         super.init(url: url, isTransparent: true)
@@ -37,12 +40,13 @@ class TofuController: CatchWebViewController, PostMessageHandler {
         }
     }
 
-    private var tofuOpenData: [String: Any] {
+    private var tofuOpenData: [String: Any?] {
         guard let merchant = merchantRepository.getCurrentMerchant() else { return [:] }
 
         return TofuOpenData(earnedRewards: earnedRewardsSummary,
                             price: price,
                             merchant: merchant,
-                            path: path).dict
+                            publicUserData: publicUserData,
+                            path: path).toDict()
     }
 }

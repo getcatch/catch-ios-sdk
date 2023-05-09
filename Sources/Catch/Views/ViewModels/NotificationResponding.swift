@@ -39,6 +39,10 @@ extension NotificationResponding {
         subscribeToNotifications(notifications: [NotificationName.applicationDidBecomeActive])
     }
 
+    func subscribeToDeviceTokenUpdates() {
+        subscribeToNotifications(notifications: [NotificationName.deviceTokenUpdate])
+    }
+
     func subscribeToNotifications(notifications: [Notification.Name]) {
         for notification in notifications {
             let token = NotificationCenter.default.addObserver(forName: notification,

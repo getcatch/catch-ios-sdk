@@ -18,7 +18,7 @@ enum JSScript {
     /// Forwards post messages to the webkit message handler with the given name.
     case addPostMessageListener(name: String)
     /// Sends a post message to the webview with a given action and data.
-    case postMessage(action: PostMessageAction, dataObject: [String: Any])
+    case postMessage(action: PostMessageAction, dataObject: [String: Any?])
 
     /// String value for the JS script
     var value: String? {
@@ -34,7 +34,7 @@ enum JSScript {
         }
     }
 
-    private func postMessageScript(action: PostMessageAction, dataObject: [String: Any]) -> String? {
+    private func postMessageScript(action: PostMessageAction, dataObject: [String: Any?]) -> String? {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: dataObject, options: []),
               let jsonString = String(data: jsonData, encoding: .utf8) else { return nil }
         return String(format: JSScriptFormat.postMessage, action.rawValue, jsonString)

@@ -67,8 +67,11 @@ public class _BaseEarnRedeemWidget: _BaseWidget, InfoButtonDelegate, TofuPresent
     }
 
     private func presentTofu(path: TofuPath) {
-        if let tofuData = viewModel?.rewardsResult {
-            presentTofuModal(rewards: tofuData, path: path)
+        if let tofuData = viewModel?.rewardsResult,
+           let userData = viewModel?.publicUserData {
+            presentTofuModal(rewards: tofuData,
+                             publicUserData: userData,
+                             path: path)
         }
     }
 }

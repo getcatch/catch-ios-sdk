@@ -12,6 +12,7 @@ enum NetworkError: Swift.Error {
         case invalidPublicKey(String)
         case invalidDeviceToken(String?)
         case noPublicUserData
+        case noMerchant
         case invalidURL(URLComponents)
         case invalidRequest(URLRequest)
         case encodingError(Swift.EncodingError)

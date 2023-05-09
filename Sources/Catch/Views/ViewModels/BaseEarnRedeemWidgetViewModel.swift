@@ -19,16 +19,18 @@ protocol BaseWidgetViewModelInterface {
 }
 
 // MARK: - BaseEarnRedeemWidgetViewModel
-class BaseEarnRedeemWidgetViewModel: BaseWidgetViewModelInterface {
+class BaseEarnRedeemWidgetViewModel: BaseWidgetViewModelInterface, NotificationResponding {
     weak var delegate: BaseWidgetDelegate?
     internal var merchant: Merchant?
     internal var rewardsResult: RewardsCalculatorResult?
     internal var earnRedeemLabelType: EarnRedeemLabelType
     internal var amount: Int
+    internal var publicUserData: WidgetContentPublicUserData? {
+        return rewardsCalculator.getWidgetContentPublicUserData()
+    }
 
     private var items: [Item]?
     private var userCohorts: [String]?
-    private let notificationName: Notification.Name = NotificationName.publicUserDataUpdate
 
     private let rewardsCalculator: RewardsCalculatorInterface
 
@@ -48,42 +50,40 @@ class BaseEarnRedeemWidgetViewModel: BaseWidgetViewModelInterface {
 
     // MARK: Public Functions
     func updatePrice(_ price: Int) {
-        self.amount = price
+        self.amount = max(0, price)
         calculateEarnedRewards(price: price, items: items, userCohorts: userCohorts)
     }
 
     // MARK: Private Helpers
+    internal func didReceiveNotification(_ notification: Notification) {
+        fetchCalculatedEarnedRewards()
+    }
+
     private func calculateEarnedRewards(price: Int, items: [Item]?, userCohorts: [String]?) {
-        self.amount = min(0, price)
-        self.items = items
-        self.userCohorts = userCohorts
-        if !self.rewardsCalculator.readyToFetch {
-            return
-        }
-        self.rewardsCalculator.fetchCalculatedEarnedReward(price: price,
+        fetchCalculatedEarnedRewards()
+    }
+
+    private func fetchCalculatedEarnedRewards() {
+        self.rewardsCalculator.fetchCalculatedEarnedReward(price: amount,
                                                            items: items,
                                                            userCohorts: userCohorts) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let rewardsCalculatorResult):
-                let reward = rewardsCalculatorResult.prioritizedReward
-                self.rewardsResult = rewardsCalculatorResult
-                self.delegate?.updateEarnRedeemMessage(reward: reward, type: self.earnRedeemLabelType)
-            case .failure(let error):
-                Logger.log(error: error)
+                case .success(let rewardsCalculatorResult):
+                    let reward = rewardsCalculatorResult.prioritizedReward
+                    self.rewardsResult = rewardsCalculatorResult
+                    self.delegate?.updateEarnRedeemMessage(reward: reward, type: self.earnRedeemLabelType)
+                case .failure(let error):
+                    Logger.log(error: error)
             }
         }
-
     }
 
     private func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didUpdateUser),
-                                               name: notificationName,
-                                               object: nil)
-    }
-
-    @objc private func didUpdateUser() {
-        calculateEarnedRewards(price: amount, items: items, userCohorts: userCohorts)
+        // Rewards should be recalculated if the merchant or device token changes
+        // or if the application re-enters the active state to ensure data isn't stale.
+        subscribeToMerchantUpdates()
+        subscribeToDeviceTokenUpdates()
+        subscribeToApplicationDidBecomeActiveNotification()
     }
 }

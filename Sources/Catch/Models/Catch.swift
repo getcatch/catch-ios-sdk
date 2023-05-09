@@ -58,12 +58,8 @@ public class _Catch { // swiftlint:disable:this type_name
             CatchFontLoader.registerFonts()
         }
 
-        merchantRepository.fetchMerchant(from: publicKey) { [weak self] result in
+        merchantRepository.fetchMerchant(from: publicKey) { result in
             completion(result)
-            guard let self = self else { return }
-            if let merchantID = self.merchantRepository.getCurrentMerchant()?.merchantId {
-                self.userRepository.fetchUserData(merchantId: merchantID, completion: {_ in })
-            }
         }
     }
 

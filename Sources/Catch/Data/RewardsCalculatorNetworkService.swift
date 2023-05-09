@@ -11,21 +11,25 @@ protocol RewardsCalculatorNetworkServiceInterface {
     func getCalculateEarnedRewards(merchantId: String,
                                    queryItems: [URLQueryItem]?,
                                    completion: @escaping (Result<EarnedRewardsSummary, Error>) -> Void)
+    func getWidgetContent(merchantID: String,
+                          queryItems: [URLQueryItem]?,
+                          completion: @escaping (Result<WidgetContent, Error>) -> Void)
 }
 
 struct RewardsCalculatorNetworkService: RewardsCalculatorNetworkServiceInterface {
     var apiClient: APIClientInterface = APIClient()
+
     func getCalculateEarnedRewards(merchantId: String,
                                    queryItems: [URLQueryItem]?,
                                    completion: @escaping (Result<EarnedRewardsSummary, Error>) -> Void) {
         let path = String(format: CatchURL.getEarnedRewards, merchantId)
-        apiClient.fetchObject(path: path, queryItems: queryItems) { (result: Result<EarnedRewardsSummary, Error>) in
-            switch result {
-            case .success(let earnedRewardsSummary):
-                completion(.success(earnedRewardsSummary))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        apiClient.fetchObject(path: path, queryItems: queryItems, completion: completion)
+    }
+
+    func getWidgetContent(merchantID: String,
+                          queryItems: [URLQueryItem]?,
+                          completion: @escaping (Result<WidgetContent, Error>) -> Void) {
+        let path = String(format: CatchURL.getWidgetContent, merchantID)
+        apiClient.fetchObject(path: path, queryItems: queryItems, completion: completion)
     }
 }

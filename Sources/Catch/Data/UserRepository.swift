@@ -8,43 +8,32 @@
 import Foundation
 
 protocol UserRepositoryInterface {
-    var didFetchUserData: Bool { get }
-    func getCurrentUser() -> PublicUserData?
+    func getCurrentUser() -> WidgetContentPublicUserData?
     func getDeviceToken() -> String?
     func saveDeviceToken(_ token: String)
-    func fetchUserData(merchantId: String, completion: @escaping (Result<PublicUserData, Error>) -> Void)
+    func saveUserData(_ widgetUserData: WidgetContentPublicUserData)
 }
 
-class UserRepository: UserRepositoryInterface, NotificationResponding {
-
-    private let userNetworkService: UserNetworkServiceInterface
+class UserRepository: UserRepositoryInterface {
     private let keyChain: KeyChainInterface
     private let notificationCenter: NotificationCenter
 
-    private var user: PublicUserData? {
-        didSet {
-            didFetchUserData = true
-            notificationCenter.post(name: NotificationName.publicUserDataUpdate, object: nil)
-        }
-    }
+    private var user: WidgetContentPublicUserData?
 
     internal var didFetchUserData: Bool = false
     internal var merchantId: String?
 
     // MARK: - Initializers
 
-    init(networkService: UserNetworkServiceInterface = UserNetworkService(),
-         keyChain: KeyChainInterface = KeyChainManager(),
+    init(keyChain: KeyChainInterface = KeyChainManager(),
          notificationCenter: NotificationCenter = NotificationCenter.default) {
-        self.userNetworkService = networkService
         self.keyChain = keyChain
         self.notificationCenter = notificationCenter
-        subscribeToApplicationDidBecomeActiveNotification()
     }
 
     // MARK: - Repository Operations
 
-    func getCurrentUser() -> PublicUserData? {
+    func getCurrentUser() -> WidgetContentPublicUserData? {
         return user
     }
 
@@ -59,43 +48,10 @@ class UserRepository: UserRepositoryInterface, NotificationResponding {
          */
         guard getDeviceToken() == nil else { return }
         _ = keyChain.saveString(token, forKey: Constant.deviceTokenKeyChainService)
+        notificationCenter.post(name: NotificationName.deviceTokenUpdate, object: nil)
     }
 
-    func fetchUserData(merchantId: String, completion: @escaping (Result<PublicUserData, Error>) -> Void = {_ in }) {
-        self.merchantId = merchantId
-        if let token = getDeviceToken() {
-            userNetworkService.fetchUserData(deviceToken: token, merchantId: merchantId) { [weak self] result in
-                if case let .success(publicUserData) = result {
-                    completion(.success(publicUserData))
-                    self?.user = publicUserData
-                } else {
-                    self?.user = PublicUserData.noData
-                    completion(.failure(NetworkError.requestError(.invalidDeviceToken(token))))
-                }
-            }
-        } else {
-            // Default back to a new user with no credits if no device token is found
-            user = PublicUserData.noData
-            completion(.failure(NetworkError.requestError(.invalidDeviceToken(nil))))
-        }
-    }
-
-    internal func didReceiveNotification(_ notification: Notification) {
-        guard notification.name == NotificationName.applicationDidBecomeActive else {
-            Logger.log("UserRepository received unknown notification named: \(notification.name)")
-            return
-        }
-        refreshUser()
-    }
-
-    private func refreshUser() {
-        guard let merchantId = merchantId else {
-            return
-        }
-        fetchUserData(merchantId: merchantId)
-    }
-
-    deinit {
-        unsubscribeFromNotifications()
+    func saveUserData(_ widgetUserData: WidgetContentPublicUserData) {
+        user = widgetUserData
     }
 }
