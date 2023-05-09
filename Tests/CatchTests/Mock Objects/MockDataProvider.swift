@@ -24,7 +24,7 @@ class MockDataProvider {
                         cardBackgroundImageUrl: imageURL,
                         cardBackgroundColor: "#C779D0",
                         cardFontColor: "#FFFFFF",
-                        donationRecipient: nil,
+                        donationRecipient: DonationRecipient(name: "test recipient", url: "www.recipient.com"),
                         defaultSignUpBonus: 1000,
                         defaultSignUpDiscount: 0,
                         unrestrictedRewardRuleId: "unrestrictedId",
@@ -32,22 +32,28 @@ class MockDataProvider {
                         theme: nil)
     }
 
-    static var publicUserDataNoCredits: PublicUserData {
-        return PublicUserData(userFirstName: "FirstName",
-                              rewardAmount: 0,
-                              firstPurchaseBonusEligibility: false)
+    // Mock returning user with no credits
+    static var publicUserDataNoCredits: WidgetContentPublicUserData {
+        return WidgetContentPublicUserData(availableRewardBreakdown: nil,
+                                           firstPurchaseBonusEligibility: false,
+                                           userFirstName: "FirstName",
+                                           rewardAmount: 0)
     }
 
-    static var publicUserDataReturning: PublicUserData {
-        return PublicUserData(userFirstName: "FirstName",
-                              rewardAmount: 1500,
-                              firstPurchaseBonusEligibility: false)
+    // Mock returning user with credits
+    static var publicUserDataReturning: WidgetContentPublicUserData {
+        return WidgetContentPublicUserData(availableRewardBreakdown: nil,
+                                           firstPurchaseBonusEligibility: false,
+                                           userFirstName: "FirstName",
+                                           rewardAmount: 1500)
     }
 
-    static var publicUserDataNew: PublicUserData {
-        return PublicUserData(userFirstName: "First",
-                              rewardAmount: 100,
-                              firstPurchaseBonusEligibility: true)
+    // Mock brand new user
+    static var publicUserDataNew: WidgetContentPublicUserData {
+        return WidgetContentPublicUserData(availableRewardBreakdown: nil,
+                                           firstPurchaseBonusEligibility: true,
+                                           userFirstName: "FirstName",
+                                           rewardAmount: 0)
     }
 
     static var defaultEarnedRewardsSummary: EarnedRewardsSummary {
@@ -72,5 +78,39 @@ class MockDataProvider {
                                     percentageRewardRate: 0.15,
                                     earnedRewardsTotal: 0,
                                     earnedRewardBreakdown: [])
+    }
+
+    static func mockWidgetContent(rewardsSummary: EarnedRewardsSummary?,
+                                  publicUserData: WidgetContentPublicUserData) -> WidgetContent {
+        return WidgetContent(earnedRewards: rewardsSummary,
+                             publicUserData: publicUserData)
+    }
+
+    static func mockAvailableRewardDetail(amount: Int) -> AvailableRewardDetail {
+        return AvailableRewardDetail(rewardIds: ["reward_id"],
+                                     amount: amount,
+                                     rewardAmounts: [amount],
+                                     expirations: [],
+                                     redeemableFlatOrderTotalMin: nil,
+                                     redeemablePercentageOrderTotalMax: nil)
+    }
+
+    static func mockOrderTotalRestrictedAvailableRewardDetail(amount: Int, orderMin: Int) -> AvailableRewardDetail {
+        return AvailableRewardDetail(rewardIds: ["reward_id"],
+                                     amount: amount,
+                                     rewardAmounts: [amount],
+                                     expirations: [],
+                                     redeemableFlatOrderTotalMin: orderMin,
+                                     redeemablePercentageOrderTotalMax: nil)
+    }
+
+    static func mockPercentageRestrictedAvailableRewardDetail(amount: Int,
+                                                              percentage: Double) -> AvailableRewardDetail {
+        return AvailableRewardDetail(rewardIds: ["reward_id"],
+                                     amount: amount,
+                                     rewardAmounts: [amount],
+                                     expirations: [],
+                                     redeemableFlatOrderTotalMin: nil,
+                                     redeemablePercentageOrderTotalMax: percentage)
     }
 }

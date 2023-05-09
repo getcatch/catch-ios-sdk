@@ -17,54 +17,16 @@ final class UserRepositoryTests: XCTestCase {
         let repository = createUserRepository(shouldFindUser: true, notificationCenter: notificationCenter)
 
         var currentUser = repository.getCurrentUser()
-        XCTAssertNil(currentUser, "Current user should be nil before user is fetched")
+        XCTAssertNil(currentUser, "Current user should be nil before user is stored")
 
         repository.saveDeviceToken(testDeviceToken)
-        repository.fetchUserData(merchantId: testMerchantId)
 
         let testCurrentUserData = MockDataProvider.publicUserDataReturning
+        repository.saveUserData(testCurrentUserData)
 
         currentUser = repository.getCurrentUser()
         XCTAssertEqual(currentUser, testCurrentUserData, "Current user should match the test user data")
-        XCTAssertTrue(notificationCenter.didPostNotifcation(with: NotificationName.publicUserDataUpdate))
-    }
-
-    func testGetUserDataFailure() {
-        let notificationCenter = MockNotificationCenter()
-        let repository = createUserRepository(shouldFindUser: false, notificationCenter: notificationCenter)
-
-        var currentUser = repository.getCurrentUser()
-        XCTAssertNil(currentUser, "Current user should be nil before user is fetched")
-
-        repository.saveDeviceToken(testDeviceToken)
-        repository.fetchUserData(merchantId: testMerchantId)
-
-        currentUser = repository.getCurrentUser()
-        // If no user is found, the current user should be set to "no data"
-        XCTAssertEqual(currentUser, PublicUserData.noData)
-        XCTAssertTrue(notificationCenter.didPostNotifcation(with: NotificationName.publicUserDataUpdate))
-    }
-
-    func testGetUserWithNoDeviceToken() {
-        let notificationCenter = MockNotificationCenter()
-        let repository = createUserRepository(shouldFindUser: false, notificationCenter: notificationCenter)
-
-        let deviceToken = repository.getDeviceToken()
-        XCTAssertNil(deviceToken, "Device token should be nil but instead was \(String(describing: deviceToken))")
-
-        repository.fetchUserData(merchantId: testMerchantId) { result in
-            switch result {
-            case .failure(let error):
-                XCTAssertNotNil(error as? NetworkError,
-                                "Fetching user data with no device token should throw a network error")
-            case .success:
-                XCTFail("Expected user data fetch to fail")
-            }
-        }
-
-        // In the case of no device token,
-        // we should still post a notification signalling that user data fetch has completed.
-        XCTAssertTrue(notificationCenter.didPostNotifcation(with: NotificationName.publicUserDataUpdate))
+        XCTAssertTrue(notificationCenter.didPostNotifcation(with: NotificationName.deviceTokenUpdate))
     }
 
     func testGetUserDeviceToken() {
@@ -82,9 +44,7 @@ final class UserRepositoryTests: XCTestCase {
                                       notificationCenter: NotificationCenter) -> UserRepository {
 
         let keyChain = MockKeyChain()
-        let networkService = MockUserNetworkService(shouldFindUser: shouldFindUser)
-        return UserRepository(networkService: networkService,
-                              keyChain: keyChain,
+        return UserRepository(keyChain: keyChain,
                               notificationCenter: notificationCenter)
     }
 }
