@@ -40,12 +40,13 @@ enum Strings {
 
     // Border Styles
     static let borderStyle = "Border Style:"
-    static let `default` = "Default"
+    static let roundRect = "Rounded"
     static let pill = "Pill"
     static let square = "Square"
     static let none = "None"
 
     // Payment Method Variants
+    static let `default` = "Default"
     static let variant = "Variant:"
     static let compact = "Compact"
     static let logoCompact = "Logo Compact"

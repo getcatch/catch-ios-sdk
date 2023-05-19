@@ -17,11 +17,10 @@ class CalloutDemo: WidgetDemo {
         return [label, widgetStack, configurationStack]
     }
 
-    var calloutView = Callout(price: 0, borderStyle: .pill)
+    var calloutView = Callout(price: 0)
 
     init() {
         super.init(title: Strings.calloutName, widget: calloutView)
-        calloutView.setBorderStyle(.roundedRect)
         checkbox.delegate = self
         borderStyleConfig.delegate = self
     }

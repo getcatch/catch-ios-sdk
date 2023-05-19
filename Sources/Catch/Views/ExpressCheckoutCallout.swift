@@ -63,7 +63,7 @@ public class ExpressCheckoutCallout: _BaseEarnRedeemWidget {
      Initializes an ``ExpressCheckoutCallout`` widget.
      - Parameter price: The cost in cents that a consumer would pay for the item(s) without redeeming Catch credit.
      - Parameter borderStyle: The ``BorderStyle`` that the widget renders.
-     Defaults to the ``BorderStyle/roundedRect`` style.
+     Defaults to no border.
      - Parameter theme: The Catch color ``Theme``. If no theme is set, the default
      ``Theme/lightColor`` theme will be used.
      - Parameter styleOverrides: Style overrides which can be used to override the theme's default
@@ -73,7 +73,7 @@ public class ExpressCheckoutCallout: _BaseEarnRedeemWidget {
      Used to calculate cohort-based rewards.
      */
     public init(price: Int? = nil,
-                borderStyle: BorderStyle = .roundedRect,
+                borderStyle: BorderStyle = .none,
                 theme: Theme? = nil,
                 styleOverrides: InfoWidgetStyle? = nil,
                 items: [Item]? = nil,

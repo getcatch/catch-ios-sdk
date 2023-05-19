@@ -38,12 +38,12 @@ enum SegmentedControlItems {
     */
     static func borderStyles(restricted: Bool = false) -> OrderedDictionary<String, BorderStyle> {
         var dict = OrderedDictionary<String, BorderStyle>()
-        dict[Strings.default] = .roundedRect
+        dict[Strings.none] = BorderStyle.none
+        dict[Strings.roundRect] = BorderStyle.roundedRect
         if !restricted {
             dict[Strings.pill] = .pill
         }
         dict[Strings.square] = .square
-        dict[Strings.none] = BorderStyle.none
         return dict
     }
 }
