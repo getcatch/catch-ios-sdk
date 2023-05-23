@@ -41,7 +41,7 @@ In Xcode, navigate to **File** → **Add Packages**.
 
 In the **Search or Enter Package URL** dialog, enter the repository URL:
 ```
-https://https://github.com/getcatch/catch-ios-sdk
+https://github.com/getcatch/catch-ios-sdk
 ```
 In **Dependency Rule**, select **Up to Next Major Version** and leave the default version options. Then choose **Catch** in the **Package Product** column.
 
