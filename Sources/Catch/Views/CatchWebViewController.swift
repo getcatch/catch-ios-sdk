@@ -85,9 +85,9 @@ extension CatchWebViewController: WKNavigationDelegate {
         } else {
             // Pulls device token from the webview's local storage and saves it to the user repository.
             let localScript: JSScript = .getLocalStorageItem(name: JSScript.deviceTokenKey)
-            webView.evaluateScript(localScript) { [unowned self] result in
+            webView.evaluateScript(localScript) { [weak self] result in
                 if case let .success(value) = result, let token = value as? String {
-                    self.userRepository.saveDeviceToken(token)
+                    self?.userRepository.saveDeviceToken(token, override: false)
                 }
             }
         }

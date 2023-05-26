@@ -87,6 +87,7 @@
 		82ACD10C29FF90060044120F /* WidgetContentPublicUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ACD10B29FF90060044120F /* WidgetContentPublicUserData.swift */; };
 		82ACD10E2A0200410044120F /* WidgetContentQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ACD10D2A0200410044120F /* WidgetContentQuery.swift */; };
 		82ACD1122A0236320044120F /* TofuAvailableRewardsBreakdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ACD1112A0236320044120F /* TofuAvailableRewardsBreakdown.swift */; };
+		82DEFA0D2A215B390055A009 /* DeviceTokenResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEFA0C2A215B390055A009 /* DeviceTokenResult.swift */; };
 		85193595D01F663682BAD2A823E50F48 /* DirectCheckoutURLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF90947F64D667555DE2D6D8CD9C48F /* DirectCheckoutURLQuery.swift */; };
 		8642DEF992BC4DFBD0DF6B410C30FE23 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
 		86DD889A5B06DCEA35D04A4602B2FDCE /* InfoWidgetStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B713C197AB47A869FD512C3B47FC2E /* InfoWidgetStyle.swift */; };
@@ -281,6 +282,7 @@
 		82ACD10B29FF90060044120F /* WidgetContentPublicUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContentPublicUserData.swift; sourceTree = "<group>"; };
 		82ACD10D2A0200410044120F /* WidgetContentQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContentQuery.swift; sourceTree = "<group>"; };
 		82ACD1112A0236320044120F /* TofuAvailableRewardsBreakdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TofuAvailableRewardsBreakdown.swift; sourceTree = "<group>"; };
+		82DEFA0C2A215B390055A009 /* DeviceTokenResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTokenResult.swift; sourceTree = "<group>"; };
 		844A87FB3D900A4372B0D547D3E9B3F3 /* Logger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		8656922EF91CCB1F3DF948CB58425E3C /* UIConstant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIConstant.swift; sourceTree = "<group>"; };
 		88A35F038EEB021482F14AE4F53299A8 /* DonationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DonationView.swift; sourceTree = "<group>"; };
@@ -679,6 +681,7 @@
 				2D4C35CF4D0072220718ED4D1A95FD11 /* CheckoutPrefill.swift */,
 				4D5519FB498CBA9979ACD9F128276511 /* CheckoutURLQuery.swift */,
 				367C1B96FE86DBC1FE3C676A5DD136DF /* CreateVirtualCardCheckoutBody.swift */,
+				82DEFA0C2A215B390055A009 /* DeviceTokenResult.swift */,
 				AAF90947F64D667555DE2D6D8CD9C48F /* DirectCheckoutURLQuery.swift */,
 				89C30E063B8B9B2D6348B2324376522F /* OpenCheckoutOptions.swift */,
 				5C2AA4691FA7FCA611C27E7A2AB3195F /* OpenCheckoutOptionsInterface.swift */,
@@ -938,7 +941,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1420;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 13.0";
@@ -1029,6 +1032,7 @@
 				3933DC83466D489772EBA5ED670B5D46 /* CatchAssetProvider.swift in Sources */,
 				A1223708E4842D3790F0CE1B444698CB /* CatchColor.swift in Sources */,
 				82ACD1122A0236320044120F /* TofuAvailableRewardsBreakdown.swift in Sources */,
+				82DEFA0D2A215B390055A009 /* DeviceTokenResult.swift in Sources */,
 				CCCF703C39337EA732067F740AF5431E /* CatchFont.swift in Sources */,
 				E6695ED7C0CB9EA1A3F3EFA99C3E060A /* CatchFontLoader.swift in Sources */,
 				51187644C17AB15A4CCC9618684FA02B /* CatchLogo.swift in Sources */,
@@ -1262,6 +1266,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1367,6 +1372,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

@@ -15,4 +15,5 @@ enum PostMessageAction: String {
     case checkoutSuccess = "CATCH_CHECKOUT_SUCCESS"
     case checkoutBack = "CATCH_CHECKOUT_BACK"
     case virtualCardCheckoutData = "CATCH_VCN_CHECKOUT_DATA"
+    case deviceToken = "CATCH_DEVICE_TOKEN"
 }
