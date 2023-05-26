@@ -58,7 +58,7 @@ public class Callout: _BaseEarnRedeemWidget {
      rather than a specific rewards value (e.g., "Earn $24.00 credit"). If provided, the price must be a
      positive number. A negative price will be treated as if the price is not set at all.
      - Parameter borderStyle: The ``BorderStyle`` that the widget renders.
-     Defaults to the ``BorderStyle/roundedRect`` style.
+     Defaults to no border.
      - Parameter orPrefix: If or-prefix is set, the word "or" is prepended into the displayed messaging
      (e.g. "or earn $23.00 credit" instead of "Earn $23.00 credit".
      - Parameter theme: The Catch color ``Theme``. If no theme is set, the default
@@ -72,7 +72,7 @@ public class Callout: _BaseEarnRedeemWidget {
      user cohort based rewards.
      */
     public init(price: Int? = nil,
-                borderStyle: BorderStyle = .roundedRect,
+                borderStyle: BorderStyle = .none,
                 orPrefix: Bool = false,
                 theme: Theme? = nil,
                 styleOverrides: InfoWidgetStyle? = nil,
