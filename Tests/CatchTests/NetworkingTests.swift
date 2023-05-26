@@ -11,12 +11,12 @@ import XCTest
 class NetworkingTests: XCTestCase {
 
     func testEnvironmentHosts() throws {
-        XCTAssertEqual(Environment.production.host, "app.getcatch.com")
+        XCTAssertEqual(Environment.live.host, "app.getcatch.com")
         XCTAssertEqual(Environment.sandbox.host, "app-sandbox.getcatch.com")
     }
 
     func testRequestConstruction() {
-        let host = Environment.production.host
+        let host = Environment.live.host
         let path = "/api/merchants-svc/merchants"
 
         let queryKey = "merchant_id"

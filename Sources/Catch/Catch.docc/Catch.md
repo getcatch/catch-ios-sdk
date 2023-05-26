@@ -98,7 +98,7 @@ The options object passed as the second argument to `Catch.initalize` may provid
 If an option is not defined, or options is omitted entirely, the SDK will fallback to a default value for the option.
 * **theme**: Specifies the default theme which determines the look and feel of widgets,
 from a set of available predesigned options. Defaults to the ``Theme/lightColor`` theme.
-* **environment**: The production environment should be used in live applications while
+* **environment**: The live environment should be used in production applications while
 the  sandbox environment should be used for development and testing. Defaults to ``Environment/sandbox``.
 * **useCatchFonts**: Specifies if custom Catch fonts should be loaded into your application.
 Defaults to `true`. If you intend to use your own custom fonts for all widgets, this should be set to `false`.
