@@ -37,7 +37,7 @@ enum CatchURL {
                                                          prefill: prefillFields,
                                                          themeConfig: merchant.theme,
                                                          publicKey: publicKey)
-        return checkoutURL(fromEncodableObject: directCheckoutQuery)
+        return checkoutURL(fromCheckoutQuery: directCheckoutQuery)
     }
 
     static func virtualCardCheckout(prefillFields: CheckoutPrefill?,
@@ -47,12 +47,18 @@ enum CatchURL {
         let virtualCardCheckoutQuery = VirtualCardCheckoutURLQuery(prefill: prefillFields,
                                                                    themeConfig: merchant.theme,
                                                                    publicKey: publicKey)
-        return checkoutURL(fromEncodableObject: virtualCardCheckoutQuery)
+        return checkoutURL(fromCheckoutQuery: virtualCardCheckoutQuery)
     }
 
-    private static func checkoutURL(fromEncodableObject object: Encodable) -> URL? {
-        let queryItems = try? object.toQueryItems(encodingStrategy: .useDefaultKeys)
-        return URLComponents(path: CatchURL.checkoutPath, queryItems: queryItems).url
+    private static func checkoutURL(fromCheckoutQuery object: CheckoutURLQuery) -> URL? {
+        let queryString = object.generateQueryString()
+        guard var urlString = URLComponents(path: CatchURL.checkoutPath).url?.absoluteString else {
+            return nil
+        }
 
+        if let queryStr = object.generateQueryString() {
+            urlString += queryStr
+        }
+        return URL(string: urlString)
     }
 }
