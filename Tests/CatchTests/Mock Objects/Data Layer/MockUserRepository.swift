@@ -30,6 +30,6 @@ class MockUserRepository: UserRepositoryInterface {
         return "test_device_token"
     }
 
-    func saveDeviceToken(_ token: String) { }
+    func saveDeviceToken(_ token: String, override: Bool) {}
 
 }
