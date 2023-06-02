@@ -1,5 +1,3 @@
-⚠️ This SDK is a work in progress. Please contact merchant-support@getcatch.com before using.
-
 # Catch iOS SDK
 
 ![Catch](https://user-images.githubusercontent.com/74115740/207220638-ef31c835-9a06-49d3-a8e5-d4e49acaae10.png)
