@@ -51,13 +51,12 @@ enum CatchURL {
     }
 
     private static func checkoutURL(fromCheckoutQuery object: CheckoutURLQuery) -> URL? {
-        let queryString = object.generateQueryString()
         guard var urlString = URLComponents(path: CatchURL.checkoutPath).url?.absoluteString else {
             return nil
         }
 
-        if let queryStr = object.generateQueryString() {
-            urlString += queryStr
+        if let queryString = object.generateQueryString() {
+            urlString += queryString
         }
         return URL(string: urlString)
     }
