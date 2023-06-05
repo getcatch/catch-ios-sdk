@@ -21,4 +21,10 @@ class DirectCheckoutURLQuery: CheckoutURLQuery {
         self.checkoutId = checkoutId
         super.init(publicKey: publicKey, prefill: prefill, themeConfig: themeConfig)
     }
+
+    override func generateQueryString() -> String? {
+        guard var queryString = super.generateQueryString() else { return nil }
+        queryString += "&checkoutId=\(checkoutId)&flow=\(flow)"
+        return queryString
+    }
 }

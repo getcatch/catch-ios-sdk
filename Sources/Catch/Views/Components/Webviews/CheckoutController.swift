@@ -22,11 +22,20 @@ class CheckoutController: CatchWebViewController, PostMessageHandler {
 
     func handlePostMessage(_ postMessage: PostMessageAction, data: Any? = nil) {
         switch postMessage {
-        case .checkoutBack:
-            dismiss(animated: true) { [weak self] in
-                self?.onCancel?()
-            }
-        default: ()
+            case .checkoutBack:
+                dismiss(animated: true) { [weak self] in
+                    self?.onCancel?()
+                }
+            case .deviceToken:
+                // Override the existing device token if we receive one at checkout.
+                if let data = data,
+                   let jsonData = try? JSONSerialization.data(withJSONObject: data, options: []) {
+                    if let deviceTokenResult: DeviceTokenResult = try? jsonData.decoded(),
+                       let deviceToken = deviceTokenResult.deviceToken {
+                        userRepository.saveDeviceToken(deviceToken, override: true)
+                    }
+                }
+            default: ()
         }
     }
 }

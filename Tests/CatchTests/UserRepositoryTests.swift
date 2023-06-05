@@ -19,7 +19,7 @@ final class UserRepositoryTests: XCTestCase {
         var currentUser = repository.getCurrentUser()
         XCTAssertNil(currentUser, "Current user should be nil before user is stored")
 
-        repository.saveDeviceToken(testDeviceToken)
+        repository.saveDeviceToken(testDeviceToken, override: false)
 
         let testCurrentUserData = MockDataProvider.publicUserDataReturning
         repository.saveUserData(testCurrentUserData)
@@ -35,7 +35,7 @@ final class UserRepositoryTests: XCTestCase {
         var keyChainToken = repository.getDeviceToken()
         XCTAssertNil(keyChainToken, "No token should exist in the KeyChain before token is set")
 
-        repository.saveDeviceToken(testDeviceToken)
+        repository.saveDeviceToken(testDeviceToken, override: false)
         keyChainToken = repository.getDeviceToken()
         XCTAssertEqual(keyChainToken, testDeviceToken, "Device token found in KeyChain should match test device token")
     }

@@ -10,7 +10,7 @@ import Foundation
 protocol UserRepositoryInterface {
     func getCurrentUser() -> WidgetContentPublicUserData?
     func getDeviceToken() -> String?
-    func saveDeviceToken(_ token: String)
+    func saveDeviceToken(_ token: String, override: Bool)
     func saveUserData(_ widgetUserData: WidgetContentPublicUserData)
 }
 
@@ -20,7 +20,6 @@ class UserRepository: UserRepositoryInterface {
 
     private var user: WidgetContentPublicUserData?
 
-    internal var didFetchUserData: Bool = false
     internal var merchantId: String?
 
     // MARK: - Initializers
@@ -41,13 +40,22 @@ class UserRepository: UserRepositoryInterface {
         return keyChain.loadString(forKey: Constant.deviceTokenKeyChainService)
     }
 
-    func saveDeviceToken(_ token: String) {
-        /*
-         Once a device token has already been generated and saved don't overwrite it
-         since it acts as the unique identifier used to access the user's public data.
-         */
-        guard getDeviceToken() == nil else { return }
+    /*
+     Save the device token to keychain.
+
+     If a device token was already generated and saved, we only overwrite it
+     if the override flag is true.
+     */
+    func saveDeviceToken(_ token: String, override: Bool) {
+        // If the token is the same as what we have already stored, no need to continue.
+        guard token != getDeviceToken() else { return }
+
+        // If we already have a token and do not wish to override, no need to continue.
+        if getDeviceToken() != nil && !override  { return }
+
+        // Save the token, reset the user, and send a notification indicating token was updated.
         _ = keyChain.saveString(token, forKey: Constant.deviceTokenKeyChainService)
+        user = nil
         notificationCenter.post(name: NotificationName.deviceTokenUpdate, object: nil)
     }
 

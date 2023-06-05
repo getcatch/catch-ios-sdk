@@ -113,4 +113,8 @@ class MockDataProvider {
                                      redeemableFlatOrderTotalMin: nil,
                                      redeemablePercentageOrderTotalMax: percentage)
     }
+
+    static var mockCheckoutPrefill = CheckoutPrefill (userPhone: "123456789",
+                                                      userName: "Jane Doe",
+                                                      userEmail: "janedoe@gmail.com")
 }
