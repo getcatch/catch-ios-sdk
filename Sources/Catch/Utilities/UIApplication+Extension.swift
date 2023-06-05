@@ -9,12 +9,22 @@ import UIKit
 
 extension UIApplication {
     static func topViewController() -> UIViewController? {
-        guard var top = shared.keyWindow?.rootViewController else {
-            return nil
+        var topViewController: UIViewController?
+
+        if #available(iOS 13.0, *) {
+            let keyWindow = shared
+                .connectedScenes
+                .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+                .last { $0.isKeyWindow }
+            topViewController = keyWindow?.rootViewController
+        } else {
+            topViewController = shared.keyWindow?.rootViewController
         }
-        while let next = top.presentedViewController {
-            top = next
+
+        while let presentedViewController = topViewController?.presentedViewController {
+            topViewController = presentedViewController
         }
-        return top
+
+        return topViewController
     }
 }
