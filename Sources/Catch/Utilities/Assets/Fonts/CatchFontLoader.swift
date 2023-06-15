@@ -9,7 +9,7 @@ import Foundation
 import CoreText
 
 struct CatchFontLoader {
-    static let fontPath = "Fonts/"
+    static let fontPaths = ["Fonts/", ""]
     static let fontExtension = "ttf"
 
     static func registerFonts() {
@@ -19,16 +19,18 @@ struct CatchFontLoader {
     }
 
     private static func registerFont(fontName: String) {
-        guard let fontURL = CatchResources.resourceBundle.url(
-            forResource: fontPath+fontName,
-            withExtension: fontExtension),
-              let fontDataProvider = CGDataProvider(url: fontURL as CFURL),
-              let font = CGFont(fontDataProvider) else {
-            fatalError("Couldn't create font from filename: \(fontName) with extension \(fontExtension)")
+        for path in fontPaths {
+            if let fontURL = CatchResources.resourceBundle.url(
+                forResource: path + fontName,
+                withExtension: fontExtension),
+               let fontDataProvider = CGDataProvider(url: fontURL as CFURL),
+               let font = CGFont(fontDataProvider)
+            {
+                var error: Unmanaged<CFError>?
+                CTFontManagerRegisterGraphicsFont(font, &error)
+                return
+            }
         }
-
-        var error: Unmanaged<CFError>?
-
-        CTFontManagerRegisterGraphicsFont(font, &error)
+        fatalError("Couldn't create font from filename: \(fontName) with extension \(fontExtension)")
     }
 }
