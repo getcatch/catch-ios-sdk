@@ -6,7 +6,7 @@
 //  Created by Lucille Benoit on 11/18/22.
 //
 
-import Foundation
+import UIKit
 
 public class _BaseEarnRedeemWidget: _BaseWidget, InfoButtonDelegate, TofuPresenting {
     // MARK: - Info Button Properties
