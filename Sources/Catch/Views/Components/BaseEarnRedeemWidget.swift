@@ -26,7 +26,10 @@ public class _BaseEarnRedeemWidget: _BaseWidget, InfoButtonDelegate, TofuPresent
     override internal init(config: BaseWidgetConfig) {
         super.init(config: config)
         configureInfoButton()
+        label.delegate = self
     }
+
+    internal func layoutShouldUpdate(superviewBounds: CGRect?) {}
 
     @available(*, unavailable)
     required internal init?(coder: NSCoder) { nil }
@@ -76,3 +79,13 @@ public class _BaseEarnRedeemWidget: _BaseWidget, InfoButtonDelegate, TofuPresent
     }
 }
 // swiftlint:enable type_name
+
+extension _BaseEarnRedeemWidget: EarnRedeemLabelDelegate {
+    func handleEarnRedeemLabelTap() {
+        didTapEarnRedeemLabel()
+    }
+
+    func handleEarnRedeemLabelLoadingComplete() {
+        layoutShouldUpdate(superviewBounds: superview?.bounds)
+    }
+}

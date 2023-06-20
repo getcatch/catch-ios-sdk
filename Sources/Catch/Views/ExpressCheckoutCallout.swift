@@ -51,10 +51,18 @@ public class ExpressCheckoutCallout: _BaseEarnRedeemWidget {
         return [topStack, bottomStack]
     }
 
+    override var additionalConstraints: [NSLayoutConstraint] {
+        return super.additionalConstraints + [stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left)]
+    }
+
     override var widgetType: StyleResolver.WidgetType { return .expressCheckoutCallout }
 
     override public var intrinsicContentSize: CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: frame.height)
+        if let superview = superview {
+            return CGSize(width: superview.bounds.width, height: bounds.height)
+        } else {
+            return super.intrinsicContentSize
+        }
     }
 
     // MARK: - Initializers
@@ -118,9 +126,10 @@ public class ExpressCheckoutCallout: _BaseEarnRedeemWidget {
         stack.spacing = resolvedStyling?.textStyle?.lineSpacing ?? UIConstant.smallSpacing
     }
 
-    override public func layoutSubviews() {
+    override func layoutShouldUpdate(superviewBounds: CGRect?) {
+        guard let superviewBounds = superviewBounds else { return }
         // Split the stack into two lines if content width is larger than available width
-        needsMultiLineLayout = (contentWidth() > frame.width)
+        needsMultiLineLayout = (contentWidth() > superviewBounds.width)
 
         // Configure two line layout if stack is not yet vertical
         if needsMultiLineLayout && stack.axis != .vertical {
@@ -131,8 +140,6 @@ public class ExpressCheckoutCallout: _BaseEarnRedeemWidget {
         if !needsMultiLineLayout && stack.axis != .horizontal {
             configureOneLineLayout()
         }
-
-        super.layoutSubviews()
     }
 }
 

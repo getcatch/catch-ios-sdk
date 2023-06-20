@@ -23,6 +23,13 @@ public class CatchLogo: UIView, NotificationResponding {
     private var imageView = UIImageView(frame: .zero)
     private var image: UIImage?
 
+    override public var intrinsicContentSize: CGSize {
+        guard let image = imageView.image else { return .zero }
+        let ratio = image.size.width / image.size.height
+        let width = bounds.height * ratio
+        return CGSize(width: width, height: bounds.height)
+    }
+
     // MARK: - Initializers
 
     /**

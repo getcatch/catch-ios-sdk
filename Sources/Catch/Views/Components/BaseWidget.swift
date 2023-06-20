@@ -14,8 +14,7 @@ public class _BaseWidget: UIView, NotificationResponding, BorderConfiguring, Bas
     internal let stack: UIStackView = UIStackView()
     internal var logo: CatchLogo
     lazy internal var label: EarnRedeemLabel = EarnRedeemLabel(type: earnRedeemLabelType,
-                                                               style: theme.earnRedeemLabelStyle(size: .small),
-                                                               tapHandler: didTapEarnRedeemLabel)
+                                                               style: theme.earnRedeemLabelStyle(size: .small))
     internal var earnRedeemLabelType: EarnRedeemLabelType
 
     // MARK: - View Configuration Properties
@@ -48,6 +47,12 @@ public class _BaseWidget: UIView, NotificationResponding, BorderConfiguring, Bas
 
     internal var insets: UIEdgeInsets
     internal var orderedSubviews: [UIView] { return [] }
+
+    override public var intrinsicContentSize: CGSize {
+        let stackContentSize = stack.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        return CGSize(width: stackContentSize.width + insets.left + insets.right,
+                      height: stackContentSize.height + insets.top + insets.bottom)
+    }
 
     // MARK: - Initializers
 
@@ -112,10 +117,12 @@ public class _BaseWidget: UIView, NotificationResponding, BorderConfiguring, Bas
 
     internal func setConstraints() {
         let stackConstraints = [
-            stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
-            stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right),
-            stack.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-            stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom)
+            stack.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: insets.left),
+            stack.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -insets.right),
+            stack.centerXAnchor.constraint(equalTo: centerXAnchor),
+            stack.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: insets.top),
+            stack.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stack.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -insets.bottom)
         ]
         let constraints = stackConstraints + additionalConstraints
         NSLayoutConstraint.activate(constraints)
@@ -132,6 +139,7 @@ public class _BaseWidget: UIView, NotificationResponding, BorderConfiguring, Bas
         super.layoutSubviews()
         // Configure border after subviews have been laid out so that correct view height is used.
         configureBorder(viewHeight: bounds.height, theme: theme)
+        invalidateIntrinsicContentSize()
     }
 
     func updateEarnRedeemMessage(reward: Reward, type: EarnRedeemLabelType) {
@@ -150,8 +158,7 @@ private extension _BaseWidget {
 
     func configureEarnRedeemLabel() {
         label = EarnRedeemLabel(type: earnRedeemLabelType,
-                                style: createBenefitTextStyle(),
-                                tapHandler: didTapEarnRedeemLabel)
+                                style: createBenefitTextStyle())
         label.sizeToFit()
     }
 
