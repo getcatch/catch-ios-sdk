@@ -39,6 +39,10 @@ class MerchantRewardCard: UIView {
         padding * UIConstant.merchantLogoWidthMultiplier
     }
 
+    override public var intrinsicContentSize: CGSize {
+        return CGSize(width: cardWidth, height: cardHeight)
+    }
+
     // MARK: - Initializer
     init() {
         super.init(frame: .zero)

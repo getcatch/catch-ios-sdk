@@ -34,7 +34,11 @@ public class _BaseCardWidget: _BaseWidget { // swiftlint:disable:this type_name
     ]
 
     override public var intrinsicContentSize: CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: frame.height)
+        if let superview = superview {
+            return CGSize(width: superview.bounds.width, height: bounds.height)
+        } else {
+            return super.intrinsicContentSize
+        }
     }
 
     override var additionalConstraints: [NSLayoutConstraint] {
@@ -73,6 +77,7 @@ public class _BaseCardWidget: _BaseWidget { // swiftlint:disable:this type_name
         externalLinkButton.translatesAutoresizingMaskIntoConstraints = false
         setConstraints()
         didUpdateTheme()
+        setExpandingLayoutPriorities()
     }
 
     @available(*, unavailable)
@@ -80,7 +85,6 @@ public class _BaseCardWidget: _BaseWidget { // swiftlint:disable:this type_name
 
     // MARK: - Public View Layout functions
     override public func layoutSubviews() {
-        setExpandingLayoutPriorities()
         layoutFlexButton()
         merchantCard.addShadow(offset: UIConstant.merchantCardShadowOffset,
                                color: .black,

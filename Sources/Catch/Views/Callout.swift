@@ -26,6 +26,7 @@ public class Callout: _BaseEarnRedeemWidget {
     // MARK: - Properties
     private var orPrefix = false
     private var needsMultiLineLayout: Bool = false
+    private var horizontalContentWidth: CGFloat?
 
     /// The logo and info button are grouped into a horizontal stack so that they never end up on separate lines.
     private var logoInfoStack: UIStackView {
@@ -107,9 +108,12 @@ public class Callout: _BaseEarnRedeemWidget {
         stack.spacing = Layout.horizontalStackSpacing
     }
 
-    override public func layoutSubviews() {
+    override func layoutShouldUpdate(superviewBounds: CGRect?) {
+        if stack.axis == .horizontal {
+            horizontalContentWidth = intrinsicContentSize.width
+        }
         // Split the stack into two lines if content width is larger than available width
-        needsMultiLineLayout = (contentWidth() > frame.width + 1)
+        needsMultiLineLayout = horizontalContentWidth ?? 0 > bounds.width
 
         // Configure two line layout if stack is not yet vertical
         if needsMultiLineLayout && stack.axis != .vertical {
@@ -121,17 +125,8 @@ public class Callout: _BaseEarnRedeemWidget {
             configureSingleLineStack()
         }
 
-        super.layoutSubviews()
-    }
-
-    private func contentWidth() -> CGFloat {
-        let stackSpacing = stack.spacing + Layout.logoInfoButtonSpacing + insets.left + insets.right
-        var lineWidth: CGFloat = label.intrinsicContentSize.width
-        + logo.bounds.width
-        + infoButton.bounds.width
-        lineWidth += stackSpacing
-        return lineWidth
-    }
+        layoutIfNeeded()
+   }
 
     private func configureMultiLineStack() {
         stack.axis = .vertical

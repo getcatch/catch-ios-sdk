@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol EarnRedeemLabelDelegate: AnyObject {
+    func handleEarnRedeemLabelTap()
+    func handleEarnRedeemLabelLoadingComplete()
+}
 /**
  A UILabel displaying tappable earn/redeem reward messaging with a skeleton loading view.
  */
 class EarnRedeemLabel: UILabel, Skeletonizable {
+    weak var delegate: EarnRedeemLabelDelegate?
 
     // MARK: - Properties
     internal var isLoading: Bool = false {
@@ -19,6 +24,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
                 showSkeleton()
             } else {
                 hideSkeleton()
+                delegate?.handleEarnRedeemLabelLoadingComplete()
             }
         }
     }
@@ -29,7 +35,6 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
             updateAttributedString()
         }
     }
-    private var didTapLink: () -> Void
     private var linkRange = NSRange(location: 0, length: 0)
 
     private var reward: Reward {
@@ -60,11 +65,9 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
      - Parameter tapHandler: The callback function to be called when the link is tapped.
      */
     init(type: EarnRedeemLabelType,
-         style: EarnRedeemLabelStyle,
-         tapHandler: @escaping () -> Void) {
+         style: EarnRedeemLabelStyle) {
         self.type = type
         self.style = style
-        self.didTapLink = tapHandler
         self.reward = .percentRate(Constant.defaultRewardsRate)
         super.init(frame: .zero)
 
@@ -101,7 +104,7 @@ class EarnRedeemLabel: UILabel, Skeletonizable {
     @objc private func handleTap(_ sender: UITapGestureRecognizer) {
         // Only react to tap if tap was in range of link text
         if sender.didTapAttributedTextInLabel(label: self, inRange: linkRange) {
-            didTapLink()
+            delegate?.handleEarnRedeemLabelTap()
         }
     }
 
