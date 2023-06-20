@@ -40,7 +40,7 @@ In Xcode, navigate to **File** → **Add Packages**.
 
 In the **Search or Enter Package URL** dialog, enter the repository URL:
 ```
-https://https://github.com/getcatch/catch-ios-sdk
+https://github.com/getcatch/catch-ios-sdk
 ```
 In **Dependency Rule**, select **Up to Next Major Version** and leave the default version options. Then choose **Catch** 
 in the **Package Product** column.
@@ -75,18 +75,55 @@ Alternatively, if you do not want to use the above installation methods, you may
 
 ## Initialization
 
-The Catch SDK is initialized as follows:
-```
-Catch.initialize(publicKey: merchantPublicKey, options: configurationOptions) { result in
-    if case let .failure(error) = result {
-        // "Initialization failed"
+The Catch SDK needs to be initialized once and only once during the application's lifecycle. Where and how you initialize it depends on whether your project is using UIKit or SwiftUI, and the version of SwiftUI in use:
+
+<details>
+<summary><h4>Initialization in UIKit and SwiftUI with AppDelegate</h4></summary>
+
+For projects using UIKit or projects using SwiftUI with an **`AppDelegate.swift`** file (this typically includes SwiftUI projects that are compatible with iOS 13 and below), the Catch SDK should be initialized in your AppDelegate's **`didFinishLaunchingWithOptions`:**
+```swift
+func application(_ application: UIApplication,
+                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    Catch.initialize(publicKey: "YOUR_PUBLIC_KEY", options: configurationOptions) { result in
+        switch result {
+        case .success(let success):
+            // handle success
+        case .failure(let failure):
+            // handle failure
+        }
     }
 }
 ```
-This should only be called once in the application's lifecycle.
+</details>
+
+<details>
+<summary><h4>Initialization in SwiftUI (iOS 14 +)</h4></summary>
+
+For SwiftUI projects targeting iOS 14 and above that use the new **`@main`** App lifecycle (i.e., without an **`AppDelegate.swift`**), the Catch SDK should be initialized in your main App struct's initializer:
+```swift
+@main
+struct ExampleApp: App {
+    init() {
+        Catch.initialize(publicKey: "YOUR_PUBLIC_KEY", options: configurationOptions) { result in
+            switch result {
+            case .success(let success):
+                // handle success
+            case .failure(let failure):
+                // handle failure
+            }
+        }
+    }
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+```
+</details>
 
 The initialize function accepts three parameters: `publicKey`, `options` and a completion handler.
-* `publicKey` is required and should be a string representing the merchant's public API key. 
+* `publicKey` is required and should be a string representing your merchant public API key. 
 If the provided publicKey is invalid, initialization will not succeed.
 * `options` is a ``CatchOptions`` object which specifies optional configuration settings to control global 
 behavior of the SDK. If the options parameter is omitted, the Catch SDK will fallback to default values.
