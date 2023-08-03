@@ -31,12 +31,15 @@ class TofuController: CatchWebViewController, PostMessageHandler {
 
     func handlePostMessage(_ postMessage: PostMessageAction, data: Any? = nil) {
         switch postMessage {
-        case .tofuReady:
-            let sendTofuData: JSScript = .postMessage(action: .tofuOpen, dataObject: tofuOpenData)
-            webView.evaluateScript(sendTofuData)
-        case .tofuBack:
-            dismiss(animated: true)
-        default: ()
+            case .tofuListening:
+                let tofuLoadData: JSScript = .postMessage(action: .tofuLoad, dataObject: [:])
+                webView.evaluateScript(tofuLoadData)
+            case .tofuReady:
+                let sendTofuData: JSScript = .postMessage(action: .tofuOpen, dataObject: tofuOpenData)
+                webView.evaluateScript(sendTofuData)
+            case .tofuBack:
+                dismiss(animated: true)
+            default: ()
         }
     }
 
