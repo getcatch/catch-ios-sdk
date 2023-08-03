@@ -14,8 +14,6 @@ struct OrderedDictionary<Tk: Hashable, Tv> {
     var keys: [Tk] = []
     var values: [Tk: Tv] = [:]
 
-    init() {}
-
     subscript(key: Tk) -> Tv? {
         get {
             return self.values[key]
