@@ -22,6 +22,9 @@ class CatchWebViewController: UIViewController {
     let userRepository: UserRepositoryInterface
     let isWebViewTransparent: Bool
 
+    // Threshold for allowing a swipe down gesture to dismiss the entire controller.
+    private static let swipeDownThreshold: CGFloat = 125
+
     // MARK: - Initializers
 
     init(url: URL, isTransparent: Bool = false, userRepository: UserRepositoryInterface = Catch.userRepository) {
@@ -40,6 +43,10 @@ class CatchWebViewController: UIViewController {
 
         let urlRequest = URLRequest(url: url)
         webView.load(urlRequest)
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        panGesture.delegate = self
+        webView.addGestureRecognizer(panGesture)
     }
 
     override func loadView() {
@@ -65,6 +72,36 @@ class CatchWebViewController: UIViewController {
         }, completion: {_ in
             super.dismiss(animated: flag, completion: completion)
         })
+    }
+
+
+    @objc func handleSwipeGesture(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
+        print(translation.y)
+
+        switch gesture.state {
+            case .changed:
+                if translation.y > 0 {
+                    view.frame.origin.y = translation.y
+                }
+            case .ended, .cancelled:
+                if translation.y > Self.swipeDownThreshold {
+                    dismiss(animated: true, completion: nil)
+                } else {
+                    UIView.animate(withDuration: 0.25) {
+                        self.view.frame.origin.y = 0
+                    }
+                }
+            default:
+                break
+        }
+    }
+}
+
+extension CatchWebViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 
